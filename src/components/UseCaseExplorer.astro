@@ -1,0 +1,515 @@
+---
+import { getCollection } from 'astro:content';
+
+const { locale = 'vi' } = Astro.props;
+const isEnglish = locale === 'en';
+const entries = await getCollection('docs');
+const useCases = entries
+  .filter(({ id, data }) => Boolean(data.department) && (isEnglish ? id.startsWith('en/') : !id.startsWith('en/')))
+  .map(({ id, data, body }) => ({
+    title: data.title,
+    description: data.description,
+    department: data.department,
+    level: data.level,
+    experience: data.experience,
+    searchContent: body,
+    href: `/${id.replace(/\.(md|mdx)$/, '')}/`,
+  }));
+const departments: Record<string, string> = isEnglish
+  ? { banking: 'Banking', hr: 'Human Resources', sales: 'Sales' }
+  : { banking: 'Ngân hàng', hr: 'Nhân sự', sales: 'Bán hàng' };
+const levels: Record<string, string> = isEnglish
+  ? { beginner: 'Beginner', intermediate: 'Intermediate', advanced: 'Advanced' }
+  : { beginner: 'Cơ bản', intermediate: 'Trung cấp', advanced: 'Nâng cao' };
+const experiences: Record<string, string> = {
+  'copilot-chat': 'Copilot Chat',
+  researcher: 'Researcher',
+  analyst: 'Analyst',
+};
+const text = isEnglish
+  ? {
+      eyebrow: 'USE CASE LIBRARY',
+      title: 'Explore by the work you need to do',
+      description: 'Find a practical starting point, then open the prompt and adapt it to your team.',
+      search: 'Search tasks, outcomes, or prompts',
+      department: 'Department',
+      all: 'All departments',
+      level: 'Experience level',
+      allLevels: 'All levels',
+      tool: 'Copilot experience',
+      allTools: 'All experiences',
+      sort: 'Sort',
+      sortRecommended: 'Recommended',
+      sortTitle: 'Title A to Z',
+      saved: 'Saved',
+      count: 'use cases',
+      save: 'Save use case',
+      unsave: 'Remove saved use case',
+      empty: 'No matching use cases',
+      emptyHint: 'Try another search or clear the filters.',
+      clear: 'Clear filters',
+      open: 'View use case',
+    }
+  : {
+      eyebrow: 'THƯ VIỆN TÌNH HUỐNG',
+      title: 'Tìm theo công việc bạn cần xử lý',
+      description: 'Chọn một tình huống thực tế, xem prompt mẫu và điều chỉnh theo cách làm của đội ngũ.',
+      search: 'Tìm tình huống, kết quả hoặc prompt',
+      department: 'Phòng ban',
+      all: 'Tất cả phòng ban',
+      level: 'Mức độ',
+      allLevels: 'Tất cả mức độ',
+      tool: 'Trải nghiệm Copilot',
+      allTools: 'Tất cả trải nghiệm',
+      sort: 'Sắp xếp',
+      sortRecommended: 'Mặc định',
+      sortTitle: 'Tên A đến Z',
+      saved: 'Đã lưu',
+      count: 'tình huống',
+      save: 'Lưu tình huống',
+      unsave: 'Bỏ lưu tình huống',
+      empty: 'Chưa tìm thấy tình huống phù hợp',
+      emptyHint: 'Thử từ khóa khác hoặc xóa bộ lọc.',
+      clear: 'Xóa bộ lọc',
+      open: 'Xem tình huống',
+    };
+---
+
+<section
+  class="explorer"
+  data-case-explorer
+  data-locale={locale}
+  data-save-label={text.save}
+  data-unsave-label={text.unsave}
+  aria-labelledby="explorer-title"
+>
+  <div class="explorer-head">
+    <div>
+      <p class="eyebrow">{text.eyebrow}</p>
+      <h2 id="explorer-title">{text.title}</h2>
+      <p class="intro">{text.description}</p>
+    </div>
+    <div class="library-count" aria-live="polite" aria-atomic="true">
+      <strong data-result-count>{useCases.length}</strong>
+      <span>{text.count}</span>
+    </div>
+  </div>
+
+  <div class="explorer-controls">
+    <label class="search-control">
+      <span class="sr-only">{text.search}</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+      <input type="search" data-search placeholder={text.search} autocomplete="off" />
+    </label>
+
+    <label class="select-control">
+      <span>{text.department}</span>
+      <select data-filter="department">
+        <option value="">{text.all}</option>
+        {Object.entries(departments).map(([value, label]) => <option value={value}>{label}</option>)}
+      </select>
+    </label>
+
+    <label class="select-control">
+      <span>{text.level}</span>
+      <select data-filter="level">
+        <option value="">{text.allLevels}</option>
+        {Object.entries(levels).map(([value, label]) => <option value={value}>{label}</option>)}
+      </select>
+    </label>
+
+    <label class="select-control">
+      <span>{text.tool}</span>
+      <select data-filter="experience">
+        <option value="">{text.allTools}</option>
+        {Object.entries(experiences).map(([value, label]) => <option value={value}>{label}</option>)}
+      </select>
+    </label>
+  </div>
+
+  <div class="results-toolbar">
+    <p class="results-label"><span data-visible-count>{useCases.length}</span> {text.count}</p>
+    <div class="results-actions">
+      <label class="sort-control">
+        <span>{text.sort}</span>
+        <select data-sort>
+          <option value="recommended">{text.sortRecommended}</option>
+          <option value="title">{text.sortTitle}</option>
+        </select>
+      </label>
+      <button class="saved-toggle" type="button" data-saved-toggle aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.75A1.75 1.75 0 0 1 7.75 3h8.5A1.75 1.75 0 0 1 18 4.75V21l-6-3.75L6 21V4.75Z"></path></svg>
+        {text.saved}<span data-saved-count>0</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="case-grid" data-case-grid>
+    {useCases.map((useCase, index) => (
+      <article
+        class="case-card"
+        data-case-card
+        data-title={useCase.title}
+        data-description={useCase.description}
+        data-department={useCase.department}
+        data-level={useCase.level}
+        data-experience={useCase.experience}
+        data-search-content={useCase.searchContent ?? ''}
+        data-index={index}
+      >
+        <div class="card-topline">
+          <span class={`department-tag department-${useCase.department ?? 'other'}`}>
+            {departments[useCase.department ?? ''] ?? useCase.department}
+          </span>
+          <button
+            class="save-button"
+            type="button"
+            data-save-case={useCase.href}
+            aria-label={`${text.save}: ${useCase.title}`}
+            aria-pressed="false"
+            title={text.save}
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.75A1.75 1.75 0 0 1 7.75 3h8.5A1.75 1.75 0 0 1 18 4.75V21l-6-3.75L6 21V4.75Z"></path></svg>
+          </button>
+        </div>
+        <h3><a href={useCase.href}>{useCase.title}</a></h3>
+        <p class="case-description">{useCase.description}</p>
+        <div class="card-footer">
+          <div class="case-tags">
+            <span>{levels[useCase.level ?? ''] ?? useCase.level}</span>
+            <span>{experiences[useCase.experience ?? ''] ?? useCase.experience}</span>
+          </div>
+          <a class="open-link" href={useCase.href} aria-label={`${text.open}: ${useCase.title}`}>
+            <span>{text.open}</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"></path></svg>
+          </a>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <div class="empty-state" data-empty-state hidden>
+    <span class="empty-mark" aria-hidden="true">?</span>
+    <h3>{text.empty}</h3>
+    <p>{text.emptyHint}</p>
+    <button type="button" data-clear-filters>{text.clear}</button>
+  </div>
+</section>
+
+<script>
+  function initCaseExplorer() {
+    const explorer = document.querySelector('[data-case-explorer]');
+    if (!(explorer instanceof HTMLElement)) return;
+
+    const cards = Array.from(explorer.querySelectorAll('[data-case-card]'))
+      .filter((card) => card instanceof HTMLElement);
+    const search = explorer.querySelector('[data-search]');
+    const filters = Array.from(explorer.querySelectorAll('[data-filter]'))
+      .filter((filter) => filter instanceof HTMLSelectElement);
+    const queryParams = new URLSearchParams(window.location.search);
+    filters.forEach((filter) => {
+      const selected = queryParams.get(filter.dataset.filter ?? '');
+      if (selected && Array.from(filter.options).some((option) => option.value === selected)) {
+        filter.value = selected;
+      }
+    });
+    const resultCount = explorer.querySelector('[data-result-count]');
+    const visibleCount = explorer.querySelector('[data-visible-count]');
+    const emptyState = explorer.querySelector('[data-empty-state]');
+    const savedToggle = explorer.querySelector('[data-saved-toggle]');
+    const savedCount = explorer.querySelector('[data-saved-count]');
+    const sortControl = explorer.querySelector('[data-sort]');
+    const clearButton = explorer.querySelector('[data-clear-filters]');
+    const grid = explorer.querySelector('[data-case-grid]');
+
+    if (!(search instanceof HTMLInputElement)
+      || !(resultCount instanceof HTMLElement)
+      || !(visibleCount instanceof HTMLElement)
+      || !(emptyState instanceof HTMLElement)
+      || !(savedToggle instanceof HTMLButtonElement)
+      || !(savedCount instanceof HTMLElement)
+      || !(sortControl instanceof HTMLSelectElement)
+      || !(clearButton instanceof HTMLButtonElement)
+      || !(grid instanceof HTMLElement)) return;
+
+    const storageKey = 'copilot-portal:saved-use-cases';
+    let saved = new Set();
+    let savedOnly = false;
+
+    try {
+      saved = new Set(JSON.parse(localStorage.getItem(storageKey) ?? '[]'));
+    } catch {
+      saved = new Set();
+    }
+
+    const normalize = (value = '') => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+    const render = () => {
+      const query = normalize(search.value.trim());
+      const selected = Object.fromEntries(filters.map((filter) => [filter.dataset.filter, filter.value]));
+      let visible = 0;
+
+      cards.forEach((card) => {
+        const searchable = normalize(`${card.dataset.title} ${card.dataset.description} ${card.dataset.searchContent} ${card.dataset.department} ${card.dataset.level} ${card.dataset.experience}`);
+        const matches = searchable.includes(query)
+          && (!selected.department || card.dataset.department === selected.department)
+          && (!selected.level || card.dataset.level === selected.level)
+          && (!selected.experience || card.dataset.experience === selected.experience)
+          && (!savedOnly || saved.has(card.dataset.saveKey));
+        card.hidden = !matches;
+        if (matches) visible += 1;
+      });
+
+      visibleCount.textContent = String(visible);
+      resultCount.textContent = String(visible);
+      emptyState.hidden = visible > 0;
+    };
+
+    cards.forEach((card) => {
+      const saveButton = card.querySelector('[data-save-case]');
+      if (!(saveButton instanceof HTMLButtonElement)) return;
+      card.dataset.saveKey = saveButton.dataset.saveCase ?? '';
+
+      const updateSaveButton = () => {
+        const isSaved = saved.has(card.dataset.saveKey);
+        const label = isSaved ? explorer.dataset.unsaveLabel : explorer.dataset.saveLabel;
+        saveButton.setAttribute('aria-pressed', String(isSaved));
+        saveButton.setAttribute('aria-label', `${label}: ${card.dataset.title}`);
+        saveButton.title = label ?? '';
+        saveButton.classList.toggle('is-saved', isSaved);
+      };
+
+      updateSaveButton();
+      saveButton.addEventListener('click', () => {
+        if (saved.has(card.dataset.saveKey)) saved.delete(card.dataset.saveKey);
+        else saved.add(card.dataset.saveKey);
+
+        try {
+          localStorage.setItem(storageKey, JSON.stringify([...saved]));
+        } catch {
+          // Saved state remains available for the current page session.
+        }
+
+        updateSaveButton();
+        savedCount.textContent = String(saved.size);
+        render();
+      });
+    });
+
+    savedCount.textContent = String(saved.size);
+    search.addEventListener('input', render);
+    filters.forEach((filter) => filter.addEventListener('change', render));
+    render();
+    savedToggle.addEventListener('click', () => {
+      savedOnly = !savedOnly;
+      savedToggle.setAttribute('aria-pressed', String(savedOnly));
+      savedToggle.classList.toggle('is-active', savedOnly);
+      render();
+    });
+    sortControl.addEventListener('change', () => {
+      const sorted = [...cards].sort((left, right) => sortControl.value === 'title'
+        ? (left.dataset.title ?? '').localeCompare(right.dataset.title ?? '', explorer.dataset.locale)
+        : Number(left.dataset.index) - Number(right.dataset.index));
+      sorted.forEach((card) => grid.append(card));
+    });
+    clearButton.addEventListener('click', () => {
+      search.value = '';
+      filters.forEach((filter) => { filter.value = ''; });
+      savedOnly = false;
+      savedToggle.setAttribute('aria-pressed', 'false');
+      savedToggle.classList.remove('is-active');
+      render();
+      search.focus();
+    });
+  }
+
+  initCaseExplorer();
+</script>
+
+<style>
+  .explorer {
+    --explorer-ink: #19313a;
+    --explorer-muted: #536970;
+    --explorer-line: #d8e3e5;
+    --explorer-surface: #fff;
+    --explorer-wash: #f3f8f8;
+    --explorer-blue: #0878c9;
+    --explorer-teal: #087e78;
+    width: 100%;
+    max-width: var(--cp-content-width, 72rem);
+    margin: 2.5rem auto 4rem;
+    color: var(--explorer-ink);
+  }
+
+  .explorer-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-block-end: 1.75rem;
+  }
+
+  .eyebrow {
+    margin: 0 0 .6rem;
+    color: var(--explorer-teal);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .12em;
+  }
+
+  .explorer-head h2 {
+    max-width: 18ch;
+    margin: 0;
+    color: var(--explorer-ink);
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    line-height: 1.12;
+  }
+
+  .intro {
+    max-width: 62ch;
+    margin: .7rem 0 0;
+    color: var(--explorer-muted);
+    line-height: 1.65;
+  }
+
+  .library-count {
+    display: grid;
+    min-width: 112px;
+    padding: .85rem 1rem;
+    border-inline-start: 3px solid var(--explorer-teal);
+    background: var(--explorer-wash);
+  }
+
+  .library-count strong { color: var(--explorer-blue); font-size: 1.65rem; line-height: 1; }
+  .library-count span { margin-block-start: .35rem; color: var(--explorer-muted); font-size: .78rem; }
+
+  .explorer-controls {
+    display: grid;
+    grid-template-columns: minmax(220px, 1.5fr) repeat(3, minmax(135px, 1fr));
+    gap: .65rem;
+    padding: .85rem;
+    border: 1px solid var(--explorer-line);
+    background: var(--explorer-wash);
+  }
+
+  .search-control, .select-control, .sort-control {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: .65rem;
+    border: 1px solid var(--explorer-line);
+    background: var(--explorer-surface);
+  }
+
+  .search-control { padding-inline: .8rem; }
+  .search-control svg { width: 19px; height: 19px; flex: none; fill: none; stroke: var(--explorer-muted); stroke-width: 1.8; }
+  .search-control input, .select-control select, .sort-control select {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    color: var(--explorer-ink);
+    font: inherit;
+  }
+  .search-control input { min-height: 46px; outline: 0; }
+  .select-control { flex-direction: column; align-items: stretch; justify-content: center; gap: .1rem; padding: .35rem .7rem; }
+  .select-control span, .sort-control span { color: var(--explorer-muted); font-size: .68rem; font-weight: 700; }
+  .select-control select { min-height: 24px; font-size: .82rem; }
+  .results-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0 .7rem; }
+  .results-label { margin: 0; color: var(--explorer-muted); font-size: .84rem; }
+  .results-label span { color: var(--explorer-ink); font-weight: 800; }
+  .results-actions { display: flex; align-items: center; gap: .8rem; }
+  .sort-control { gap: .4rem; padding: .4rem .6rem; }
+  .sort-control select { width: auto; max-width: 132px; font-size: .78rem; }
+  .saved-toggle, .empty-state button {
+    display: inline-flex;
+    min-height: 38px;
+    align-items: center;
+    justify-content: center;
+    gap: .45rem;
+    padding: .45rem .75rem;
+    border: 1px solid var(--explorer-line);
+    background: var(--explorer-surface);
+    color: var(--explorer-ink);
+    font: inherit;
+    font-size: .8rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .saved-toggle svg, .save-button svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linejoin: round; }
+  .saved-toggle span { display: grid; min-width: 20px; height: 20px; place-items: center; border-radius: 50%; background: var(--explorer-wash); font-size: .7rem; }
+  .saved-toggle:hover, .saved-toggle.is-active, .empty-state button:hover { border-color: var(--explorer-blue); color: var(--explorer-blue); }
+
+  .case-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: .85rem; }
+  .case-card {
+    display: flex;
+    min-width: 0;
+    min-height: 244px;
+    flex-direction: column;
+    padding: 1.05rem;
+    border: 1px solid var(--explorer-line);
+    background: var(--explorer-surface);
+    transition: border-color .18s ease, box-shadow .18s ease;
+  }
+  .case-card:hover { border-color: #87b9ce; box-shadow: 0 8px 22px rgba(30, 73, 85, .08); }
+  .case-card[hidden] { display: none; }
+  .card-topline, .card-footer { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+  .department-tag { display: inline-flex; align-items: center; min-height: 25px; padding: .2rem .55rem; background: #e7f4f6; color: #14656f; font-size: .7rem; font-weight: 750; }
+  .department-hr { background: #edf4e9; color: #4d6e32; }
+  .department-sales { background: #fff0e6; color: #975018; }
+  .save-button { display: grid; width: 34px; height: 34px; flex: none; place-items: center; border: 1px solid transparent; background: transparent; color: var(--explorer-muted); cursor: pointer; }
+  .save-button:hover { border-color: var(--explorer-line); color: var(--explorer-blue); }
+  .save-button.is-saved { color: #d07b16; }
+  .save-button.is-saved svg { fill: currentColor; }
+  .case-card h3 { margin: .7rem 0 .4rem; color: var(--explorer-ink); font-size: 1.05rem; line-height: 1.35; }
+  .case-card h3 a { color: inherit; text-decoration: none; }
+  .case-card h3 a:hover { color: var(--explorer-blue); text-decoration: underline; text-underline-offset: .18em; }
+  .case-description { margin: 0 0 1rem; color: var(--explorer-muted); font-size: .84rem; line-height: 1.55; }
+  .card-footer { align-items: end; margin-block-start: auto; padding-block-start: .8rem; border-block-start: 1px solid var(--explorer-line); }
+  .case-tags { display: flex; flex-wrap: wrap; gap: .35rem; }
+  .case-tags span { color: var(--explorer-muted); font-size: .68rem; }
+  .case-tags span + span::before { content: '/'; margin-inline-end: .35rem; color: #9aabad; }
+  .open-link { display: inline-flex; align-items: center; gap: .3rem; flex: none; color: var(--explorer-blue); font-size: .76rem; font-weight: 750; text-decoration: none; }
+  .open-link svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; transition: transform .18s ease; }
+  .open-link:hover svg { transform: translateX(3px); }
+
+  .empty-state { padding: 3rem 1rem; text-align: center; }
+  .empty-state[hidden] { display: none; }
+  .empty-mark { display: grid; width: 38px; height: 38px; margin: 0 auto .8rem; place-items: center; border-radius: 50%; background: var(--explorer-wash); color: var(--explorer-teal); font-weight: 800; }
+  .empty-state h3 { margin: 0; color: var(--explorer-ink); font-size: 1.15rem; }
+  .empty-state p { margin: .45rem 0 1rem; color: var(--explorer-muted); font-size: .88rem; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
+
+  :global([data-theme='dark']) .explorer {
+    --explorer-ink: #e4eff0;
+    --explorer-muted: #a8bec1;
+    --explorer-line: #3a5358;
+    --explorer-surface: #1d3034;
+    --explorer-wash: #253a3e;
+    --explorer-blue: #73c5f2;
+    --explorer-teal: #68d0c0;
+  }
+  :global([data-theme='dark']) .department-tag { background: #29474a; color: #a5e2df; }
+  :global([data-theme='dark']) .department-hr { background: #354532; color: #c2dda9; }
+  :global([data-theme='dark']) .department-sales { background: #493a2d; color: #f0c496; }
+
+  @media (max-width: 900px) {
+    .explorer-controls { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .search-control { grid-column: 1 / -1; }
+    .case-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 600px) {
+    .explorer { margin-block-start: 1.75rem; }
+    .explorer-head { align-items: start; gap: .8rem; }
+    .explorer-head h2 { font-size: 1.65rem; }
+    .library-count { min-width: 82px; padding: .65rem; }
+    .library-count strong { font-size: 1.35rem; }
+    .library-count span { font-size: .68rem; }
+    .explorer-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: .6rem; }
+    .select-control { min-height: 58px; }
+    .results-toolbar { align-items: flex-start; flex-direction: column; }
+    .results-actions { width: 100%; justify-content: space-between; }
+    .case-grid { grid-template-columns: 1fr; }
+    .case-card { min-height: 0; }
+  }
+</style>

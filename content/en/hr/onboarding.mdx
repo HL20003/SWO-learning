@@ -1,0 +1,25 @@
+---
+title: New-Hire Onboarding Checklist
+description: Draft a role-based onboarding plan with timing and owners.
+department: hr
+level: beginner
+experience: copilot-chat
+---
+
+import CaseStudyTemplate from '../../../src/components/CaseStudyTemplate.astro';
+
+<CaseStudyTemplate locale="en" department="hr" level="beginner" experience="copilot-chat">
+  <p slot="context">HR and managers want a consistent first-week plan tailored to each new hire's role.</p>
+
+  <p slot="outcome">Clarify timing, ownership, and required materials for the employee, manager, and support teams.</p>
+
+  <div slot="prompt">
+
+```text title="Onboarding checklist prompt"
+Create a five-day onboarding checklist for a new [role] in [department]. Organize it by day; for each task list the owner (HR, manager, IT, or employee), purpose, and required materials. Use only the supplied process documents and flag missing information. Do not invent policies or benefits.
+```
+
+  </div>
+
+  <p slot="prepare">Replace the role and department with relevant details. Verify the checklist against current internal procedures.</p>
+</CaseStudyTemplate>

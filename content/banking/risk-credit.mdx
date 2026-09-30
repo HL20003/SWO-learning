@@ -1,0 +1,25 @@
+---
+title: Rà soát hồ sơ rủi ro tín dụng
+description: Tóm tắt thông tin trong hồ sơ được cấp quyền và nêu điểm cần chuyên viên xác minh.
+department: banking
+level: advanced
+experience: analyst
+---
+
+import CaseStudyTemplate from '../../src/components/CaseStudyTemplate.astro';
+
+<CaseStudyTemplate locale="vi" department="banking" level="advanced" experience="analyst">
+  <p slot="context">Chuyên viên cần rà soát một bộ hồ sơ tín dụng đã được phê duyệt quyền truy cập và chuẩn bị câu hỏi cho bước thẩm định tiếp theo.</p>
+
+  <p slot="outcome">Sắp xếp thông tin, làm nổi bật khoảng trống dữ liệu và giảm thời gian chuẩn bị. Kết quả chỉ hỗ trợ rà soát, không thay thế quyết định tín dụng.</p>
+
+  <div slot="prompt">
+
+```text title="Prompt rà soát hồ sơ"
+Dựa trên các tài liệu được cung cấp, lập bảng gồm: thông tin tài chính được nêu, kỳ báo cáo, nguồn tài liệu, biến động đáng chú ý và nội dung cần chuyên viên xác minh. Không suy đoán dữ liệu còn thiếu, không tự tính điểm tín dụng và không đưa ra quyết định phê duyệt. Kết thúc bằng danh sách câu hỏi làm rõ cho chuyên viên phụ trách.
+```
+
+  </div>
+
+  <p slot="prepare"><strong>Thận trọng.</strong> Chỉ sử dụng trong môi trường được tổ chức phê duyệt. Tuân thủ chính sách bảo mật, phân quyền dữ liệu và quy trình thẩm định hiện hành.</p>
+</CaseStudyTemplate>

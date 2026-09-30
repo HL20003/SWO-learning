@@ -1,0 +1,405 @@
+---
+import { getCollection } from 'astro:content';
+
+const { locale = 'vi', feature = 'copilot-chat' } = Astro.props;
+const isEnglish = locale === 'en';
+const language = isEnglish ? 'en' : 'vi';
+const catalog: Record<string, Record<string, { category: string; title: string; description: string; tasks: string[]; prompt: string }>> = {
+  'copilot-chat': {
+    vi: {
+      category: 'COPILOT CHAT',
+      title: 'Copilot Chat',
+      description: 'Trợ lý hội thoại để tổng hợp thông tin, soạn thảo và chuẩn bị bước tiếp theo dựa trên ngữ cảnh công việc được cấp quyền.',
+      tasks: ['Tóm tắt tài liệu và làm rõ các điểm cần xác minh', 'Soạn bản nháp theo mục tiêu, người đọc và giọng điệu', 'Chuyển ghi chú thành danh sách hành động có thứ tự'],
+      prompt: 'Bạn là trợ lý công việc. Dựa trên [tài liệu hoặc nội dung được phép truy cập], hãy tạo [kết quả cần có] cho [đối tượng đọc]. Trình bày thành các mục rõ ràng, dẫn nguồn cho thông tin quan trọng và đánh dấu phần còn thiếu cần tôi xác minh.',
+    },
+    en: {
+      category: 'COPILOT CHAT',
+      title: 'Copilot Chat',
+      description: 'A conversational assistant for synthesizing information, drafting content, and preparing next steps from authorized work context.',
+      tasks: ['Summarize documents and flag items that need verification', 'Draft content for a specific audience, goal, and tone', 'Turn notes into an ordered list of actions'],
+      prompt: 'Act as a work assistant. Using [authorized documents or context], create [the required output] for [the intended audience]. Organize it into clear sections, cite important information, and flag anything I should verify.',
+    },
+  },
+  researcher: {
+    vi: {
+      category: 'AGENT',
+      title: 'Researcher',
+      description: 'Agent nghiên cứu chuyên sâu, tổng hợp thông tin từ các nguồn được phép truy cập và đưa ra trích dẫn để kiểm tra nhận định.',
+      tasks: ['Tổng hợp xu hướng và bối cảnh thị trường', 'So sánh lựa chọn theo tiêu chí đã thống nhất', 'Ghi nguồn, thời điểm và điểm chưa thể xác minh'],
+      prompt: 'Nghiên cứu [chủ đề] trong phạm vi [thị trường hoặc giai đoạn]. Tổng hợp các phát hiện chính, so sánh [đối tượng], trích dẫn nguồn cho từng nhận định và nêu rõ thông tin còn thiếu hoặc cần xác minh.',
+    },
+    en: {
+      category: 'AGENT',
+      title: 'Researcher',
+      description: 'A research agent that synthesizes information from authorized sources and provides citations so findings can be checked.',
+      tasks: ['Summarize market context and trends', 'Compare options against agreed criteria', 'Record sources, dates, and claims that need verification'],
+      prompt: 'Research [topic] within [market or timeframe]. Summarize key findings, compare [options], cite a source for each claim, and identify missing information or items that need verification.',
+    },
+  },
+  analyst: {
+    vi: {
+      category: 'AGENT',
+      title: 'Analyst',
+      description: 'Agent hỗ trợ phân tích dữ liệu được cấp quyền, tìm mẫu hình và chuyển kết quả thành insight có thể kiểm tra.',
+      tasks: ['Kiểm tra cấu trúc và chất lượng dữ liệu', 'So sánh kết quả theo nhóm hoặc giai đoạn', 'Nêu giả định, ngoại lệ và câu hỏi cần phân tích tiếp'],
+      prompt: 'Phân tích [tập dữ liệu được phép sử dụng] để trả lời [câu hỏi]. Nêu cách tính, giả định, giới hạn dữ liệu và các điểm bất thường; trình bày kết quả thành bảng ngắn cùng các bước kiểm tra tiếp theo.',
+    },
+    en: {
+      category: 'AGENT',
+      title: 'Analyst',
+      description: 'An analysis agent that examines authorized data, identifies patterns, and turns findings into checkable insights.',
+      tasks: ['Review data structure and quality', 'Compare outcomes across groups or periods', 'State assumptions, outliers, and follow-up questions'],
+      prompt: 'Analyze [authorized dataset] to answer [question]. State the method, assumptions, data limitations, and outliers. Present the results in a concise table with suggested follow-up checks.',
+    },
+  },
+  cowork: {
+    vi: {
+      category: 'AGENT',
+      title: 'Cowork',
+      description: 'Giao một mục tiêu công việc để Cowork lập kế hoạch, thực hiện các bước và tạo sản phẩm đầu ra; bạn theo dõi tiến độ và duyệt trước khi dùng.',
+      tasks: ['Nêu kết quả mong muốn và tiêu chí hoàn thành', 'Chỉ rõ nguồn dữ liệu và ứng dụng được phép', 'Kiểm tra nội dung ở các điểm phê duyệt trước khi chia sẻ'],
+      prompt: 'Hãy hoàn thành [kết quả mong muốn] cho [đối tượng]. Dùng các nguồn được phép: [nguồn]. Trước tiên đề xuất kế hoạch và đầu ra; dừng lại để tôi duyệt trước khi gửi, chia sẻ hoặc thay đổi dữ liệu.',
+    },
+    en: {
+      category: 'AGENT',
+      title: 'Cowork',
+      description: 'Delegate an outcome for Cowork to plan and carry out, then review its progress and approve deliverables before use.',
+      tasks: ['Describe the outcome and completion criteria', 'Specify authorized data sources and apps', 'Review approval points before sharing or publishing'],
+      prompt: 'Complete [desired outcome] for [audience]. Use only these authorized sources: [sources]. First propose a plan and deliverables. Pause for my approval before sending, sharing, or changing data.',
+    },
+  },
+  'agent-builder': {
+    vi: {
+      category: 'AGENT',
+      title: 'Agent Builder',
+      description: 'Tạo agent tùy chỉnh bằng cách xác định vai trò, nguồn kiến thức và cách agent cần phản hồi cho một nhóm công việc.',
+      tasks: ['Viết rõ nhiệm vụ và phạm vi agent không xử lý', 'Chọn nguồn kiến thức được phép và còn hiệu lực', 'Thử với câu hỏi thực tế trước khi chia sẻ cho nhóm'],
+      prompt: 'Vai trò: hỗ trợ [nhóm người dùng] thực hiện [nhiệm vụ]. Chỉ sử dụng [nguồn kiến thức được duyệt]. Trả lời theo cấu trúc [định dạng]; nêu nguồn khi có thể, hỏi lại nếu thiếu dữ liệu và không suy đoán ngoài phạm vi.',
+    },
+    en: {
+      category: 'AGENT',
+      title: 'Agent Builder',
+      description: 'Create a custom agent by defining its role, knowledge sources, and response behavior for a specific workflow.',
+      tasks: ['Define the task and what the agent must not handle', 'Select approved, current knowledge sources', 'Test with real questions before sharing with a team'],
+      prompt: 'Role: help [audience] complete [task]. Use only [approved knowledge sources]. Respond in [format], cite sources where possible, ask questions when information is missing, and do not guess outside this scope.',
+    },
+  },
+  teams: {
+    vi: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft Teams',
+      description: 'Tổng hợp nội dung họp và trò chuyện thành quyết định, câu trả lời và việc cần theo dõi.',
+      tasks: ['Tóm tắt chủ đề và quyết định trong cuộc họp', 'Bắt kịp nội dung đã diễn ra và các điểm cần phản hồi', 'Lập danh sách người phụ trách và thời hạn đã được nêu'],
+      prompt: 'Tóm tắt nội dung cuộc họp về [chủ đề]. Tách riêng quyết định, việc cần làm, người phụ trách và thời hạn nếu có. Đánh dấu mục nào chưa rõ hoặc chưa được thống nhất.',
+    },
+    en: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft Teams',
+      description: 'Turn meeting and chat context into decisions, responses, and follow-up actions.',
+      tasks: ['Summarize meeting topics and decisions', 'Catch up on what happened and what needs a response', 'List owners and deadlines that were stated'],
+      prompt: 'Summarize the meeting about [topic]. Separate decisions, action items, owners, and stated deadlines. Flag anything that is unclear or not yet agreed.',
+    },
+  },
+  outlook: {
+    vi: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft Outlook',
+      description: 'Xử lý chuỗi email dài, ưu tiên việc cần phản hồi và soạn bản nháp theo ngữ cảnh trao đổi.',
+      tasks: ['Tóm tắt trao đổi và yêu cầu còn mở', 'Soạn phản hồi theo giọng điệu và mục tiêu', 'Rút ra cam kết, người phụ trách và hạn phản hồi'],
+      prompt: 'Tóm tắt chuỗi email này thành bối cảnh, yêu cầu chưa được giải quyết và việc tôi cần làm. Sau đó soạn một phản hồi [giọng điệu] để [mục tiêu], không tự thêm cam kết mới.',
+    },
+    en: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft Outlook',
+      description: 'Summarize long email threads, prioritize replies, and draft responses in context.',
+      tasks: ['Summarize the thread and open requests', 'Draft a response for a chosen tone and goal', 'Identify commitments, owners, and response dates'],
+      prompt: 'Summarize this email thread into context, unresolved requests, and my next actions. Then draft a [tone] reply to [goal] without adding new commitments.',
+    },
+  },
+  excel: {
+    vi: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft Excel',
+      description: 'Khám phá bảng dữ liệu, giải thích xu hướng và hỗ trợ tạo công thức hoặc phân tích có thể kiểm chứng.',
+      tasks: ['Xác định cột, kiểu dữ liệu và ô trống bất thường', 'So sánh kết quả theo nhóm hoặc thời gian', 'Giải thích công thức và nêu cách xác minh kết quả'],
+      prompt: 'Dựa trên bảng [tên bảng], hãy phân tích [câu hỏi]. Nêu cột được sử dụng, cách tính và giả định. Trình bày kết quả có thể kiểm tra lại, không tự điền dữ liệu còn thiếu.',
+    },
+    en: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft Excel',
+      description: 'Explore tables, explain trends, and help create formulas or analysis that can be checked.',
+      tasks: ['Review columns, data types, and unusual blanks', 'Compare results across groups or time periods', 'Explain formulas and how to validate results'],
+      prompt: 'Using [table name], analyze [question]. State the columns, calculation method, and assumptions. Make the result checkable and do not fill in missing data.',
+    },
+  },
+  powerpoint: {
+    vi: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft PowerPoint',
+      description: 'Chuyển tài liệu nguồn thành dàn ý thuyết trình, thông điệp chính và ghi chú trình bày.',
+      tasks: ['Tạo dàn ý theo mục tiêu và thời lượng', 'Rút gọn nội dung thành thông điệp cho từng slide', 'Đối chiếu số liệu và nhận định với tài liệu nguồn'],
+      prompt: 'Tạo dàn ý [số slide] cho bài trình bày về [chủ đề], dành cho [đối tượng], thời lượng [thời gian]. Mỗi slide có một thông điệp chính và ghi chú nguồn; đánh dấu chỗ cần bổ sung dữ liệu.',
+    },
+    en: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft PowerPoint',
+      description: 'Turn source material into a presentation outline, key messages, and speaker notes.',
+      tasks: ['Create an outline for a goal and time limit', 'Distill content into one message per slide', 'Check claims and figures against source material'],
+      prompt: 'Create a [slide count]-slide outline about [topic] for [audience], to be presented in [duration]. Give each slide one key message and source notes; flag where data is needed.',
+    },
+  },
+  word: {
+    vi: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft Word',
+      description: 'Soạn, chỉnh sửa và tóm tắt tài liệu theo mục đích, người đọc và cấu trúc mong muốn.',
+      tasks: ['Tạo bản nháp từ ghi chú hoặc tài liệu nguồn', 'Chỉnh giọng điệu mà vẫn giữ nguyên ý chính', 'Tóm tắt nội dung dài thành các phần dễ rà soát'],
+      prompt: 'Dựa trên [nguồn], soạn [loại tài liệu] cho [đối tượng] với mục tiêu [mục tiêu]. Dùng cấu trúc [các mục], giữ nguyên dữ kiện và đánh dấu nội dung cần tôi xác nhận.',
+    },
+    en: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft Word',
+      description: 'Draft, revise, and summarize documents for a defined purpose, audience, and structure.',
+      tasks: ['Draft from notes or source documents', 'Adjust tone while preserving key meaning', 'Summarize long content into reviewable sections'],
+      prompt: 'Using [source], draft a [document type] for [audience] to achieve [goal]. Use [sections], preserve facts, and flag content I should confirm.',
+    },
+  },
+  onenote: {
+    vi: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft OneNote',
+      description: 'Biến ghi chú rời rạc thành bản tóm tắt, kế hoạch và danh sách việc cần làm.',
+      tasks: ['Tóm tắt ghi chú theo chủ đề', 'Tách quyết định, câu hỏi và việc cần làm', 'Sắp xếp ghi chú thành dàn ý có thể tiếp tục cập nhật'],
+      prompt: 'Sắp xếp các ghi chú này thành tóm tắt, quyết định, câu hỏi còn mở và việc cần làm. Giữ nguyên tên riêng, ngày tháng; ghi rõ mục nào không có thông tin người phụ trách.',
+    },
+    en: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft OneNote',
+      description: 'Turn unstructured notes into summaries, plans, and action lists.',
+      tasks: ['Summarize notes by topic', 'Separate decisions, questions, and tasks', 'Organize notes into an outline that can be updated'],
+      prompt: 'Organize these notes into a summary, decisions, open questions, and action items. Preserve names and dates; flag items without an assigned owner.',
+    },
+  },
+  forms: {
+    vi: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft Forms',
+      description: 'Khởi tạo biểu mẫu khảo sát hoặc bài kiểm tra từ mục tiêu, nhóm người trả lời và loại thông tin cần thu thập.',
+      tasks: ['Chuyển mục tiêu khảo sát thành nhóm câu hỏi', 'Điều chỉnh câu hỏi theo đối tượng trả lời', 'Rà soát câu hỏi dẫn dắt hoặc thu thập dữ liệu không cần thiết'],
+      prompt: 'Tạo dàn ý khảo sát về [chủ đề] cho [đối tượng], nhằm [mục tiêu]. Đề xuất câu hỏi trung lập, dạng trả lời phù hợp và thời lượng hoàn thành; tránh hỏi thông tin nhận dạng không cần thiết.',
+    },
+    en: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft Forms',
+      description: 'Start a survey or quiz from its goal, audience, and the information it needs to collect.',
+      tasks: ['Turn a survey goal into groups of questions', 'Tailor questions to respondents', 'Review for leading questions or unnecessary data collection'],
+      prompt: 'Create a survey outline about [topic] for [audience] to achieve [goal]. Suggest neutral questions, suitable answer types, and completion time; avoid unnecessary identifying information.',
+    },
+  },
+  whiteboard: {
+    vi: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft Whiteboard',
+      description: 'Khơi gợi ý tưởng, gom nhóm nội dung và chuyển phiên động não thành các chủ đề có thể thảo luận.',
+      tasks: ['Tạo câu hỏi gợi mở cho buổi động não', 'Nhóm ý tưởng theo chủ đề và điểm chung', 'Tóm tắt các hướng cần ưu tiên hoặc kiểm chứng'],
+      prompt: 'Từ mục tiêu [mục tiêu], đề xuất câu hỏi động não cho nhóm [đối tượng]. Sau khi có ý tưởng, nhóm chúng theo chủ đề, nêu điểm chung và đánh dấu ý tưởng cần kiểm chứng.',
+    },
+    en: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft Whiteboard',
+      description: 'Generate ideas, group related content, and turn brainstorming into themes for discussion.',
+      tasks: ['Create prompts for a brainstorming session', 'Group ideas by theme and shared patterns', 'Summarize directions to prioritize or validate'],
+      prompt: 'Given [goal], suggest brainstorming questions for [audience]. Then group the ideas by theme, identify shared patterns, and flag ideas that need validation.',
+    },
+  },
+  onedrive: {
+    vi: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft OneDrive',
+      description: 'Tìm hiểu nhanh tài liệu được cấp quyền và tổng hợp nội dung để chuẩn bị cho công việc tiếp theo.',
+      tasks: ['Tóm tắt tài liệu và trích xuất điểm chính', 'Đối chiếu các phiên bản hoặc nhiều tệp', 'Tạo danh sách nội dung cần đọc sâu hơn'],
+      prompt: 'Tóm tắt tài liệu [tên hoặc chủ đề] trong phạm vi quyền truy cập của tôi. Nêu mục đích, điểm chính, ngày tháng quan trọng và phần cần đọc kỹ; dẫn rõ tài liệu nguồn.',
+    },
+    en: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft OneDrive',
+      description: 'Get oriented in authorized documents and synthesize content for the next piece of work.',
+      tasks: ['Summarize documents and extract key points', 'Compare versions or multiple files', 'List content that needs a closer review'],
+      prompt: 'Summarize [document or topic] within my authorized access. State its purpose, key points, important dates, and items that need a closer read; identify the source documents.',
+    },
+  },
+  planner: {
+    vi: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft Planner',
+      description: 'Chuyển mục tiêu và các đầu việc thành kế hoạch có giai đoạn, người phụ trách và tiêu chí hoàn thành.',
+      tasks: ['Chia mục tiêu thành các đầu việc có thể theo dõi', 'Xác định phụ thuộc và mốc cần quyết định', 'Làm rõ giả định về nguồn lực và thời hạn'],
+      prompt: 'Tạo kế hoạch thực hiện [mục tiêu] trước [thời hạn]. Chia thành các đầu việc, kết quả cần bàn giao, phụ thuộc và tiêu chí hoàn thành. Để trống người phụ trách nếu chưa được cung cấp.',
+    },
+    en: {
+      category: 'COPILOT IN APPS',
+      title: 'Microsoft Planner',
+      description: 'Turn goals and tasks into a plan with phases, owners, and completion criteria.',
+      tasks: ['Break a goal into trackable work items', 'Identify dependencies and decision points', 'Clarify assumptions about capacity and timing'],
+      prompt: 'Create a plan to deliver [goal] by [deadline]. Break it into tasks, deliverables, dependencies, and completion criteria. Leave owners blank if they have not been provided.',
+    },
+  },
+};
+const current = catalog[feature]?.[language] ?? catalog['copilot-chat'][language];
+const entries = await getCollection('docs');
+const relatedCases = entries
+  .filter(({ id, data }) => Boolean(data.department)
+    && (isEnglish ? id.startsWith('en/') : !id.startsWith('en/'))
+    && data.experience === feature)
+  .map(({ id, data }) => ({
+    title: data.title,
+    description: data.description,
+    department: data.department,
+    href: `/${id.replace(/\.(md|mdx)$/, '')}/`,
+  }));
+const departmentNames: Record<string, Record<string, string>> = {
+  banking: { vi: 'Ngân hàng', en: 'Banking' },
+  hr: { vi: 'Nhân sự', en: 'Human Resources' },
+  sales: { vi: 'Bán hàng', en: 'Sales' },
+};
+const messages = isEnglish
+  ? { overview: 'Overview', steps: 'Good starting points', prompt: 'Start with a prompt', copy: 'Copy prompt', copied: 'Copied', cases: 'Related use cases', back: 'Back to library', safe: 'Review generated content and verify sources before sharing or taking action.' }
+  : { overview: 'Tổng quan', steps: 'Điểm bắt đầu', prompt: 'Thử với prompt mẫu', copy: 'Sao chép prompt', copied: 'Đã sao chép', cases: 'Use case liên quan', back: 'Về thư viện', safe: 'Rà soát nội dung được tạo và kiểm tra nguồn trước khi chia sẻ hoặc thực hiện hành động.' };
+---
+
+<main class="feature-page" data-feature-page data-copy-label={messages.copy} data-copied-label={messages.copied}>
+  <header class="feature-head">
+    <p class="eyebrow">{current.category}</p>
+    <h2>{messages.overview}</h2>
+    <p class="lead">{current.description}</p>
+  </header>
+
+  <section class="feature-section" aria-labelledby="steps-title">
+    <h2 id="steps-title">{messages.steps}</h2>
+    <ol class="task-list">
+      {current.tasks.map((task, index) => <li><span>{String(index + 1).padStart(2, '0')}</span>{task}</li>)}
+    </ol>
+  </section>
+
+  <section class="prompt-section" aria-labelledby="prompt-title">
+    <div class="prompt-heading">
+      <div><p class="eyebrow">{current.category}</p><h2 id="prompt-title">{messages.prompt}</h2></div>
+      <button type="button" data-copy-prompt>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"></path></svg>
+        <span>{messages.copy}</span>
+      </button>
+    </div>
+    <pre><code data-prompt-text>{current.prompt}</code></pre>
+    <p class="safety-note">{messages.safe}</p>
+  </section>
+
+  {relatedCases.length > 0 && (
+    <section class="feature-section related" aria-labelledby="related-title">
+      <h2 id="related-title">{messages.cases}</h2>
+      <div class="related-list">
+        {relatedCases.map((item) => (
+          <a class="related-item" href={item.href}>
+            <span class="department-label">{departmentNames[item.department ?? '']?.[language]}</span>
+            <span class="related-copy"><strong>{item.title}</strong><span>{item.description}</span></span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <a class="back-link" href={isEnglish ? '/en/' : '/'}>{messages.back}<span aria-hidden="true">→</span></a>
+  <span class="copy-status" role="status" aria-live="polite" data-copy-status></span>
+</main>
+
+<script>
+  const featurePage = document.querySelector('[data-feature-page]');
+
+  if (featurePage instanceof HTMLElement) {
+    const copyButton = featurePage.querySelector('[data-copy-prompt]');
+    const prompt = featurePage.querySelector('[data-prompt-text]');
+    const status = featurePage.querySelector('[data-copy-status]');
+    const copyLabel = copyButton?.querySelector('span');
+
+    if (copyButton instanceof HTMLButtonElement
+      && copyLabel instanceof HTMLSpanElement
+      && prompt instanceof HTMLElement
+      && status instanceof HTMLElement) {
+      copyButton.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(prompt.textContent ?? '');
+          const copied = featurePage.dataset.copiedLabel ?? 'Copied';
+          status.textContent = copied;
+          copyLabel.textContent = copied;
+          window.setTimeout(() => {
+            status.textContent = '';
+            copyLabel.textContent = featurePage.dataset.copyLabel ?? 'Copy prompt';
+          }, 1800);
+        } catch {
+          status.textContent = prompt.textContent ?? '';
+        }
+      });
+    }
+  }
+</script>
+
+<style>
+  .feature-page {
+    --feature-ink: #19313a;
+    --feature-muted: #536970;
+    --feature-line: #d8e3e5;
+    --feature-surface: #fff;
+    --feature-wash: #f3f8f8;
+    --feature-blue: #0878c9;
+    --feature-teal: #087e78;
+    width: 100%;
+    max-width: var(--cp-content-width, 72rem);
+    margin: 2rem auto 3.5rem;
+    color: var(--feature-ink);
+  }
+  .feature-head { padding-block-end: 1.7rem; border-block-end: 1px solid var(--feature-line); }
+  .eyebrow { margin: 0 0 .55rem; color: var(--feature-teal); font-size: .72rem; font-weight: 800; letter-spacing: .12em; }
+  .feature-head h2 { margin: 0; color: var(--feature-ink); font-size: 1.35rem; line-height: 1.25; }
+  .lead { max-width: 70ch; margin: .85rem 0 0; color: var(--feature-muted); font-size: 1.02rem; line-height: 1.65; }
+  .feature-section { margin-block-start: 2rem; }
+  .feature-section h2, .prompt-heading h2 { margin: 0; color: var(--feature-ink); font-size: 1.25rem; }
+  .task-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+  .task-list li { display: flex; min-height: 106px; flex-direction: column; align-items: flex-start; gap: .7rem; padding: .9rem; border: 1px solid var(--feature-line); border-top: 3px solid var(--feature-ink); background: var(--feature-surface); color: var(--feature-ink); font-size: .88rem; line-height: 1.5; }
+  .task-list li span { display: grid; width: 1.8rem; aspect-ratio: 1; place-items: center; border-radius: 50%; background: var(--feature-ink); color: var(--feature-surface); font-size: .68rem; font-weight: 800; }
+  .prompt-section { --prompt-ink: #111; --prompt-muted: #555; --prompt-line: #d8d8d8; --prompt-surface: #fff; --prompt-wash: #f4f4f4; --prompt-action: #111; --prompt-action-ink: #fff; margin-block-start: 2rem; padding: 1.1rem; border: 1px solid var(--prompt-line); border-top: 3px solid var(--prompt-ink); background: var(--prompt-surface); color: var(--prompt-ink); }
+  .prompt-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .prompt-heading .eyebrow { margin-block-end: .35rem; color: var(--prompt-muted); }
+  .prompt-heading h2 { font-size: 1.1rem; }
+  .prompt-heading button { display: inline-flex; min-height: 38px; flex: none; align-items: center; gap: .45rem; padding: .45rem .7rem; border: 1px solid var(--prompt-action); background: var(--prompt-action); color: var(--prompt-action-ink); font: inherit; font-size: .78rem; font-weight: 750; cursor: pointer; }
+  .prompt-heading button:hover { filter: brightness(.88); }
+  .prompt-heading button svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+  .prompt-section pre { margin: 1rem 0 0; padding: 1rem; border-inline-start: 3px solid var(--prompt-ink); background: var(--prompt-wash); color: var(--prompt-ink); white-space: pre-wrap; overflow-wrap: anywhere; }
+  .prompt-section code { font: inherit; font-size: .88rem; line-height: 1.65; }
+  .safety-note { margin: .75rem 0 0; color: var(--prompt-muted); font-size: .76rem; line-height: 1.5; }
+  .related { margin-block-start: 2rem; }
+  .related-list { display: grid; margin-block-start: .8rem; border-block-start: 1px solid var(--feature-line); }
+  .related-item { display: grid; grid-template-columns: 100px 1fr auto; align-items: center; gap: .8rem; padding: .85rem 0; border-block-end: 1px solid var(--feature-line); color: inherit; text-decoration: none; }
+  .related-item:hover .related-copy strong { color: var(--feature-blue); text-decoration: underline; text-underline-offset: .15em; }
+  .department-label { color: var(--feature-teal); font-size: .72rem; font-weight: 750; }
+  .related-copy { display: grid; gap: .2rem; min-width: 0; }
+  .related-copy strong { color: var(--feature-ink); font-size: .9rem; }
+  .related-copy span { color: var(--feature-muted); font-size: .78rem; line-height: 1.45; }
+  .arrow, .back-link { color: var(--feature-blue); }
+  .back-link { display: inline-flex; gap: .5rem; margin-block-start: 1.5rem; font-size: .84rem; font-weight: 750; text-decoration: none; }
+  .back-link:hover { text-decoration: underline; text-underline-offset: .18em; }
+  .copy-status { display: block; min-height: 1.25rem; margin-block-start: .35rem; color: var(--feature-teal); font-size: .78rem; }
+  :global([data-theme='dark']) .prompt-section { --prompt-ink: #f5f5f5; --prompt-muted: #bdbdbd; --prompt-line: #484848; --prompt-surface: #191919; --prompt-wash: #292929; --prompt-action: #f5f5f5; --prompt-action-ink: #111; }
+  :global([data-theme='dark']) .feature-page { --feature-ink: #e4eff0; --feature-muted: #a8bec1; --feature-line: #3a5358; --feature-surface: #1d3034; --feature-wash: #253a3e; --feature-blue: #73c5f2; --feature-teal: #68d0c0; }
+  @media (max-width: 720px) {
+    .feature-head h1 { font-size: 1.8rem; }
+    .task-list { grid-template-columns: 1fr; }
+    .task-list li { min-height: 0; }
+    .prompt-heading { align-items: flex-start; }
+  }
+  @media (max-width: 480px) {
+    .prompt-heading { flex-direction: column; }
+    .related-item { grid-template-columns: 1fr auto; }
+    .department-label { grid-column: 1 / -1; }
+  }
+</style>

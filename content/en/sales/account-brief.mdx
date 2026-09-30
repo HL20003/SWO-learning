@@ -1,0 +1,25 @@
+---
+title: Prepare a Customer Account Brief
+description: Summarize account context and recent interactions from authorized sources.
+department: sales
+level: advanced
+experience: researcher
+---
+
+import CaseStudyTemplate from '../../../src/components/CaseStudyTemplate.astro';
+
+<CaseStudyTemplate locale="en" department="sales" level="advanced" experience="researcher">
+  <p slot="context">Before meeting an existing customer, the sales team wants to review account context, recent interactions, and open topics.</p>
+
+  <p slot="outcome">Prepare for the meeting with a cited summary and a list of points to verify.</p>
+
+  <div slot="prompt">
+
+```text title="Account briefing prompt"
+Prepare a pre-meeting brief for [account name] using work sources I am authorized to access. Include account context, recent interactions, agreed actions, open topics, and suggested meeting questions. Cite each source and date; distinguish facts from inferences; exclude unrelated or sensitive information.
+```
+
+  </div>
+
+  <p slot="prepare"><strong>Before using.</strong> Access only documents within your permissions. Confirm important points with the account owner before presenting.</p>
+</CaseStudyTemplate>

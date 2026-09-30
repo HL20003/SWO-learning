@@ -1,0 +1,27 @@
+---
+title: Soạn email theo dõi khách hàng
+description: Tóm tắt cuộc họp, xác nhận việc cần làm và soạn email tiếp nối.
+department: sales
+level: beginner
+experience: copilot-chat
+---
+
+import CaseStudyTemplate from '../../src/components/CaseStudyTemplate.astro';
+
+<CaseStudyTemplate locale="vi" department="sales" level="beginner" experience="copilot-chat">
+  <p slot="context">Sau cuộc họp, nhân viên kinh doanh cần gửi email tóm tắt và xác nhận các bước tiếp theo với khách hàng.</p>
+
+  <p slot="outcome">Rút ngắn thời gian soạn thư, giữ nội dung rõ ràng và nhất quán với trao đổi trước đó.</p>
+
+  <div slot="prompt">
+
+```text title="Prompt email theo dõi"
+Dựa trên ghi chú cuộc họp bên dưới, hãy soạn email theo dõi gửi cho [tên khách hàng]. Tóm tắt 3 điểm đã thống nhất, liệt kê việc cần làm kèm người phụ trách và thời hạn, nêu câu hỏi còn mở. Giọng văn chuyên nghiệp, thân thiện, tối đa 180 từ. Không tự thêm cam kết hoặc thông tin chưa có trong ghi chú.
+
+Ghi chú: [dán ghi chú đã được phép chia sẻ]
+```
+
+  </div>
+
+  <p slot="prepare">Xác minh tên, ngày tháng, người phụ trách và mọi cam kết với khách hàng. Xóa thông tin nhạy cảm không cần thiết khỏi bản nháp.</p>
+</CaseStudyTemplate>

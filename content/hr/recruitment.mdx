@@ -1,0 +1,25 @@
+---
+title: Chuẩn bị câu hỏi phỏng vấn theo năng lực
+description: Tạo bộ câu hỏi có cấu trúc dựa trên yêu cầu của vị trí tuyển dụng.
+department: hr
+level: intermediate
+experience: copilot-chat
+---
+
+import CaseStudyTemplate from '../../src/components/CaseStudyTemplate.astro';
+
+<CaseStudyTemplate locale="vi" department="hr" level="intermediate" experience="copilot-chat">
+  <p slot="context">Nhóm tuyển dụng cần chuẩn bị bộ câu hỏi nhất quán cho một vị trí, bám sát tiêu chí đã thống nhất.</p>
+
+  <p slot="outcome">Tạo bản nháp câu hỏi có thể rà soát, tránh câu hỏi ngoài phạm vi công việc hoặc không liên quan năng lực.</p>
+
+  <div slot="prompt">
+
+```text title="Prompt chuẩn bị phỏng vấn"
+Dựa trên mô tả công việc và bộ năng lực đính kèm, đề xuất 8 câu hỏi phỏng vấn có cấu trúc cho vị trí [tên vị trí]. Với mỗi câu hỏi, nêu năng lực cần đánh giá và dấu hiệu của một câu trả lời có bằng chứng. Không đặt câu hỏi về đặc điểm cá nhân được bảo vệ hoặc thông tin không liên quan đến công việc. Đánh dấu tiêu chí còn mơ hồ để nhóm tuyển dụng xác nhận.
+```
+
+  </div>
+
+  <p slot="prepare"><strong>Lưu ý.</strong> Nhóm tuyển dụng cần rà soát câu hỏi theo chính sách tuyển dụng và quy định pháp luật áp dụng trước khi sử dụng.</p>
+</CaseStudyTemplate>

@@ -1,0 +1,191 @@
+---
+const { locale = 'vi' } = Astro.props;
+const isEnglish = locale === 'en';
+const language = isEnglish ? 'en' : 'vi';
+const quickWins = [
+  {
+    app: 'Outlook',
+    title: { vi: 'Sắp lịch họp tránh trùng', en: 'Schedule a meeting without conflicts' },
+    prompt: {
+      vi: 'Đặt một cuộc họp với /người vào [khung thời gian] để trao đổi về [chủ đề]. Ưu tiên [buổi trong ngày] và thêm phòng họp giúp tôi.',
+      en: 'Schedule a meeting with /person during [time range] to discuss [topic]. Prefer [time of day] and add a meeting room.',
+    },
+  },
+  {
+    app: 'Outlook',
+    title: { vi: 'Chuẩn bị trước cuộc họp', en: 'Prepare for an upcoming meeting' },
+    prompt: {
+      vi: 'Hình như tôi sắp có cuộc họp với /người. Nội dung chương trình họp là gì, và cuộc họp kế tiếp diễn ra khi nào?',
+      en: 'I think I have a meeting coming up with /person. What is on the agenda, and when is my next meeting?',
+    },
+  },
+  {
+    app: 'Copilot Chat',
+    title: { vi: 'Luyện phần trình bày', en: 'Practice a presentation' },
+    prompt: {
+      vi: 'Copilot ơi, tôi muốn luyện phần trình bày bán hàng. Tôi sẽ nói ra thành tiếng, sau đó góp ý giúp tôi cách nói cô đọng hơn nhé.',
+      en: 'Copilot, I want to practice my sales presentation. I will speak out loud, then give me feedback on how to make it more concise.',
+    },
+  },
+  {
+    app: 'Teams',
+    title: { vi: 'Chuẩn bị cho cuộc họp', en: 'Prepare for a meeting' },
+    prompt: {
+      vi: 'Soạn giúp tôi các ý trả lời cho những câu hỏi còn bỏ ngỏ trong email này, dựa trên phản hồi từ /chuỗi cuộc họp.',
+      en: 'Draft talking points to answer the unanswered questions in this email, based on feedback from /meeting thread.',
+    },
+  },
+  {
+    app: 'Teams',
+    title: { vi: 'Bám sát ưu tiên của lãnh đạo', en: 'Align with leadership priorities' },
+    prompt: {
+      vi: 'Gợi ý thêm cho tôi vài hướng tiếp cận từ /cuộc họp, dựa trên những điều mà quản lý của tôi quan tâm.',
+      en: 'Suggest a few more approaches based on /meeting, taking into account what my manager cares about.',
+    },
+  },
+  {
+    app: 'SharePoint',
+    title: { vi: 'Tạo thư viện tài liệu', en: 'Create a document library' },
+    prompt: {
+      vi: 'Tạo một thư viện tài liệu cho [chương trình hoặc dự án]. Bao gồm các cột: loại tài liệu, mảng sản phẩm, người phụ trách, trạng thái duyệt, ngày phát hành, kênh và khu vực. Tạo các view "Đến hạn tuần này", "Chờ pháp lý duyệt" và "Sẵn sàng phát hành".',
+      en: 'Create a document library for [initiative or project]. Include columns for document type, product area, owner, approval status, release date, channel, and region. Create views for "Due this week", "Pending legal approval", and "Ready to release".',
+    },
+  },
+  {
+    app: 'Word',
+    title: { vi: 'Cập nhật báo cáo tiến độ', en: 'Update a status report' },
+    prompt: {
+      vi: 'Cập nhật tài liệu này với thông tin mới nhất từ email và chat Teams của tôi với quản lý. Giữ nguyên cấu trúc và thêm mục Kết quả chính / Rủi ro / Bước tiếp theo.',
+      en: 'Update this document with the latest information from my emails and Teams chats with my manager. Keep the structure and add sections for Key results / Risks / Next steps.',
+    },
+  },
+  {
+    app: 'PowerPoint',
+    title: { vi: 'Soạn bản cập nhật dự án', en: 'Draft a project update' },
+    prompt: {
+      vi: 'Tạo một bản trình bày PowerPoint sẵn sàng cho lãnh đạo, tóm tắt tình hình hiện tại của [Tên dự án]: việc gì đang tiến triển tốt, việc gì đang vướng, và việc gì cần lưu ý tiếp theo. Bản này dùng cho buổi review sản phẩm quý tới, nên hãy tập trung vào các cập nhật quan trọng của quý vừa rồi.',
+      en: 'Create an executive-ready PowerPoint update on [Project name]: what is going well, what is blocked, and what to watch next. This is for the upcoming quarterly product review, so focus on important updates from the last quarter.',
+    },
+  },
+  {
+    app: 'Excel',
+    title: { vi: 'Trực quan hóa insight khách hàng', en: 'Visualize customer insights' },
+    prompt: {
+      vi: '[Dùng tập dữ liệu sẵn có] Phân tích dữ liệu khách hàng từ file tôi vừa đính kèm trong email, nhóm các khách hàng theo hành vi tương đồng (clustering). Tạo một bảng tóm tắt và các biểu đồ thể hiện đặc điểm chính của từng nhóm.',
+      en: '[Use an existing dataset] Analyze the customer data in the file I just attached to an email. Group customers by similar behavior (clustering), then create a summary table and charts showing the main characteristics of each group.',
+    },
+  },
+  {
+    app: 'Excel',
+    title: { vi: 'Trích xuất và trực quan hóa dữ liệu', en: 'Extract and visualize data' },
+    prompt: {
+      vi: '[Dùng tập dữ liệu sẵn có] Tạo một sheet "Bản đồ nhiệt Doanh thu" với pivot table tóm tắt doanh thu theo Khu vực × Ngành. Thêm biểu đồ nhiệt bằng định dạng có điều kiện dạng thang màu, một bảng top 10 và một biểu đồ để tóm tắt insight.',
+      en: '[Use an existing dataset] Create a "Revenue Heatmap" sheet with a pivot table summarizing revenue by Region × Industry. Add a heatmap using color-scale conditional formatting, a top 10 table, and a chart summarizing the insights.',
+    },
+  },
+];
+const labels = isEnglish
+  ? { eyebrow: 'QUICK WINS', title: '10 prompts to try with Microsoft 365 Copilot', intro: 'Choose a prompt, replace /references and [placeholders] with your context, then review the result before using it.', copy: 'Copy prompt', copied: 'Copied', legend: '/ references work content; [ ] marks details to fill in.' }
+  : { eyebrow: 'QUICK WINS', title: '10 prompt có thể thử với Microsoft 365 Copilot', intro: 'Chọn prompt, thay /tham chiếu và [chỗ điền] theo nhu cầu, sau đó rà soát kết quả trước khi sử dụng.', copy: 'Sao chép prompt', copied: 'Đã sao chép', legend: '/ là nội dung công việc được tham chiếu; [ ] là thông tin cần tự điền.' };
+---
+
+<main class="quickwins" data-quickwins data-copy-label={labels.copy} data-copied-label={labels.copied}>
+  <header class="quickwins-head">
+    <div>
+      <p class="eyebrow">{labels.eyebrow}</p>
+      <h1>{labels.title}</h1>
+      <p>{labels.intro}</p>
+    </div>
+    <strong class="count">10<span>{isEnglish ? 'prompts' : 'prompt'}</span></strong>
+  </header>
+  <p class="legend">{labels.legend}</p>
+
+  <div class="prompt-grid">
+    {quickWins.map((item, index) => (
+      <article class="prompt-card">
+        <div class="prompt-top"><span class="rank">{String(index + 1).padStart(2, '0')}</span><span class="app-name">{item.app}</span></div>
+        <h2>{item.title[language]}</h2>
+        <p class="prompt-text" data-prompt>{item.prompt[language]}</p>
+        <button type="button" class="copy-button" data-copy-button>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"></path></svg>
+          <span>{labels.copy}</span>
+        </button>
+      </article>
+    ))}
+  </div>
+  <span class="copy-status" role="status" aria-live="polite" data-copy-status></span>
+</main>
+
+<script>
+  const quickWins = document.querySelector('[data-quickwins]');
+
+  if (quickWins instanceof HTMLElement) {
+    quickWins.querySelectorAll('[data-copy-button]').forEach((button) => {
+      const card = button.closest('.prompt-card');
+      const prompt = card?.querySelector('[data-prompt]');
+      const label = button.querySelector('span');
+      const status = quickWins.querySelector('[data-copy-status]');
+
+      if (!(button instanceof HTMLButtonElement)
+        || !(prompt instanceof HTMLElement)
+        || !(label instanceof HTMLSpanElement)
+        || !(status instanceof HTMLElement)) return;
+
+      button.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(prompt.textContent ?? '');
+          const copied = quickWins.dataset.copiedLabel ?? 'Copied';
+          label.textContent = copied;
+          status.textContent = copied;
+          window.setTimeout(() => {
+            label.textContent = quickWins.dataset.copyLabel ?? 'Copy prompt';
+            status.textContent = '';
+          }, 1800);
+        } catch {
+          status.textContent = prompt.textContent ?? '';
+        }
+      });
+    });
+  }
+</script>
+
+<style>
+  .quickwins {
+    --quick-ink: #19313a;
+    --quick-muted: #536970;
+    --quick-line: #d8e3e5;
+    --quick-surface: #fff;
+    --quick-wash: #f3f8f8;
+    --quick-blue: #0878c9;
+    --quick-teal: #087e78;
+    width: 100%;
+    max-width: var(--cp-content-width, 72rem);
+    margin: 2rem auto 3rem;
+    color: var(--quick-ink);
+  }
+  .quickwins-head { display: flex; align-items: end; justify-content: space-between; gap: 2rem; }
+  .eyebrow { margin: 0 0 .55rem; color: var(--quick-teal); font-size: .72rem; font-weight: 800; letter-spacing: .12em; }
+  .quickwins-head h1 { max-width: 24ch; margin: 0; color: var(--quick-ink); font-size: 2rem; line-height: 1.15; }
+  .quickwins-head p:not(.eyebrow) { max-width: 68ch; margin: .7rem 0 0; color: var(--quick-muted); line-height: 1.6; }
+  .count { display: grid; min-width: 84px; padding: .7rem .8rem; border-inline-start: 3px solid var(--quick-teal); background: var(--quick-wash); color: var(--quick-blue); font-size: 1.5rem; line-height: 1.05; }
+  .count span { margin-block-start: .25rem; color: var(--quick-muted); font-size: .72rem; font-weight: 500; }
+  .legend { display: inline-block; margin: 1.2rem 0; padding: .5rem .75rem; border: 1px solid var(--quick-line); background: var(--quick-wash); color: var(--quick-muted); font-size: .76rem; }
+  .prompt-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+  .prompt-card { display: flex; min-width: 0; flex-direction: column; padding: .95rem 1rem; border: 1px solid var(--quick-line); background: var(--quick-surface); }
+  .prompt-top { display: flex; align-items: center; justify-content: space-between; gap: .6rem; }
+  .rank { color: var(--quick-teal); font-size: .75rem; font-weight: 850; }
+  .app-name { color: var(--quick-muted); font-size: .7rem; font-weight: 750; }
+  .prompt-card h2 { margin: .55rem 0 .45rem; color: var(--quick-ink); font-size: 1rem; line-height: 1.35; }
+  .prompt-text { flex: 1; margin: 0; padding: .75rem; background: var(--quick-wash); color: var(--quick-ink); font-size: .82rem; line-height: 1.55; white-space: pre-wrap; }
+  .copy-button { display: inline-flex; align-self: flex-start; align-items: center; gap: .4rem; min-height: 34px; margin-block-start: .65rem; padding: .35rem .55rem; border: 1px solid var(--quick-line); background: var(--quick-surface); color: var(--quick-blue); font: inherit; font-size: .75rem; font-weight: 750; cursor: pointer; }
+  .copy-button:hover { border-color: var(--quick-blue); }
+  .copy-button svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+  .copy-status { display: block; min-height: 1.25rem; margin-block-start: .4rem; color: var(--quick-teal); font-size: .78rem; }
+  :global([data-theme='dark']) .quickwins { --quick-ink: #e4eff0; --quick-muted: #a8bec1; --quick-line: #3a5358; --quick-surface: #1d3034; --quick-wash: #253a3e; --quick-blue: #73c5f2; --quick-teal: #68d0c0; }
+  @media (max-width: 680px) {
+    .quickwins-head { align-items: start; gap: .8rem; }
+    .quickwins-head h1 { font-size: 1.65rem; }
+    .count { min-width: 70px; }
+    .prompt-grid { grid-template-columns: 1fr; }
+  }
+</style>

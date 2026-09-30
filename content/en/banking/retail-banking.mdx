@@ -1,0 +1,25 @@
+---
+title: Retail Banking Market Research
+description: Synthesize opportunities, competitors, and trends for a retail banking product.
+department: banking
+level: intermediate
+experience: researcher
+---
+
+import CaseStudyTemplate from '../../../src/components/CaseStudyTemplate.astro';
+
+<CaseStudyTemplate locale="en" department="banking" level="intermediate" experience="researcher">
+  <p slot="context">The product team needs a market briefing before proposing improvements to a retail banking product.</p>
+
+  <p slot="outcome">Create a cited, multi-source summary that separates verified facts from hypotheses to validate.</p>
+
+  <div slot="prompt">
+
+```text title="Market research prompt"
+Research retail banking trends in [market] during [period]. Summarize market size and drivers when reliable sources are available, three notable competitors, customer needs, opportunities, and risks. Prioritize official sources and internal documents I can access. Cite each finding, include publication dates, and flag information you could not verify.
+```
+
+  </div>
+
+  <p slot="prepare"><strong>Before using.</strong> Do not include customer-identifying information in research requests. Check source quality, recency, and scope before sharing results.</p>
+</CaseStudyTemplate>

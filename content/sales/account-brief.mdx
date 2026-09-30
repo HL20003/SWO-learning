@@ -1,0 +1,25 @@
+---
+title: Chuẩn bị bản tóm tắt khách hàng
+description: Tổng hợp bối cảnh tài khoản và lịch sử trao đổi từ nguồn được phép truy cập.
+department: sales
+level: advanced
+experience: researcher
+---
+
+import CaseStudyTemplate from '../../src/components/CaseStudyTemplate.astro';
+
+<CaseStudyTemplate locale="vi" department="sales" level="advanced" experience="researcher">
+  <p slot="context">Trước cuộc gặp với một khách hàng hiện hữu, nhóm bán hàng cần xem lại bối cảnh tài khoản, trao đổi gần đây và các chủ đề còn mở.</p>
+
+  <p slot="outcome">Chuẩn bị cuộc gặp nhanh hơn với bản tóm tắt có nguồn trích dẫn và danh sách điểm cần xác minh.</p>
+
+  <div slot="prompt">
+
+```text title="Prompt chuẩn bị bản tóm tắt tài khoản"
+Tạo bản tóm tắt trước cuộc gặp với [tên tài khoản] từ các nguồn công việc mà tôi được phép truy cập. Bao gồm bối cảnh tài khoản, trao đổi gần đây, việc đã thống nhất, chủ đề còn mở và câu hỏi gợi ý cho cuộc gặp. Ghi nguồn và ngày cho từng thông tin; phân biệt dữ kiện với suy luận; không đưa thông tin không liên quan hoặc nhạy cảm vào bản tóm tắt.
+```
+
+  </div>
+
+  <p slot="prepare"><strong>Lưu ý.</strong> Chỉ truy cập tài liệu nằm trong phạm vi quyền của bạn. Xác nhận các điểm quan trọng với chủ tài khoản trước khi trình bày.</p>
+</CaseStudyTemplate>

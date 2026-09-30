@@ -1,0 +1,27 @@
+---
+title: Draft a Customer Follow-Up Email
+description: Recap a meeting, confirm actions, and prepare a follow-up email.
+department: sales
+level: beginner
+experience: copilot-chat
+---
+
+import CaseStudyTemplate from '../../../src/components/CaseStudyTemplate.astro';
+
+<CaseStudyTemplate locale="en" department="sales" level="beginner" experience="copilot-chat">
+  <p slot="context">After a meeting, a sales representative needs to recap the discussion and confirm next steps with a customer.</p>
+
+  <p slot="outcome">Spend less time drafting while keeping the message clear and consistent with the discussion.</p>
+
+  <div slot="prompt">
+
+```text title="Customer follow-up prompt"
+Using the meeting notes below, draft a follow-up email to [customer name]. Recap three agreed points, list actions with owners and due dates, and call out open questions. Keep it professional, warm, and under 180 words. Do not add commitments or information that is not in the notes.
+
+Notes: [paste notes approved for sharing]
+```
+
+  </div>
+
+  <p slot="prepare">Verify names, dates, owners, and every customer commitment. Remove sensitive information that is not needed in the draft.</p>
+</CaseStudyTemplate>

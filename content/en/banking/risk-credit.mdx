@@ -1,0 +1,25 @@
+---
+title: Review a Credit Risk File
+description: Summarize authorized file information and highlight items for specialist review.
+department: banking
+level: advanced
+experience: analyst
+---
+
+import CaseStudyTemplate from '../../../src/components/CaseStudyTemplate.astro';
+
+<CaseStudyTemplate locale="en" department="banking" level="advanced" experience="analyst">
+  <p slot="context">A specialist needs to review an authorized credit file and prepare questions for the next assessment step.</p>
+
+  <p slot="outcome">Organize information, surface data gaps, and reduce preparation time. The output supports review; it does not replace a credit decision.</p>
+
+  <div slot="prompt">
+
+```text title="Credit file review prompt"
+Using the supplied documents, create a table of reported financial information, reporting period, source document, notable movement, and items for a specialist to verify. Do not infer missing data, calculate a credit score, or make an approval decision. End with clarification questions for the responsible specialist.
+```
+
+  </div>
+
+  <p slot="prepare"><strong>Caution.</strong> Use only in an organization-approved environment. Follow current privacy, access-control, and credit-assessment policies.</p>
+</CaseStudyTemplate>

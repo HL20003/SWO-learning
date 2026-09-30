@@ -1,0 +1,37 @@
+---
+const isEnglish = Astro.url.pathname.startsWith('/en/');
+const year = new Date().getFullYear();
+---
+
+<footer class="softwareone-footer">
+  <div class="footer-brand">
+    <span class="brand-mark" aria-hidden="true">S</span>
+    <div class="brand-copy">
+      <strong>SoftwareOne Learning M365 Copilot</strong>
+      <span>{isEnglish ? 'Learning resources by SoftwareOne' : 'Tài nguyên học tập từ SoftwareOne'}</span>
+    </div>
+  </div>
+  <span class="footer-copyright">© {year} SoftwareOne</span>
+</footer>
+
+<style>
+  .softwareone-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-block-start: 2rem;
+    padding-block: 1rem;
+    border-block-start: 1px solid var(--cp-border, #d7e2df);
+    background: var(--cp-surface, #ffffff);
+    color: var(--cp-text-muted, #52666b);
+  }
+  .footer-brand { display: flex; align-items: center; gap: .65rem; }
+  .brand-mark { display: grid; width: 32px; height: 32px; place-items: center; background: var(--cp-accent, #087e88); color: var(--cp-accent-fg, #fff); font-size: .9rem; font-weight: 850; }
+  .brand-copy { display: grid; gap: .12rem; }
+  .brand-copy strong { color: var(--cp-text, #172f33); font-size: .86rem; }
+  .brand-copy span, .footer-copyright { font-size: .7rem; }
+  @media (max-width: 520px) {
+    .softwareone-footer { align-items: flex-start; flex-direction: column; }
+  }
+</style>

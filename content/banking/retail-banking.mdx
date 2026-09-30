@@ -1,0 +1,25 @@
+---
+title: Nghiên cứu thị trường bán lẻ
+description: Tổng hợp cơ hội, đối thủ và xu hướng cho sản phẩm ngân hàng bán lẻ.
+department: banking
+level: intermediate
+experience: researcher
+---
+
+import CaseStudyTemplate from '../../src/components/CaseStudyTemplate.astro';
+
+<CaseStudyTemplate locale="vi" department="banking" level="intermediate" experience="researcher">
+  <p slot="context">Nhóm sản phẩm cần chuẩn bị báo cáo thị trường trước khi đề xuất cải tiến một sản phẩm ngân hàng bán lẻ.</p>
+
+  <p slot="outcome">Tạo bản tổng hợp đa nguồn có dẫn chứng, tách biệt dữ kiện đã xác minh với giả thuyết cần kiểm tra.</p>
+
+  <div slot="prompt">
+
+```text title="Prompt nghiên cứu thị trường"
+Nghiên cứu xu hướng thị trường ngân hàng bán lẻ tại [thị trường] trong [giai đoạn]. Tóm tắt quy mô và động lực thị trường nếu có nguồn đáng tin cậy, 3 đối thủ tiêu biểu, nhu cầu khách hàng, cơ hội và rủi ro. Ưu tiên nguồn chính thức và tài liệu nội bộ được phép truy cập. Trích dẫn nguồn cho từng nhận định, ghi ngày xuất bản và đánh dấu thông tin chưa thể xác minh.
+```
+
+  </div>
+
+  <p slot="prepare"><strong>Lưu ý.</strong> Không đưa thông tin nhận dạng khách hàng vào yêu cầu nghiên cứu. Kiểm tra nguồn, thời điểm và phạm vi áp dụng trước khi chia sẻ kết quả.</p>
+</CaseStudyTemplate>

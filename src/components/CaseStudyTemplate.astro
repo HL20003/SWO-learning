@@ -1,0 +1,169 @@
+---
+interface Props {
+  locale?: 'vi' | 'en';
+  department: 'banking' | 'hr' | 'sales';
+  level: 'beginner' | 'intermediate' | 'advanced';
+  experience: 'copilot-chat' | 'researcher' | 'analyst';
+}
+
+const { locale = 'vi', department, level, experience } = Astro.props;
+const metadata = locale === 'en'
+  ? {
+      department: { banking: 'Banking', hr: 'Human Resources', sales: 'Sales' },
+      level: { beginner: 'Beginner', intermediate: 'Intermediate', advanced: 'Advanced' },
+      experience: { 'copilot-chat': 'Copilot Chat', researcher: 'Researcher', analyst: 'Analyst' },
+    }
+  : {
+      department: { banking: 'Ngân hàng', hr: 'Nhân sự', sales: 'Bán hàng' },
+      level: { beginner: 'Cơ bản', intermediate: 'Trung cấp', advanced: 'Nâng cao' },
+      experience: { 'copilot-chat': 'Copilot Chat', researcher: 'Researcher', analyst: 'Analyst' },
+    };
+const copy = locale === 'en'
+  ? {
+      context: 'Scenario',
+      outcome: 'Expected outcome',
+      prompt: 'Sample prompt',
+      promptHint: 'Copy the prompt and replace the bracketed details with your context.',
+      prepare: 'Before you use it',
+      department: 'Department',
+      level: 'Level',
+      experience: 'Experience',
+    }
+  : {
+      context: 'Tình huống',
+      outcome: 'Kết quả kỳ vọng',
+      prompt: 'Prompt mẫu',
+      promptHint: 'Sao chép prompt và thay thông tin trong ngoặc vuông bằng bối cảnh của bạn.',
+      prepare: 'Điều chỉnh trước khi dùng',
+      department: 'Phòng ban',
+      level: 'Mức độ',
+      experience: 'Trải nghiệm',
+    };
+---
+
+<article class="case-study">
+  <ul class="case-meta" aria-label={locale === 'en' ? 'Use case details' : 'Thông tin tình huống'}>
+    <li><span>{copy.department}</span><strong>{metadata.department[department]}</strong></li>
+    <li><span>{copy.level}</span><strong>{metadata.level[level]}</strong></li>
+    <li><span>{copy.experience}</span><strong>{metadata.experience[experience]}</strong></li>
+  </ul>
+
+  <div class="case-overview">
+    <section class="overview-section" aria-labelledby="case-context-title">
+      <p class="section-index">01</p>
+      <h2 id="case-context-title">{copy.context}</h2>
+      <slot name="context" />
+    </section>
+    <section class="overview-section outcome-section" aria-labelledby="case-outcome-title">
+      <p class="section-index">02</p>
+      <h2 id="case-outcome-title">{copy.outcome}</h2>
+      <slot name="outcome" />
+    </section>
+  </div>
+
+  <section class="prompt-section" aria-labelledby="case-prompt-title">
+    <div class="prompt-heading">
+      <p class="section-index">03</p>
+      <div>
+        <p class="prompt-eyebrow">{locale === 'en' ? 'START HERE' : 'BẮT ĐẦU TỪ ĐÂY'}</p>
+        <h2 id="case-prompt-title">{copy.prompt}</h2>
+        <p class="prompt-hint">{copy.promptHint}</p>
+      </div>
+    </div>
+    <div class="prompt-content"><slot name="prompt" /></div>
+  </section>
+
+  <section class="prepare-section" aria-labelledby="case-prepare-title">
+    <p class="section-index">04</p>
+    <div>
+      <h2 id="case-prepare-title">{copy.prepare}</h2>
+      <slot name="prepare" />
+    </div>
+  </section>
+</article>
+
+<style>
+  .case-study {
+    --case-ink: #111;
+    --case-muted: #5b5b5b;
+    --case-line: #d8d8d8;
+    --case-soft: #f4f4f4;
+    margin-block: 1.5rem 3rem;
+    color: var(--case-ink);
+  }
+
+  .case-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin: 0 0 1.5rem;
+    padding: 0 0 1.2rem;
+    border-block-end: 1px solid var(--case-line);
+    list-style: none;
+  }
+
+  .case-meta li {
+    display: grid;
+    gap: .2rem;
+    min-width: 110px;
+    padding-inline-end: 1rem;
+    border-inline-end: 1px solid var(--case-line);
+  }
+
+  .case-meta li:last-child { border: 0; }
+  .case-meta span, .section-index, .prompt-eyebrow { color: var(--case-muted); font-size: .68rem; font-weight: 750; }
+  .case-meta span { text-transform: uppercase; }
+  .case-meta strong { font-size: .82rem; font-weight: 700; }
+
+  .case-overview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-block-end: 1px solid var(--case-line);
+  }
+
+  .overview-section { padding: .25rem 1.5rem 1.5rem 0; }
+  .outcome-section { padding-inline: 1.5rem 0; border-inline-start: 1px solid var(--case-line); }
+  .section-index { margin: 0 0 .6rem; }
+  .overview-section h2, .prompt-section h2, .prepare-section h2 { margin: 0; color: var(--case-ink); font-size: 1.12rem; line-height: 1.3; }
+  .overview-section :global(p:last-child), .prepare-section :global(p:last-child) { margin-block-end: 0; }
+  .overview-section :global(p:not(.section-index)), .prepare-section :global(p:not(.section-index)) { color: var(--case-muted); line-height: 1.65; }
+
+  .prompt-section {
+    margin-block: 1.1rem;
+    padding: .8rem;
+    border: 1px solid var(--case-line);
+    border-inline-start: 4px solid var(--case-ink);
+    border-radius: 8px;
+    background: var(--case-soft);
+  }
+
+  .prompt-heading { display: flex; gap: .75rem; margin-block-end: .55rem; }
+  .prompt-heading .section-index { flex: none; margin-block: .25rem 0; }
+  .prompt-eyebrow { margin: 0 0 .15rem; font-size: .62rem; }
+  .prompt-hint { margin: .2rem 0 0; color: var(--case-muted); font-size: .76rem; line-height: 1.4; }
+  .prompt-content :global(figure) { margin: 0; }
+  .prompt-content :global(figcaption) { display: inline-flex !important; width: fit-content; max-width: 100%; margin-block-end: .45rem; padding: .35rem .7rem; border: 1px solid var(--case-line) !important; border-radius: 999px !important; background: var(--case-surface); line-height: 1.3; }
+  .prompt-content :global(.expressive-code .frame.has-title:not(.is-terminal) .title::after) { display: none; }
+  .prompt-content :global(pre) { max-height: none; margin: 0 !important; padding: .65rem .85rem !important; overflow-wrap: anywhere; border: 1px solid var(--case-line) !important; border-radius: 12px !important; font-size: .82rem; line-height: 1.5; white-space: pre-wrap !important; }
+  .prompt-content :global(.ec-line), .prompt-content :global(.code) { white-space: pre-wrap !important; overflow-wrap: anywhere; }
+
+  .prepare-section { display: grid; grid-template-columns: 2rem 1fr; gap: .75rem; padding-block: .3rem; }
+  .prepare-section .section-index { margin-block: .25rem 0; }
+  .prepare-section h2 { font-size: 1rem; }
+
+  @media (max-width: 600px) {
+    .case-meta { gap: .75rem .4rem; }
+    .case-meta li { min-width: 0; padding-inline-end: .65rem; }
+    .case-overview { grid-template-columns: 1fr; }
+    .overview-section { padding: .25rem 0 1.1rem; }
+    .outcome-section { padding: 1rem 0 1.1rem; border-block-start: 1px solid var(--case-line); border-inline-start: 0; }
+    .prompt-section { margin-inline: -.25rem; padding: 1rem; }
+  }
+
+  :global([data-theme='dark']) .case-study {
+    --case-ink: #f5f5f5;
+    --case-muted: #bdbdbd;
+    --case-line: #484848;
+    --case-soft: #1f1f1f;
+  }
+</style>

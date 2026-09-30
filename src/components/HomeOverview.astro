@@ -1,0 +1,205 @@
+---
+import { getCollection } from 'astro:content';
+
+const { locale = 'vi' } = Astro.props;
+const isEnglish = locale === 'en';
+const entries = await getCollection('docs');
+const cases = entries.filter(({ id, data }) => Boolean(data.department) && (isEnglish ? id.startsWith('en/') : !id.startsWith('en/')));
+const departmentCounts = ['banking', 'hr', 'sales'].map((department) => ({
+  key: department,
+  count: cases.filter(({ data }) => data.department === department).length,
+}));
+const copy = isEnglish
+  ? {
+      eyebrow: 'MICROSOFT 365 COPILOT',
+      title: 'Turn everyday work into a better workflow.',
+      intro: 'A practical library for finding the right Copilot experience, starting with a useful prompt, and learning what works for your team.',
+      library: 'Explore use cases',
+      quick: 'Try a Quick Win',
+      imageAlt: 'Microsoft Planner task board shown in the Copilot reference library',
+      imageCaption: 'Plan work, clarify ownership, and keep the next step visible.',
+      collection: 'THE LIBRARY',
+      browseTitle: 'Start with the work in front of you',
+      browseIntro: 'Choose a route into the library. Every scenario opens with its context, expected outcome, and a prompt to adapt.',
+      department: 'Use cases by department',
+      chat: 'Copilot Chat',
+      chatDesc: 'Summarize, draft, and prepare next steps.',
+      quickTitle: 'Quick Wins',
+      quickDesc: 'Ten prompts from the reference library, ready to adapt.',
+      caseCount: 'use cases',
+      deptCount: 'departments',
+      promptCount: 'quick prompts',
+      departments: ['Banking', 'Human Resources', 'Sales'],
+      tools: 'EXPLORE COPILOT',
+      agents: 'Agents',
+      apps: 'Copilot in apps',
+      open: 'Open',
+    }
+  : {
+      eyebrow: 'MICROSOFT 365 COPILOT',
+      title: 'Đưa Copilot vào đúng luồng công việc.',
+      intro: 'Thư viện thực hành giúp bạn chọn trải nghiệm Copilot phù hợp, bắt đầu bằng prompt hữu ích và tìm cách áp dụng cho đội ngũ.',
+      library: 'Khám phá use case',
+      quick: 'Thử Quick Win',
+      imageAlt: 'Bảng công việc Microsoft Planner trong thư viện Copilot tham khảo',
+      imageCaption: 'Lập kế hoạch, làm rõ người phụ trách và giữ bước tiếp theo luôn rõ ràng.',
+      collection: 'THƯ VIỆN',
+      browseTitle: 'Bắt đầu từ công việc cần xử lý',
+      browseIntro: 'Chọn lối vào phù hợp. Mỗi tình huống có bối cảnh, kết quả kỳ vọng và prompt để điều chỉnh.',
+      department: 'Use case theo phòng ban',
+      chat: 'Copilot Chat',
+      chatDesc: 'Tóm tắt, soạn thảo và chuẩn bị bước tiếp theo.',
+      quickTitle: 'Quick Wins',
+      quickDesc: 'Mười prompt từ file tham khảo, sẵn sàng để điều chỉnh.',
+      caseCount: 'use case',
+      deptCount: 'phòng ban',
+      promptCount: 'prompt nhanh',
+      departments: ['Ngân hàng', 'Nhân sự', 'Bán hàng'],
+      tools: 'KHÁM PHÁ COPILOT',
+      agents: 'Agents',
+      apps: 'Copilot trong ứng dụng',
+      open: 'Mở',
+    };
+const routes = isEnglish
+  ? { library: '/en/use-cases/', quick: '/en/quick-wins/', chat: '/en/copilot-chat/', agents: '/en/agents/researcher/', apps: '/en/apps/teams/' }
+  : { library: '/use-cases/', quick: '/quick-wins/', chat: '/copilot-chat/', agents: '/agents/researcher/', apps: '/apps/teams/' };
+---
+
+<div class="home-overview">
+  <section class="home-hero" aria-labelledby="home-title">
+    <div class="hero-copy">
+      <p class="eyebrow">{copy.eyebrow}</p>
+      <h2 id="home-title">{copy.title}</h2>
+      <p class="hero-intro">{copy.intro}</p>
+      <div class="hero-actions">
+        <a class="primary-action" href={routes.library}>{copy.library}<span aria-hidden="true">→</span></a>
+        <a class="secondary-action" href={routes.quick}>{copy.quick}</a>
+      </div>
+      <div class="home-stats" aria-label={copy.collection}>
+        <div><strong>{cases.length}</strong><span>{copy.caseCount}</span></div>
+        <div><strong>{departmentCounts.length}</strong><span>{copy.deptCount}</span></div>
+        <div><strong>10</strong><span>{copy.promptCount}</span></div>
+      </div>
+    </div>
+    <figure class="hero-image">
+      <img src="/assets/copilot-planner.jpg" alt={copy.imageAlt} />
+      <figcaption><span class="image-index">01 / 03</span>{copy.imageCaption}</figcaption>
+    </figure>
+  </section>
+
+  <section class="browse-section" aria-labelledby="browse-title">
+    <header class="section-heading">
+      <div><p class="eyebrow">{copy.collection}</p><h2 id="browse-title">{copy.browseTitle}</h2></div>
+      <p>{copy.browseIntro}</p>
+    </header>
+    <div class="entry-grid">
+      <a class="entry-card entry-library" href={routes.library}>
+        <span class="entry-index">01</span>
+        <span class="entry-kicker">{copy.collection}</span>
+        <h3>{copy.library}</h3>
+        <p>{copy.browseIntro}</p>
+        <span class="entry-link">{copy.open}<span aria-hidden="true">↗</span></span>
+      </a>
+      <a class="entry-card entry-quick" href={routes.quick}>
+        <span class="entry-index">02</span>
+        <span class="entry-kicker">10 PROMPTS</span>
+        <h3>{copy.quickTitle}</h3>
+        <p>{copy.quickDesc}</p>
+        <span class="entry-link">{copy.open}<span aria-hidden="true">↗</span></span>
+      </a>
+      <a class="entry-card entry-chat" href={routes.chat}>
+        <span class="entry-index">03</span>
+        <span class="entry-kicker">CHAT</span>
+        <h3>{copy.chat}</h3>
+        <p>{copy.chatDesc}</p>
+        <span class="entry-link">{copy.open}<span aria-hidden="true">↗</span></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="department-strip" aria-label={copy.department}>
+    <span class="strip-label">{copy.tools}</span>
+    <div class="strip-links">
+      <a href={`${routes.library}?department=banking`}>{copy.departments[0]} <span>{departmentCounts[0].count}</span></a>
+      <a href={`${routes.library}?department=hr`}>{copy.departments[1]} <span>{departmentCounts[1].count}</span></a>
+      <a href={`${routes.library}?department=sales`}>{copy.departments[2]} <span>{departmentCounts[2].count}</span></a>
+      <a href={routes.agents}>{copy.agents}<span>04</span></a>
+      <a href={routes.apps}>{copy.apps}<span>10</span></a>
+    </div>
+  </section>
+</div>
+
+<style>
+  .home-overview {
+    --home-ink: #111111;
+    --home-muted: #5b5b5b;
+    --home-line: #d8d8d8;
+    --home-surface: #fff;
+    --home-soft: #f4f4f4;
+    --home-inverse: #fff;
+    width: 100%;
+    max-width: var(--cp-content-width, 72rem);
+    margin-inline: auto;
+    color: var(--home-ink);
+  }
+  .home-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, .84fr); align-items: center; gap: clamp(1.4rem, 3vw, 3rem); padding-block: 1.2rem 2rem; border-block-end: 1px solid var(--home-ink); }
+  .hero-copy { min-width: 0; }
+  .eyebrow { margin: 0 0 .65rem; color: var(--home-muted); font-size: .68rem; font-weight: 800; letter-spacing: 0; }
+  .hero-copy h2 { max-width: 15ch; margin: 0; color: var(--home-ink); font-size: 3.25rem; line-height: 1.04; }
+  .hero-intro { max-width: 58ch; margin: .9rem 0 0; color: var(--home-muted); font-size: .95rem; line-height: 1.65; }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin-block-start: 1.1rem; }
+  .primary-action, .secondary-action { display: inline-flex; min-height: 42px; align-items: center; justify-content: center; gap: .65rem; padding: .6rem .9rem; font-size: .8rem; font-weight: 750; text-decoration: none; transition: background-color .18s ease, color .18s ease, border-color .18s ease; }
+  .primary-action { background: var(--home-ink); color: var(--home-inverse); }
+  .primary-action:hover { background: var(--home-muted); color: var(--home-inverse); text-decoration: none; }
+  .secondary-action { border: 1px solid var(--home-line); color: var(--home-ink); }
+  .secondary-action:hover { border-color: var(--home-ink); background: var(--home-soft); color: var(--home-ink); text-decoration: none; }
+  .primary-action:focus-visible, .secondary-action:focus-visible, .entry-card:focus-visible, .strip-links a:focus-visible { outline: 2px solid var(--home-ink); outline-offset: 3px; }
+  .home-stats { display: flex; flex-wrap: wrap; gap: 0; margin-block-start: 1.5rem; border-block-start: 1px solid var(--home-line); }
+  .home-stats div { display: grid; gap: .2rem; min-width: 92px; padding: .75rem 1rem .2rem 0; }
+  .home-stats strong { color: var(--home-ink); font-size: 1.3rem; line-height: 1; }
+  .home-stats span { color: var(--home-muted); font-size: .68rem; }
+  .hero-image { min-width: 0; margin: 0; }
+  .hero-image img { display: block; width: 100%; aspect-ratio: 1.32; object-fit: cover; object-position: center; border: 1px solid var(--home-line); filter: grayscale(100%); }
+  .hero-image figcaption { display: flex; align-items: baseline; gap: .6rem; margin-block-start: .5rem; color: var(--home-muted); font-size: .7rem; line-height: 1.4; }
+  .image-index { flex: none; color: var(--home-ink); font-size: .64rem; font-weight: 800; }
+  .browse-section { padding-block: 1.75rem 1.5rem; }
+  .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 1.5rem; margin-block-end: 1rem; }
+  .section-heading .eyebrow { margin-block-end: .35rem; }
+  .section-heading h2 { margin: 0; color: var(--home-ink); font-size: 1.4rem; line-height: 1.2; }
+  .section-heading > p { max-width: 48ch; margin: 0; color: var(--home-muted); font-size: .78rem; line-height: 1.5; }
+  .entry-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .65rem; }
+  .entry-card { position: relative; display: flex; min-width: 0; min-height: 184px; flex-direction: column; padding: 1rem; border: 1px solid var(--home-line); background: var(--home-surface); color: inherit; text-decoration: none; transition: background-color .18s ease, border-color .18s ease, color .18s ease, transform .18s ease; }
+  .entry-card:hover { transform: translateY(-3px); border-color: var(--home-ink); background: var(--home-ink); color: var(--home-inverse); text-decoration: none; }
+  .entry-index { position: absolute; inset-block-start: 1rem; inset-inline-end: 1rem; color: var(--home-muted); font-size: .68rem; font-weight: 750; }
+  .entry-kicker { max-width: calc(100% - 2rem); min-height: 1.6em; color: var(--home-muted); font-size: .62rem; font-weight: 750; letter-spacing: 0; }
+  .entry-card h3 { margin: .65rem 0 .3rem; color: var(--home-ink); font-size: .95rem; line-height: 1.25; }
+  .entry-card p { margin: 0 0 .7rem; color: var(--home-muted); font-size: .72rem; line-height: 1.5; }
+  .entry-link { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-block-start: auto; padding-block-start: .55rem; border-block-start: 1px solid var(--home-line); color: var(--home-ink); font-size: .7rem; font-weight: 750; }
+  .entry-card:hover .entry-index, .entry-card:hover .entry-kicker, .entry-card:hover h3, .entry-card:hover p, .entry-card:hover .entry-link { color: var(--home-inverse); }
+  .entry-card:hover .entry-link { border-color: rgb(255 255 255 / 45%); }
+  .department-strip { display: grid; grid-template-columns: 145px 1fr; align-items: center; gap: .6rem; padding-block: .9rem; border-block: 1px solid var(--home-line); }
+  .strip-label { color: var(--home-muted); font-size: .62rem; font-weight: 800; letter-spacing: 0; }
+  .strip-links { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem 1rem; }
+  .strip-links a { display: inline-flex; align-items: center; gap: .35rem; color: var(--home-ink); font-size: .72rem; font-weight: 700; text-decoration: none; }
+  .strip-links a:hover { text-decoration: underline; text-underline-offset: .2em; }
+  .strip-links span { color: var(--home-muted); font-size: .64rem; }
+  :global([data-theme='dark']) .home-overview { --home-ink: #f5f5f5; --home-muted: #bdbdbd; --home-line: #484848; --home-surface: #171717; --home-soft: #292929; --home-inverse: #111; }
+  :global([data-theme='dark']) .entry-card:hover { background: #f5f5f5; color: #111; }
+  :global([data-theme='dark']) .entry-card:hover .entry-index, :global([data-theme='dark']) .entry-card:hover .entry-kicker, :global([data-theme='dark']) .entry-card:hover h3, :global([data-theme='dark']) .entry-card:hover p, :global([data-theme='dark']) .entry-card:hover .entry-link { color: #111; }
+  :global([data-theme='dark']) .entry-card:hover .entry-link { border-color: rgb(0 0 0 / 35%); }
+  @media (max-width: 900px) {
+    .entry-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 650px) {
+    .home-hero { grid-template-columns: 1fr; gap: 1rem; padding-block-start: .3rem; }
+    .hero-copy h2 { max-width: 19ch; font-size: 2rem; }
+    .hero-image img { aspect-ratio: 1.7; }
+    .section-heading { align-items: start; flex-direction: column; gap: .45rem; }
+    .department-strip { grid-template-columns: 1fr; }
+    .strip-links { gap: .6rem .9rem; }
+  }
+  @media (max-width: 430px) {
+    .entry-grid { grid-template-columns: 1fr; }
+    .entry-card { min-height: 140px; }
+  }
+</style>

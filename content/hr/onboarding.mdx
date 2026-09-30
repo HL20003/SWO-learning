@@ -1,0 +1,25 @@
+---
+title: Checklist hội nhập nhân viên mới
+description: Soạn kế hoạch hội nhập theo vai trò, thời gian và người phụ trách.
+department: hr
+level: beginner
+experience: copilot-chat
+---
+
+import CaseStudyTemplate from '../../src/components/CaseStudyTemplate.astro';
+
+<CaseStudyTemplate locale="vi" department="hr" level="beginner" experience="copilot-chat">
+  <p slot="context">Nhân sự và quản lý muốn chuẩn hóa các đầu việc trong tuần đầu tiên của nhân viên mới theo vai trò.</p>
+
+  <p slot="outcome">Giúp nhân viên, quản lý và các nhóm hỗ trợ nắm rõ mốc thời gian, trách nhiệm và tài liệu cần chuẩn bị.</p>
+
+  <div slot="prompt">
+
+```text title="Prompt tạo checklist hội nhập"
+Tạo checklist hội nhập 5 ngày cho nhân viên mới vị trí [vai trò] thuộc nhóm [phòng ban]. Chia theo ngày; mỗi việc có người phụ trách (Nhân sự, quản lý, IT hoặc nhân viên), mục tiêu và tài liệu cần có. Chỉ dùng quy trình trong tài liệu được cung cấp; đánh dấu nội dung chưa có thông tin. Không tự tạo chính sách hoặc quyền lợi.
+```
+
+  </div>
+
+  <p slot="prepare">Thay vai trò và phòng ban bằng thông tin phù hợp. Đối chiếu checklist với quy trình nội bộ đang có hiệu lực.</p>
+</CaseStudyTemplate>

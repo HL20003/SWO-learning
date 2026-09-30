@@ -1,0 +1,25 @@
+---
+title: Prepare Competency-Based Interview Questions
+description: Draft structured interview questions from approved role requirements.
+department: hr
+level: intermediate
+experience: copilot-chat
+---
+
+import CaseStudyTemplate from '../../../src/components/CaseStudyTemplate.astro';
+
+<CaseStudyTemplate locale="en" department="hr" level="intermediate" experience="copilot-chat">
+  <p slot="context">The recruiting team needs a consistent question set for a role, based on agreed evaluation criteria.</p>
+
+  <p slot="outcome">Produce a reviewable draft that stays focused on job-related competencies.</p>
+
+  <div slot="prompt">
+
+```text title="Interview preparation prompt"
+Using the attached job description and competency framework, suggest eight structured interview questions for [role title]. For each question, state the competency assessed and what evidence a strong answer should include. Do not ask about protected personal characteristics or information unrelated to the job. Flag unclear criteria for the recruiting team to confirm.
+```
+
+  </div>
+
+  <p slot="prepare"><strong>Before using.</strong> Review the questions against current recruiting policies and applicable law before use.</p>
+</CaseStudyTemplate>
