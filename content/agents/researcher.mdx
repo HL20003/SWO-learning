@@ -1,8 +1,109 @@
 ---
 title: Researcher
-description: Nghiên cứu nhiều nguồn và tổng hợp kết quả có trích dẫn.
+description: Giới thiệu Researcher trong M365 Copilot — license cần có, tính năng, nơi tìm, cách dùng và các tình huống kèm prompt mẫu.
 ---
 
-import FeatureLanding from '../../src/components/FeatureLanding.astro';
+import { Aside } from '@astrojs/starlight/components';
+import AppLearnHeader from '../../src/components/AppLearnHeader.astro';
 
-<FeatureLanding locale="vi" feature="researcher" />
+<AppLearnHeader app="researcher" />
+
+## Researcher là gì?
+
+Researcher là **agent nghiên cứu chuyên sâu** trong Microsoft 365 Copilot. Khác với trả lời nhanh của Copilot Chat, Researcher được thiết kế để xử lý các câu hỏi **nhiều bước, nhiều lớp**: nó tự lập kế hoạch, thu thập và phân tích thông tin từ **web** và từ **nội dung công việc bạn được phép truy cập** (tài liệu, email, cuộc họp, chat), rồi tổng hợp thành một **báo cáo có cấu trúc, có trích dẫn nguồn** để bạn kiểm tra và chia sẻ.
+
+![Giao diện tổng quan Researcher](/assets/researcher-overview.jpg)
+
+Điểm cốt lõi: Researcher đổi tốc độ lấy chiều sâu — nó mất nhiều thời gian xử lý hơn để cho ra kết quả đáng tin, có nguồn và sẵn sàng dùng tiếp cho slide hoặc tài liệu.
+
+## Cần license nào để dùng?
+
+Researcher **không có license riêng** — nó đi kèm quyền truy cập agent nâng cao. Bạn cần:
+
+- **Microsoft 365 Copilot add-on license** (dành cho người dùng business/enterprise), **hoặc**
+- Thuê bao **Microsoft 365 Premium / Pro**.
+
+<Aside type="note" title="Lưu ý về quyền truy cập & hạn mức">
+- Người dùng **không có** Copilot license chỉ có quyền giới hạn (**không** dùng được các agent nâng cao như Researcher, Analyst).
+- Mỗi người dùng có Copilot license được chạy tới **25 truy vấn/tháng dùng chung** cho cả Researcher và Analyst (reset vào ngày 1 hằng tháng). Hạn mức này có thể được Microsoft điều chỉnh theo thời gian.
+- **Admin** của tổ chức có thể cần bật agent trước khi bạn thấy Researcher; nếu dùng model của Anthropic (Claude), admin phải cho phép truy cập model đó trong Microsoft 365 admin center.
+</Aside>
+
+## Tính năng chính & Quy trình 6 bước
+
+![6 bước sử dụng Researcher từ đặt câu hỏi đến nhận báo cáo](/assets/researcher-6steps.jpg)
+
+- **Nghiên cứu đa nguồn:** kết hợp dữ liệu web với nội dung công việc được cấp quyền (SharePoint, Emails, Meetings, Chats).
+- **Báo cáo có cấu trúc, có trích dẫn:** chia mục rõ ràng, kèm nguồn và có thể gồm bảng, biểu đồ, hình ảnh.
+- **Suy luận nhiều bước:** tự lập kế hoạch, so sánh phương án, bóc tách vấn đề phức tạp.
+- **Hỏi làm rõ:** có thể đặt câu hỏi ngược để thu hẹp phạm vi trước khi làm.
+- **Tôn trọng quyền truy cập:** chỉ dùng dữ liệu bạn được phép xem, tuân thủ chính sách bảo mật và tuân thủ sẵn có.
+- **Kết nối bên thứ ba (connectors):** có thể lấy dữ liệu từ Salesforce, ServiceNow, Confluence… để mở rộng phạm vi nghiên cứu.
+
+## Nguồn dữ liệu (Sources) & Tùy chọn Model
+
+![Bật tắt nguồn Web và Work](/assets/researcher-sources.jpg)
+
+| Khi bạn muốn… | Chọn |
+| --- | --- |
+| Câu trả lời nhanh, tóm tắt ngắn, động não ý tưởng | **Copilot Chat** (bản thường) |
+| Nghiên cứu sâu nhiều nguồn (web + công việc) và nhận báo cáo chia sẻ được | **Researcher** (bản nâng cao) |
+| Có trích dẫn nguồn và báo cáo cấu trúc rõ, kèm hình ảnh | **Researcher** (bản nâng cao) |
+| Trao đổi qua lại cho tác vụ đơn giản | **Copilot Chat** (bản thường) |
+
+Trong chính Researcher còn có **tùy chọn model (model choice)** như một mức nâng cao hơn — chọn ở menu thả xuống phía trên khung nhập liệu:
+
+| Lựa chọn | Mô tả | Khi nào dùng |
+| --- | --- | --- |
+| **Auto** | Tự chọn model tốt nhất cho tác vụ | Mặc định — phù hợp hầu hết trường hợp |
+| **Critique** | Phản hồi của GPT, được Claude tinh chỉnh lại | Cần câu trả lời được rà soát, "soi" lại chất lượng |
+| **Model Council** | GPT và Claude cùng suy luận sâu | Vấn đề phức tạp, muốn nhiều góc nhìn hội tụ |
+| **Claude** | Suy luận sâu bằng model Anthropic | Ưu tiên phong cách suy luận của Claude |
+
+## Tìm Researcher ở đâu và dùng như thế nào
+
+![Vị trí Researcher trong mục Agents](/assets/researcher-where-to-find.jpg)
+
+1. Đăng nhập **app Microsoft 365 Copilot**.
+2. Mở **Researcher** trong mục **Agents** ở thanh điều hướng bên trái (có thể ghim để truy cập nhanh).
+3. **Nhập câu hỏi/chủ đề** — hoặc chọn các ví dụ có sẵn (Market Analysis, Research Brief, Reading List...).
+4. **Trả lời câu hỏi làm rõ** (nếu có) để định hướng kết quả, hoặc gõ "Cứ tiếp tục".
+5. **Chờ agent xử lý** — nó tìm và phân tích thông tin từ nguồn tin cậy, gồm cả tài liệu công việc và web.
+6. **Nhận báo cáo** có cấu trúc, kèm trích dẫn nguồn và gợi ý bước tiếp theo.
+7. **Hành động:** chỉnh sửa, chia sẻ, hoặc dùng báo cáo để tạo bài trình bày/tài liệu.
+
+![Màn hình chính Researcher kèm các ví dụ gợi ý](/assets/researcher-main.jpg)
+
+<Aside type="tip" title="Mẹo để có kết quả tốt">
+Nêu cụ thể mục tiêu và phạm vi (web, nội dung công việc, hay cả hai), và tích cực trả lời các câu hỏi làm rõ của Researcher.
+</Aside>
+
+## Các tình huống sử dụng kèm prompt
+
+### 1. Chuẩn bị cho cuộc gặp khách hàng
+
+Bạn sắp gặp một khách hàng và muốn hiểu bối cảnh ngành cùng các điểm cần trao đổi.
+
+```text title="Prompt chuẩn bị gặp khách hàng"
+Nghiên cứu [tên khách hàng/ngành] để chuẩn bị cho cuộc gặp vào [thời điểm]. Tổng hợp: bối cảnh ngành và xu hướng gần đây, các thách thức chính khách hàng đang gặp, cách [sản phẩm/giải pháp của tôi] có thể hỗ trợ, và 5 câu hỏi gợi mở cho cuộc gặp. Trích dẫn nguồn và ngày cho từng nhận định; phân biệt dữ kiện với suy luận; đánh dấu thông tin cần tôi xác minh.
+```
+
+### 2. Tổng hợp bối cảnh thị trường / đối thủ
+
+Bạn cần một bức tranh nhanh nhưng có nguồn về một thị trường hoặc nhóm đối thủ.
+
+```text title="Prompt nghiên cứu thị trường"
+Nghiên cứu thị trường [tên thị trường/sản phẩm] trong giai đoạn [khoảng thời gian]. Tổng hợp quy mô và xu hướng chính, so sánh [2-3 đối thủ hoặc lựa chọn] theo các tiêu chí [giá, tính năng, phân khúc khách hàng], và nêu rủi ro cùng cơ hội nổi bật. Trích dẫn nguồn cho từng số liệu và nhận định; nêu rõ thông tin còn thiếu hoặc chưa thể xác minh.
+```
+
+### 3. Tạo tài liệu đào tạo / tổng hợp kiến thức
+
+Bạn đang xây một tài liệu đào tạo và cần phần tổng hợp có cấu trúc, có nguồn.
+
+```text title="Prompt tạo tài liệu tổng hợp"
+Tạo bản tổng hợp về [chủ đề] dành cho [đối tượng người读], độ dài khoảng [số trang/mục]. Chia thành các phần: khái niệm cốt lõi, lợi ích, ví dụ thực tế, và các bước áp dụng. Mỗi phần kèm trích dẫn nguồn; dùng ngôn ngữ dễ hiểu cho người mới; đánh dấu chỗ cần bổ sung dữ liệu nội bộ của tổ chức tôi.
+```
+
+<Aside type="caution" title="Điều cần lưu ý trước khi dùng">
+Researcher chỉ truy cập dữ liệu bạn được phép xem. Luôn **rà soát nội dung được tạo và kiểm tra nguồn** trước khi chia sẻ hoặc ra quyết định; xác nhận các con số và nhận định quan trọng với dữ liệu gốc. Hạn mức 25 truy vấn/tháng dùng chung với Analyst — cân nhắc khi lên kế hoạch nghiên cứu.
+</Aside>

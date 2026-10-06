@@ -1,8 +1,64 @@
 ---
 title: Copilot Chat
-description: Tìm hiểu cách dùng Copilot Chat cho công việc hàng ngày.
+description: Tìm hiểu cách dùng Copilot Chat cho công việc hàng ngày — tóm tắt, soạn thảo, tra cứu ngữ cảnh công việc và động não ý tưởng.
 ---
 
-import FeatureLanding from '../src/components/FeatureLanding.astro';
+import { Aside } from '@astrojs/starlight/components';
+import AppLearnHeader from '../src/components/AppLearnHeader.astro';
 
-<FeatureLanding locale="vi" feature="copilot-chat" />
+<AppLearnHeader app="copilot-chat" />
+
+## Copilot Chat là gì?
+
+Copilot Chat (trước đây là Microsoft 365 Chat hoặc Bing Chat Enterprise) là **trợ lý hội thoại AI cốt lõi** trong Microsoft 365 Copilot. Hoạt động trên giao diện trò chuyện tự nhiên, Copilot Chat kết nối trực tiếp với **toàn bộ dữ liệu công việc được cấp quyền** (email, lịch, cuộc họp Teams, tài liệu OneDrive, SharePoint) qua Microsoft Graph cũng như kiến thức trên Web.
+
+Điểm cốt lõi: Bạn có thể hỏi đáp, tra cứu chéo tài liệu, tổng hợp email và động não ý tưởng mà không cần mở từng ứng dụng riêng lẻ.
+
+## Cần gì để dùng?
+
+- **Microsoft 365 Copilot license** hoặc tài khoản doanh nghiệp có hỗ trợ Copilot Chat.
+- Đăng nhập tài khoản Microsoft 365 công việc (Entra ID) trên trình duyệt hoặc app M365 Copilot.
+
+<Aside type="note" title="Bảo vệ dữ liệu thương mại (Commercial Data Protection)">
+Khi đăng nhập bằng tài khoản cơ quan/trường học, dữ liệu chat của bạn được bảo mật: Microsoft không lưu trữ prompt, không dùng dữ liệu công ty của bạn để huấn luyện mô hình nền tảng.
+</Aside>
+
+## Tính năng chính
+
+- **Chuyển đổi linh hoạt giữa Web & Work:** 
+  - Chế độ **Work (Công việc):** Tìm kiếm và tổng hợp từ email, lịch, Teams, tài liệu nội bộ.
+  - Chế độ **Web:** Nghiên cứu thông tin thị trường cập nhật thời gian thực từ Internet.
+- **Tóm tắt chéo ứng dụng:** Gom thông tin từ chuỗi mail, cuộc họp tuần trước và tài liệu đính kèm vào một báo cáo ngắn.
+- **Soạn thảo nhanh:** Tạo bản nháp email, bài phát biểu, kế hoạch dự án, agenda họp.
+- **Động não & Lập kế hoạch:** Đưa ra các gợi ý sáng tạo, so sánh phương án, phân tích SWOT.
+
+## Tìm Copilot Chat ở đâu
+
+1. Truy cập trực tiếp qua web: [copilot.microsoft.com](https://copilot.microsoft.com) hoặc [m365.cloud.microsoft/chat](https://m365.cloud.microsoft/chat).
+2. App **Microsoft 365 Copilot** trên thanh ứng dụng Teams hoặc thanh Taskbar Windows.
+3. Ứng dụng di động **Microsoft 365 Copilot** trên iOS/Android.
+
+## Các tình huống sử dụng kèm prompt
+
+### 1. Chuẩn bị đầu tuần & bắt kịp tiến độ công việc
+
+```text title="Prompt tóm tắt đầu tuần"
+Tóm tắt các email quan trọng và tin nhắn Teams chưa đọc từ tuần trước liên quan đến [tên dự án hoặc khách hàng]. Liệt kê các quyết định đã chốt và những đầu việc cần tôi xử lý trong tuần này kèm người yêu cầu.
+```
+
+### 2. Soạn thảo tài liệu và email theo ngữ cảnh
+
+```text title="Prompt soạn thảo email đề xuất"
+Dựa vào các ghi chú trong cuộc họp hôm qua với [tên người/đội ngũ], hãy soạn email gửi [tên đối tác] đề xuất [nội dung đề xuất]. Giọng điệu chuyên nghiệp, nêu rõ 3 lợi ích chính và thời hạn phản hồi trước [ngày].
+```
+
+### 3. Động não ý tưởng & giải quyết vấn đề
+
+```text title="Prompt động não ý tưởng"
+Tôi đang lên kế hoạch cho [sự kiện/chiến dịch]. Hãy đề xuất 5 ý tưởng sáng tạo phù hợp cho đối tượng [khách hàng mục tiêu], kèm theo ưu/nhược điểm và nguồn lực ước tính cho từng phương án.
+```
+
+<Aside type="tip" title="Mẹo vàng khi dùng Copilot Chat">
+- **Dùng dấu `/` hoặc `@`** để đính kèm trực tiếp file, người liên hệ hoặc cuộc họp cụ thể vào ngữ cảnh chat.
+- **Đưa vai trò + mục tiêu rõ ràng**: *"Đóng vai trò là trưởng phòng marketing, hãy đánh giá..."*
+</Aside>

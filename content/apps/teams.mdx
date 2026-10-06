@@ -1,8 +1,68 @@
 ---
 title: Copilot trong Teams
-description: Tóm tắt cuộc họp, cuộc trò chuyện và việc cần theo dõi trong Teams.
+description: Học cách dùng Copilot trong Teams để không bỏ lỡ cuộc họp — tóm tắt, bắt kịp khi vào trễ và nắm việc cần làm.
 ---
 
-import FeatureLanding from '../../src/components/FeatureLanding.astro';
+import { Aside } from '@astrojs/starlight/components';
+import AppLearnHeader from '../../src/components/AppLearnHeader.astro';
 
-<FeatureLanding locale="vi" feature="teams" />
+<AppLearnHeader app="teams" />
+
+> 💬 **Vào họp trễ 20 phút? Không sao.** Copilot trong Teams tóm tắt những gì đã diễn ra, tách riêng quyết định và việc cần làm, và trả lời "họ đã chốt gì về ngân sách?" — ngay trong lúc họp hoặc sau đó.
+
+## Làm được gì trong 30 giây?
+
+- 🎙️ **Tóm tắt cuộc họp** thành chủ đề, quyết định và việc cần làm kèm người phụ trách.
+- ⏩ **Bắt kịp khi vào trễ** — "tôi đã bỏ lỡ gì?" trong lúc họp vẫn đang diễn ra.
+- 💡 **Hỏi đáp ngay trong họp** — "đã có ai phản đối đề xuất này chưa?"
+- 🧵 **Tóm tắt chuỗi chat dài** để nắm nhanh một cuộc trao đổi.
+
+<Aside type="tip" title="Mẹo vàng">
+Để Copilot tóm tắt được nội dung nói, cuộc họp cần **bật ghi (recording) hoặc phụ đề (transcription)**. Nhắc người tổ chức bật ngay từ đầu.
+</Aside>
+
+## Cần gì để dùng?
+
+- **Microsoft 365 Copilot license** (hoặc gói Premium/Pro với Copilot).
+- Dùng **Microsoft Teams** (desktop, web hoặc mobile), đăng nhập đúng tài khoản được cấp Copilot.
+
+## Tìm Copilot trong Teams ở đâu
+
+- Trong cuộc họp: nút **Copilot** trên thanh điều khiển cuộc họp.
+- Trong chat: nút **Copilot** ở góc trên của cửa sổ chat.
+
+## Thử ngay — 3 tình huống
+
+### 1. Tóm tắt sau cuộc họp
+
+Họp xong, bạn cần biên bản gọn gàng để chia sẻ.
+
+```text title="Prompt tóm tắt cuộc họp"
+Tóm tắt cuộc họp này: các chủ đề chính đã bàn, quyết định đã thống nhất, và việc cần làm kèm người phụ trách và thời hạn nếu có. Trình bày rõ ràng theo từng mục.
+```
+
+### 2. Bắt kịp khi vào họp trễ
+
+Cuộc họp đang diễn ra, bạn vừa tham gia.
+
+```text title="Prompt bắt kịp cuộc họp"
+Tôi vừa vào họp. Tóm tắt nhanh những gì đã được bàn tới lúc này, các điểm chính và câu hỏi còn đang mở, để tôi tham gia tiếp.
+```
+
+### 3. Nắm nhanh một chuỗi chat dài
+
+Một kênh/chat có nhiều tin nhắn bạn chưa đọc.
+
+```text title="Prompt tóm tắt chat"
+Tóm tắt cuộc trò chuyện này: các điểm chính, quyết định, và bất cứ việc gì cần tôi phản hồi hoặc theo dõi. Nêu rõ ai đang chờ phản hồi từ tôi.
+```
+
+## Lên trình: 3 thói quen của người dùng khá
+
+1. **Bật ghi/transcription từ đầu** — không có bản ghi thì Copilot không tóm tắt được phần nói.
+2. **Hỏi cụ thể** — thay vì "tóm tắt", hãy hỏi "họ chốt gì về ngân sách và ai phụ trách?".
+3. **Giao việc ngay** — chuyển việc cần làm Copilot liệt kê thành task trong Planner/To Do.
+
+<Aside type="caution" title="Lưu ý về quyền riêng tư">
+Bản tóm tắt dựa trên nội dung họp được ghi lại. Hãy đảm bảo người tham dự biết cuộc họp đang được ghi/transcribe theo chính sách của tổ chức.
+</Aside>

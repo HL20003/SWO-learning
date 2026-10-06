@@ -11,6 +11,21 @@ export default defineConfig({
     '/en/departments/banking': '/en/use-cases/?department=banking',
     '/en/departments/hr': '/en/use-cases/?department=hr',
     '/en/departments/sales': '/en/use-cases/?department=sales',
+    // Redirects for legacy guide links
+    '/agents/researcher-guide': '/agents/researcher/',
+    '/agents/analyst-guide': '/agents/analyst/',
+    '/agents/cowork-guide': '/agents/cowork/',
+    '/agents/agent-builder-guide': '/agents/agent-builder/',
+    '/apps/word-guide': '/apps/word/',
+    '/apps/excel-guide': '/apps/excel/',
+    '/apps/powerpoint-guide': '/apps/powerpoint/',
+    '/apps/outlook-guide': '/apps/outlook/',
+    '/apps/teams-guide': '/apps/teams/',
+    '/apps/onenote-guide': '/apps/onenote/',
+    '/apps/forms-guide': '/apps/forms/',
+    '/apps/whiteboard-guide': '/apps/whiteboard/',
+    '/apps/onedrive-guide': '/apps/onedrive/',
+    '/apps/planner-guide': '/apps/planner/',
   },
   integrations: [
     starlight({
@@ -24,10 +39,11 @@ export default defineConfig({
         root: { label: 'Tiếng Việt', lang: 'vi' },
         en: { label: 'English', lang: 'en' },
       },
-      tableOfContents: false,
-      pagination: false,
+      tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 3 },
+      pagination: true,
       components: {
-        Footer: './src/components/SoftwareOneFooter.astro',
+        Sidebar: './src/components/CustomSidebar.astro',
+        PageFrame: './src/components/CustomPageFrame.astro',
       },
       sidebar: [
         {

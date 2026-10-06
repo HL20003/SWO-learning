@@ -1,8 +1,95 @@
 ---
 title: Analyst
-description: Phân tích dữ liệu và trình bày insight có thể kiểm tra.
+description: Giới thiệu Analyst trong M365 Copilot — license cần có, tính năng, nơi tìm, cách dùng và các tình huống kèm prompt mẫu.
 ---
 
-import FeatureLanding from '../../src/components/FeatureLanding.astro';
+import { Aside } from '@astrojs/starlight/components';
+import AppLearnHeader from '../../src/components/AppLearnHeader.astro';
 
-<FeatureLanding locale="vi" feature="analyst" />
+<AppLearnHeader app="analyst" />
+
+## Analyst là gì?
+
+Analyst là **agent phân tích dữ liệu** trong Microsoft 365 Copilot, hoạt động **như một nhà khoa học dữ liệu (data scientist)**. Khác với trả lời nhanh của Copilot Chat, Analyst được thiết kế để **suy luận từng bước** trên dữ liệu có cấu trúc — bảng tính, tập dữ liệu, số liệu — rồi tự **chạy code Python** để kiểm tra giả định, khám phá dữ liệu và tạo biểu đồ, mà bạn **không cần cài hay chạy Python** trên máy.
+
+![Màn hình chính Analyst với ô nhập và các ví dụ gợi ý](/assets/analyst-overview.jpg)
+
+Điểm cốt lõi: Analyst "trình bày phần việc của nó" — nêu rõ cách tính, giả định, giới hạn dữ liệu — để bạn kiểm tra được kết quả thay vì phải tin một con số không rõ nguồn gốc.
+
+## Cần license nào để dùng?
+
+Analyst **không có license riêng** — nó đi kèm quyền truy cập agent nâng cao. Bạn cần:
+
+- **Microsoft 365 Copilot add-on license** (dành cho người dùng business/enterprise), **hoặc**
+- Thuê bao **Microsoft 365 Premium / Pro**.
+
+<Aside type="note" title="Lưu ý về hạn mức">
+- Người dùng **không có** Copilot license chỉ có quyền giới hạn (**không** dùng được các agent nâng cao như Analyst, Researcher).
+- Mỗi người dùng có Copilot license được chạy tới **25 truy vấn/tháng dùng chung** cho cả Researcher và Analyst (reset vào ngày 1 hằng tháng). Hạn mức này có thể được Microsoft điều chỉnh theo thời gian.
+- **Admin** của tổ chức có thể cần bật agent trước khi bạn thấy Analyst.
+</Aside>
+
+## Tính năng chính
+
+- **Phân tích dữ liệu có cấu trúc:** làm việc trực tiếp với bảng tính, tập dữ liệu, số liệu đính kèm.
+- **Chạy Python ngay trong Copilot:** tính thống kê, tìm xu hướng, phát hiện điểm bất thường mà không cần công cụ ngoài.
+- **Suy luận từng bước, có thể kiểm tra:** nêu rõ cách tính, giả định và giới hạn.
+- **Tạo bảng, biểu đồ, báo cáo bằng ngôn ngữ dễ hiểu:** chuyển số liệu thành insight.
+- **Tôn trọng quyền truy cập:** chỉ dùng dữ liệu bạn được phép xem, tuân thủ chính sách bảo mật sẵn có.
+
+## Bản thường và bản nâng cao
+
+| Khi bạn muốn… | Chọn |
+| --- | --- |
+| Câu hỏi nhanh về một con số, tóm tắt ngắn | **Copilot Chat** (bản thường) |
+| Phân tích sâu một tập dữ liệu, chạy thống kê, tìm xu hướng | **Analyst** (bản nâng cao) |
+| Có biểu đồ, bảng và báo cáo giải thích cách tính | **Analyst** (bản nâng cao) |
+| Hỏi đáp đơn giản, không gắn với tập dữ liệu | **Copilot Chat** (bản thường) |
+
+## Tìm Analyst ở đâu và dùng như thế nào
+
+![Vị trí Analyst trong menu Agents](/assets/analyst-where-to-find.jpg)
+
+1. Đăng nhập **app Microsoft 365 Copilot**.
+2. Mở **Analyst** trong mục **Agents** ở thanh điều hướng bên trái (có thể ghim để truy cập nhanh).
+3. **Đính kèm dữ liệu:** Dùng nút **Upload** (tải từ máy tính) hoặc **OneDrive** (chọn từ đám mây).
+4. **Đặt câu hỏi phân tích** hoặc bấm các gợi ý có sẵn (*Analyze data, Get insights, Visualize*).
+5. **Trả lời câu hỏi làm rõ** (nếu có) để Analyst hiểu đúng mục tiêu.
+6. **Chờ agent xử lý** — nó suy luận từng bước, chạy code Python và hiển thị phần việc đã làm.
+7. **Nhận kết quả:** bảng, biểu đồ và giải thích kèm giả định, giới hạn dữ liệu.
+
+![Nút Upload và OneDrive đính kèm dữ liệu](/assets/analyst-upload.jpg)
+
+<Aside type="tip" title="Mẹo để có kết quả tốt">
+Nêu rõ câu hỏi cần trả lời, định dạng dữ liệu, và yêu cầu Analyst giải thích cách tính + giả định.
+</Aside>
+
+## Các tình huống sử dụng kèm prompt
+
+### 1. Phân tích kết quả bán hàng theo quý
+
+Bạn có file doanh số và muốn hiểu xu hướng cùng các điểm bất thường.
+
+```text title="Prompt phân tích doanh số"
+Phân tích [file doanh số đính kèm] để trả lời: doanh số thay đổi thế nào qua các quý và đâu là nguyên nhân chính? Nêu cách tính, giả định và giới hạn dữ liệu. Chỉ ra điểm bất thường (tăng/giảm đột biến) và nhóm sản phẩm/khu vực đóng góp lớn nhất. Trình bày kết quả thành bảng ngắn kèm 1-2 biểu đồ và các bước kiểm tra tiếp theo.
+```
+
+### 2. Kiểm tra chất lượng và cấu trúc dữ liệu
+
+Trước khi dùng một tập dữ liệu, bạn muốn chắc nó sạch và đáng tin.
+
+```text title="Prompt kiểm tra chất lượng dữ liệu"
+Kiểm tra [tập dữ liệu đính kèm] về chất lượng và cấu trúc. Nêu: số dòng/cột, kiểu dữ liệu từng cột, giá trị thiếu hoặc trùng lặp, và các giá trị bất thường. Đề xuất cách xử lý từng vấn đề và cảnh báo những chỗ có thể ảnh hưởng đến phân tích sau này. Trình bày thành bảng tóm tắt.
+```
+
+### 3. So sánh hiệu quả giữa các nhóm / giai đoạn
+
+Bạn cần so sánh có cơ sở thống kê, không chỉ cảm tính.
+
+```text title="Prompt so sánh nhóm"
+Dùng [tập dữ liệu đính kèm] để so sánh [nhóm A] và [nhóm B] theo [chỉ số cần so sánh]. Nêu cách tính và giả định; cho biết khác biệt có đáng kể hay không và vì sao. Trình bày kết quả thành bảng, kèm biểu đồ minh họa và các câu hỏi cần phân tích tiếp.
+```
+
+<Aside type="caution" title="Điều cần lưu ý trước khi dùng">
+Analyst chỉ phân tích dữ liệu bạn được phép truy cập. Luôn **rà soát cách tính, giả định và giới hạn dữ liệu** mà Analyst nêu trước khi dùng kết quả để ra quyết định; đối chiếu các con số quan trọng với dữ liệu gốc. Hạn mức 25 truy vấn/tháng dùng chung với Researcher — cân nhắc khi lên kế hoạch phân tích.
+</Aside>

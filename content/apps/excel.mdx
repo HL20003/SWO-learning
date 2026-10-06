@@ -1,8 +1,71 @@
 ---
 title: Copilot trong Excel
-description: Khám phá bảng dữ liệu và kiểm tra công thức phân tích.
+description: Học cách dùng Copilot trong Excel để hiểu dữ liệu, viết công thức và tạo biểu đồ bằng ngôn ngữ thường ngày.
 ---
 
-import FeatureLanding from '../../src/components/FeatureLanding.astro';
+import { Aside } from '@astrojs/starlight/components';
+import AppLearnHeader from '../../src/components/AppLearnHeader.astro';
 
-<FeatureLanding locale="vi" feature="excel" />
+<AppLearnHeader app="excel" />
+
+> 📊 **Dữ liệu chỉ hữu ích khi bạn hiểu nó.** Copilot trong Excel là lớp hội thoại nằm trên bảng tính: hỏi bằng tiếng Việt, nhận lại tóm tắt, xu hướng, công thức và biểu đồ — không cần nhớ cú pháp hàm.
+
+## Làm được gì trong 30 giây?
+
+- 🔎 **Tìm insight** — hỏi "doanh số quý nào cao nhất và vì sao?" và nhận câu trả lời kèm số liệu.
+- 🧮 **Tạo công thức** — mô tả phép tính bằng lời, Copilot viết công thức và thêm cột.
+- 📈 **Tạo biểu đồ & PivotTable** — trực quan hóa dữ liệu chỉ bằng một yêu cầu.
+- 🧹 **Giải thích & dọn dữ liệu** — hiểu một bảng lạ, phát hiện giá trị bất thường.
+
+<Aside type="tip" title="Mẹo vàng">
+Dữ liệu nên ở dạng **bảng (Table)** có tiêu đề cột rõ ràng. Copilot hiểu bảng tốt hơn nhiều so với vùng ô rời rạc — chọn dữ liệu rồi **Insert → Table** trước khi hỏi.
+</Aside>
+
+## Cần gì để dùng?
+
+- **Microsoft 365 Copilot license** (hoặc gói Premium/Pro với Copilot).
+- Mở **Excel** (desktop, Mac hoặc Excel for the web), đăng nhập đúng tài khoản được cấp Copilot.
+
+<Aside type="note">
+Hàm `=COPILOT()` trong công thức đã ngừng từ 14/09/2026. Giờ bạn dùng Copilot qua **khung bên (side pane)** — vẫn làm được hầu hết tác vụ tương tự.
+</Aside>
+
+## Tìm Copilot trong Excel ở đâu
+
+- Biểu tượng **Copilot** ở tab **Home** trên ribbon → mở khung Copilot bên phải.
+
+## Thử ngay — 3 tình huống
+
+### 1. Hỏi dữ liệu bằng ngôn ngữ thường ngày
+
+Bạn có bảng doanh số và muốn hiểu nhanh bức tranh.
+
+```text title="Prompt tìm insight"
+Phân tích bảng này: cho tôi 3 xu hướng nổi bật, [khu vực/sản phẩm] nào đóng góp nhiều nhất, và chỉ ra các giá trị bất thường. Trình bày ngắn gọn kèm số liệu minh họa.
+```
+
+### 2. Tạo công thức mà không cần nhớ cú pháp
+
+Mô tả phép tính bằng lời, để Copilot lo phần hàm.
+
+```text title="Prompt tạo công thức"
+Thêm một cột tính [kết quả mong muốn, ví dụ: tỷ lệ tăng trưởng so với tháng trước] dựa trên cột [tên cột]. Giải thích ngắn gọn công thức bạn dùng để tôi hiểu cách nó hoạt động.
+```
+
+### 3. Trực quan hóa dữ liệu
+
+Biến bảng số thành biểu đồ dễ trình bày.
+
+```text title="Prompt tạo biểu đồ"
+Tạo biểu đồ phù hợp nhất để so sánh [chỉ số] theo [thời gian/nhóm]. Chọn loại biểu đồ hợp lý, đặt tiêu đề rõ ràng và nêu lý do vì sao biểu đồ này phù hợp.
+```
+
+## Lên trình: 3 thói quen của người dùng khá
+
+1. **Chuẩn hóa dữ liệu trước** — bảng sạch, tiêu đề rõ, không gộp ô → kết quả chính xác hơn.
+2. **Hỏi "vì sao"** — đừng chỉ xin con số, hãy yêu cầu Copilot giải thích cách tính và giả định.
+3. **Phân tích sâu dùng Analyst** — khi cần thống kê phức tạp, chuyển sang agent Analyst để chạy Python và kiểm chứng.
+
+<Aside type="caution" title="Luôn kiểm tra lại">
+Đối chiếu công thức và con số Copilot tạo với dữ liệu gốc trước khi dùng cho báo cáo hay quyết định.
+</Aside>

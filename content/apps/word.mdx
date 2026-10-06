@@ -1,8 +1,72 @@
 ---
 title: Copilot trong Word
-description: Soạn thảo, chỉnh sửa và tóm tắt tài liệu trong Word.
+description: Học cách dùng Copilot trong Word để viết nhanh hơn, chỉnh mượt hơn và hiểu tài liệu dài trong vài giây.
 ---
 
-import FeatureLanding from '../../src/components/FeatureLanding.astro';
+import { Aside } from '@astrojs/starlight/components';
+import AppLearnHeader from '../../src/components/AppLearnHeader.astro';
 
-<FeatureLanding locale="vi" feature="word" />
+<AppLearnHeader app="word" />
+
+> ✍️ **Trang trắng là kẻ thù lớn nhất của năng suất.** Copilot trong Word giúp bạn đi từ *"chưa biết bắt đầu từ đâu"* đến một bản nháp có cấu trúc chỉ trong một câu lệnh — rồi cùng bạn gọt giũa cho tới khi hoàn chỉnh.
+
+## Làm được gì trong 30 giây?
+
+- 📝 **Viết bản nháp** từ vài gạch đầu dòng — hết sợ trang trắng.
+- 🔁 **Viết lại / đổi giọng** đoạn văn bạn bôi đen (trang trọng hơn, ngắn gọn hơn…).
+- 📄 **Tóm tắt tài liệu dài** và hỏi đáp ngay trong file ("Hợp đồng này có điều khoản phạt không?").
+- ✅ **Gợi ý cải thiện** văn phong, bố cục, và chuyển ý rời rạc thành đoạn mạch lạc.
+
+<Aside type="tip" title="Mẹo vàng">
+Prompt càng cụ thể, kết quả càng tốt. Nêu rõ **chủ đề + người đọc + độ dài + giọng điệu**. "Viết email" → yếu; "Viết email ~150 từ, giọng thân thiện, mời khách hàng dự webinar" → mạnh.
+</Aside>
+
+## Cần gì để dùng?
+
+- **Microsoft 365 Copilot license** (hoặc gói Premium/Pro với Copilot).
+- Mở **Word** (desktop, Mac, hoặc Word for the web) và đăng nhập đúng tài khoản được cấp Copilot.
+
+## Tìm Copilot trong Word ở đâu
+
+- Biểu tượng **Copilot** ở tab **Home** trên thanh ribbon → mở khung Copilot bên phải.
+- Biểu tượng Copilot **ngay lề trái** mỗi đoạn trống → bấm để viết nháp tại chỗ.
+
+## Thử ngay — 3 tình huống
+
+### 1. Vượt qua trang trắng: viết bản nháp đầu tiên
+
+Bạn cần một tài liệu nhưng chưa biết mở đầu thế nào.
+
+```text title="Prompt viết bản nháp"
+Viết bản nháp [loại tài liệu, ví dụ: đề xuất dự án] về [chủ đề] cho [người đọc]. Độ dài khoảng [số trang/đoạn], giọng [chuyên nghiệp/thân thiện]. Chia thành các mục rõ ràng với tiêu đề, và để trống [chỗ cần tôi điền số liệu] bằng dấu ngoặc vuông.
+```
+
+### 2. Viết lại cho hay hơn và đúng giọng
+
+Bôi đen đoạn văn chưa ưng ý rồi yêu cầu Copilot biến hóa.
+
+```text title="Prompt viết lại đoạn văn"
+Viết lại đoạn đã chọn cho [ngắn gọn hơn / trang trọng hơn / dễ hiểu với người không chuyên]. Giữ nguyên ý chính và số liệu, nhưng cải thiện mạch văn và chuyển ý. Đưa ra 2 phương án để tôi chọn.
+```
+
+<Aside type="note">
+Copilot trong Word **không tự thay** văn bản của bạn — nó đề xuất, bạn quyết định chèn, thay hay bỏ. An toàn để thử thoải mái.
+</Aside>
+
+### 3. Hiểu nhanh tài liệu dài
+
+Nhận một file 20 trang và chỉ cần nắm ý chính cùng điểm cần chú ý.
+
+```text title="Prompt tóm tắt & hỏi đáp tài liệu"
+Tóm tắt tài liệu này thành [5] ý chính, nêu các mốc thời gian và con số quan trọng, và liệt kê những điểm cần tôi kiểm tra kỹ. Sau đó cho tôi biết: [câu hỏi cụ thể của bạn về tài liệu].
+```
+
+## Lên trình: 3 thói quen của người dùng khá
+
+1. **Lặp để tinh chỉnh** — đừng dừng ở kết quả đầu tiên. "Ngắn hơn 30%", "thêm ví dụ", "bỏ đoạn 2".
+2. **Cho Copilot ngữ cảnh** — tham chiếu tới file/nội dung khác bạn được phép truy cập để bản nháp sát thực tế.
+3. **Luôn rà lại** — Copilot là người cộng tác, không phải nguồn chân lý. Kiểm tra số liệu, tên riêng và trích dẫn trước khi gửi.
+
+<Aside type="caution" title="Trước khi gửi đi">
+Luôn đọc lại nội dung Copilot tạo và xác minh dữ kiện quan trọng. Bạn chịu trách nhiệm cho tài liệu cuối cùng, không phải Copilot.
+</Aside>

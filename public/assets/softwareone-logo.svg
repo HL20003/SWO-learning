@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 90" fill="currentColor" class="softwareone-logo">
+  <!-- O circle -->
+  <circle cx="45" cy="45" r="44" fill="currentColor"/>
+  <text x="45" y="50" font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="14.5" font-weight="850" letter-spacing="-0.02em" text-anchor="middle" fill="var(--sw-logo-inv, #fff)">software</text>
+  <!-- N -->
+  <path d="M96 7h22l34 50V7h20v76h-20L118 32v51H96V7z" fill="currentColor"/>
+  <!-- E -->
+  <path d="M182 7h58v18h-36v12h32v17h-32v12h36v17h-58V7z" fill="currentColor"/>
+</svg>

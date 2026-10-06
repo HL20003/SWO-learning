@@ -1,8 +1,68 @@
 ---
 title: Copilot trong PowerPoint
-description: Lập dàn ý và chuẩn bị thông điệp cho bài thuyết trình.
+description: Học cách dùng Copilot trong PowerPoint để tạo bài trình bày từ ý tưởng hoặc tài liệu, và tinh chỉnh slide trong vài phút.
 ---
 
-import FeatureLanding from '../../src/components/FeatureLanding.astro';
+import { Aside } from '@astrojs/starlight/components';
+import AppLearnHeader from '../../src/components/AppLearnHeader.astro';
 
-<FeatureLanding locale="vi" feature="powerpoint" />
+<AppLearnHeader app="powerpoint" />
+
+> 🎞️ **Từ ý tưởng (hoặc một file Word) thành bộ slide trong vài phút.** Copilot trong PowerPoint dựng khung bài trình bày, viết nội dung, chọn hình ảnh và sắp bố cục — để bạn tập trung vào thông điệp thay vì căn chỉnh từng ô chữ.
+
+## Làm được gì trong 30 giây?
+
+- 🚀 **Tạo cả bộ slide** từ một chủ đề hoặc từ tài liệu Word có sẵn.
+- 🧱 **Thêm/sắp slide** theo dàn ý, kèm hình ảnh và bố cục gợi ý.
+- ✏️ **Tinh chỉnh nội dung** — rút gọn chữ, đổi giọng, gợi ý ghi chú thuyết trình.
+- 📄 **Tóm tắt bài dài** thành vài slide điểm nhấn.
+
+<Aside type="tip" title="Mẹo vàng">
+Có sẵn tài liệu? Hãy để Copilot **tạo bài trình bày từ file Word** — nó bám cấu trúc tài liệu nên nhanh và sát ý hơn nhiều so với tạo từ con số 0.
+</Aside>
+
+## Cần gì để dùng?
+
+- **Microsoft 365 Copilot license** (hoặc gói Premium/Pro với Copilot).
+- Mở **PowerPoint** (desktop, Mac hoặc PowerPoint for the web), đăng nhập đúng tài khoản được cấp Copilot.
+
+## Tìm Copilot trong PowerPoint ở đâu
+
+- Biểu tượng **Copilot** ở tab **Home** trên ribbon → mở khung Copilot bên phải.
+- Biểu tượng Copilot ở **góc dưới bên phải mỗi slide** → thao tác nhanh ngay trên slide.
+
+## Thử ngay — 3 tình huống
+
+### 1. Tạo bài trình bày từ một chủ đề
+
+Bạn cần một bộ slide nhưng chưa có gì trong tay.
+
+```text title="Prompt tạo bài trình bày"
+Tạo bài trình bày về [chủ đề] cho [đối tượng], khoảng [số] slide. Bao gồm: slide mở đầu, [3-4] phần nội dung chính với tiêu đề rõ ràng, và slide kết luận. Giọng [chuyên nghiệp/truyền cảm hứng]; đề xuất hình ảnh phù hợp cho mỗi phần.
+```
+
+### 2. Biến tài liệu Word thành slide
+
+Tận dụng tài liệu có sẵn để tiết kiệm thời gian.
+
+```text title="Prompt tạo slide từ tài liệu"
+Tạo bài trình bày từ tài liệu [tên file]. Giữ cấu trúc chính của tài liệu, tóm tắt mỗi phần thành slide ngắn gọn với các gạch đầu dòng, và thêm slide tổng quan ở đầu.
+```
+
+### 3. Tinh chỉnh slide đang có
+
+Slide quá nhiều chữ hoặc chưa mạch lạc.
+
+```text title="Prompt tinh chỉnh slide"
+Rút gọn nội dung slide đã chọn còn [3-4] gạch đầu dòng súc tích, giữ ý chính. Gợi ý một tiêu đề mạnh hơn và viết ghi chú thuyết trình ngắn cho slide này.
+```
+
+## Lên trình: 3 thói quen của người dùng khá
+
+1. **Bắt đầu từ dàn ý** — cho Copilot cấu trúc rõ, nó dựng bài sát ý hơn là để nó "tự nghĩ".
+2. **Lặp từng slide** — chỉnh tới lui: "slide 3 ngắn hơn", "đổi hình slide 5".
+3. **Hoàn thiện thủ công** — Copilot lo bản nháp, bạn tinh chỉnh thương hiệu, font và thông điệp cuối.
+
+<Aside type="caution" title="Trước khi trình bày">
+Luôn xem lại từng slide: kiểm tra số liệu, chính tả tên riêng và tính nhất quán thương hiệu trước khi đưa ra trước khách hàng.
+</Aside>

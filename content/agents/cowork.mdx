@@ -1,8 +1,86 @@
 ---
 title: Cowork
-description: Giao mục tiêu công việc, theo dõi kế hoạch và duyệt sản phẩm đầu ra.
+description: Giới thiệu Cowork trong M365 Copilot — license cần có, tính năng, nơi tìm, cách dùng và các tình huống kèm prompt mẫu.
 ---
 
-import FeatureLanding from '../../src/components/FeatureLanding.astro';
+import { Aside } from '@astrojs/starlight/components';
+import AppLearnHeader from '../../src/components/AppLearnHeader.astro';
 
-<FeatureLanding locale="vi" feature="cowork" />
+<AppLearnHeader app="cowork" />
+
+## Cowork là gì?
+
+Cowork là **agent thực thi công việc** trong Microsoft 365 Copilot. Bạn **mô tả kết quả mong muốn bằng ngôn ngữ tự nhiên**, Cowork **tự lập kế hoạch và thực hiện trọn vẹn** các bước qua Microsoft 365 — soạn và gửi email, lên lịch họp, tạo tài liệu, đăng bài trong Teams, quản lý file — rồi trả về **kết quả hoàn chỉnh**, chứ không chỉ là bản nháp hay gợi ý.
+
+![Bước 1: Mô tả trọn yêu cầu trong ô nhập của Cowork](/assets/cowork-step1.jpg)
+
+Cowork được hỗ trợ bởi **Work IQ**, nên nó tự "nối" công việc vào bối cảnh của bạn: email, cuộc họp, tin nhắn, file và dữ liệu trên Outlook, Teams, Excel… Điểm quan trọng: Cowork **xin bạn duyệt trước các hành động nhạy cảm** (gửi, chia sẻ, thay đổi dữ liệu).
+
+## Cần license nào để dùng?
+
+Cowork là một năng lực trong chương trình **Frontier** của Microsoft 365 Copilot. Để dùng, bạn cần:
+
+- **Microsoft 365 Copilot add-on license** (business/enterprise), **hoặc** thuê bao **Microsoft 365 Premium / Pro** (có bản xem trước cho tài khoản cá nhân).
+
+<Aside type="note" title="Lưu ý khi sử dụng">
+- Người dùng **không có** Copilot license không dùng được Cowork.
+- **Admin** của tổ chức có thể cần bật Cowork (và các tính năng Frontier) trước khi bạn thấy nó.
+- Vì Cowork **hành động thay bạn** (gửi email, thay đổi dữ liệu), hãy nắm rõ chính sách của tổ chức trước khi dùng cho công việc quan trọng.
+</Aside>
+
+## Quy trình 4 bước hoạt động của Cowork
+
+### Bước 1: Giao trọn mục tiêu
+Mô tả kết quả mong muốn trong một câu lệnh duy nhất mà không cần chia nhỏ các tác vụ thủ công.
+
+### Bước 2: Tự động thu thập & đối chiếu dữ liệu
+Cowork quét email, lịch, tài liệu và hệ thống nghiệp vụ (Dynamics 365, SharePoint) trong phạm vi bạn được cấp quyền.
+
+![Bước 2: Cowork tìm email và lấy dữ liệu](/assets/cowork-step2.jpg)
+
+### Bước 3: Hỏi làm rõ & Dừng xin duyệt (Approval Points)
+Cowork chủ động hỏi làm rõ các tham số chưa rõ (như khung thời gian 3/6/12 tháng) và dừng lại trước các hành động nhạy cảm.
+
+![Bước 3: Cowork hỏi làm rõ khung thời gian](/assets/cowork-step3.jpg)
+
+### Bước 4: Nhận bộ sản phẩm hoàn chỉnh
+Trả về bộ tài liệu hoàn thiện (Word Brief, PowerPoint Slides, bảng Excel có biểu đồ) sẵn sàng chia sẻ hoặc tải về.
+
+![Bước 4: Kết quả gồm 3 tệp Word/PowerPoint/Excel sẵn dùng](/assets/cowork-step4.jpg)
+
+## Tùy chọn Model & Mở rộng Kỹ năng (Plugins)
+
+| Model Picker | Plugins & Skills |
+| --- | --- |
+| ![Model Picker](/assets/cowork-model-picker.jpg) | ![Customize Plugins](/assets/cowork-plugins.jpg) |
+| Chọn **Auto**, **Claude**, **GPT** hoặc **Cowork 1** tùy theo độ phức tạp của bài toán. | Bật/tắt các kết nối doanh nghiệp (Dynamics 365, Fabric IQ, Jira, Salesforce) để Cowork lấy dữ liệu chuyên sâu. |
+
+## Các tình huống sử dụng kèm prompt
+
+### 1. Chuẩn bị trọn gói cho một cuộc họp
+
+Bạn cần tài liệu, lịch và lời mời cho một buổi họp sắp tới.
+
+```text title="Prompt chuẩn bị cuộc họp"
+Hãy chuẩn bị cho cuộc họp [chủ đề] với [người tham dự] vào [thời gian]. Dùng các nguồn được phép: [email/file/Teams liên quan]. Việc cần làm: soạn agenda, tạo tài liệu tóm tắt bối cảnh, dự thảo email mời họp và tạo sự kiện lịch. Trước tiên đề xuất kế hoạch và bản nháp; dừng lại để tôi duyệt trước khi gửi email hoặc tạo lịch.
+```
+
+### 2. Tổng hợp và phân phối báo cáo định kỳ
+
+Bạn muốn gom dữ liệu rải rác thành báo cáo rồi chia sẻ cho nhóm.
+
+```text title="Prompt tổng hợp báo cáo định kỳ"
+Tạo báo cáo [tuần/tháng] về [chủ đề] cho [đối tượng]. Lấy dữ liệu từ các nguồn được phép: [file/email/Teams]. Tổng hợp tiến độ, số liệu chính và các việc còn tồn, trình bày thành tài liệu rõ ràng. Sau khi tôi duyệt, đăng tóm tắt vào kênh Teams [tên kênh] và đính kèm tài liệu đầy đủ. Dừng lại xin duyệt trước khi đăng.
+```
+
+### 3. Xử lý và theo dõi email tồn đọng
+
+Bạn cần dọn hộp thư và lên việc cần làm từ email.
+
+```text title="Prompt xử lý email tồn đọng"
+Rà soát các email chưa trả lời về [chủ đề/dự án] trong [khoảng thời gian]. Phân loại theo mức ưu tiên, dự thảo phản hồi cho những email cần trả lời, và lập danh sách việc cần theo dõi kèm người phụ trách và thời hạn. Trình bày kế hoạch trước; chỉ gửi phản hồi sau khi tôi duyệt từng email.
+```
+
+<Aside type="caution" title="Điều cần lưu ý trước khi dùng">
+Cowork **hành động thay bạn** nên hãy luôn kiểm tra kế hoạch và sản phẩm đầu ra ở các điểm duyệt trước khi để nó gửi, chia sẻ hoặc thay đổi dữ liệu. Chỉ cấp cho Cowork những nguồn và ứng dụng cần thiết; với công việc quan trọng, giữ bước duyệt thủ công và đối chiếu kết quả với dữ liệu gốc.
+</Aside>

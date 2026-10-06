@@ -1,8 +1,68 @@
 ---
 title: Copilot trong OneNote
-description: Tổ chức ghi chú thành tóm tắt, quyết định và việc cần làm.
+description: Học cách dùng Copilot trong OneNote để biến ghi chú lộn xộn thành tóm tắt, danh sách việc và kế hoạch rõ ràng.
 ---
 
-import FeatureLanding from '../../src/components/FeatureLanding.astro';
+import { Aside } from '@astrojs/starlight/components';
+import AppLearnHeader from '../../src/components/AppLearnHeader.astro';
 
-<FeatureLanding locale="vi" feature="onenote" />
+<AppLearnHeader app="onenote" />
+
+> 🗒️ **Ghi chú rải rác bỗng thành kế hoạch gọn gàng.** Copilot trong OneNote đọc các trang ghi chú của bạn, tóm tắt, tạo danh sách việc và gợi ý ý tưởng — ngay trên trang bạn đang viết.
+
+## Làm được gì trong 30 giây?
+
+- 📋 **Tóm tắt ghi chú** dài hoặc lộn xộn thành vài ý chính.
+- ✅ **Tạo danh sách việc** (to-do) từ nội dung đã ghi.
+- 💡 **Động não ý tưởng** — dàn ý sự kiện, kế hoạch, agenda cuộc họp.
+- ✏️ **Viết lại cho rõ** — làm gọn ghi chú vội thành đoạn mạch lạc.
+
+<Aside type="tip" title="Mẹo vàng">
+Thử **Copilot Notebooks** — gom nhiều nguồn (tài liệu, slide, trang ghi chú) vào một notebook để Copilot trả lời dựa trên đúng bộ ngữ cảnh bạn chọn.
+</Aside>
+
+## Cần gì để dùng?
+
+- **Microsoft 365 Copilot license** (hoặc gói Premium/Pro với Copilot).
+- Mở **OneNote** (Windows, Mac, iPad hoặc OneNote for the web), đăng nhập đúng tài khoản được cấp Copilot.
+
+## Tìm Copilot trong OneNote ở đâu
+
+- Nút **Copilot** ở tab **Home** trên ribbon → mở khung Copilot.
+- Biểu tượng Copilot **ngay trên trang** → bấm để thao tác nhanh tại chỗ.
+
+## Thử ngay — 3 tình huống
+
+### 1. Biến ghi chú họp thành biên bản gọn
+
+Bạn gõ vội trong lúc họp, giờ cần dọn lại.
+
+```text title="Prompt dọn ghi chú họp"
+Dựa trên ghi chú trên trang này, tạo biên bản gọn gàng: các điểm chính, quyết định, và danh sách việc cần làm kèm người phụ trách. Viết lại cho rõ ràng, mạch lạc.
+```
+
+### 2. Tạo danh sách việc từ trang ghi chú
+
+Nhiều việc nằm rải trong ghi chú, cần gom lại.
+
+```text title="Prompt tạo to-do"
+Trích tất cả việc cần làm từ ghi chú trên trang này thành một danh sách to-do có thể tích chọn. Với mỗi việc, nêu người phụ trách và thời hạn nếu được đề cập.
+```
+
+### 3. Động não cho một kế hoạch mới
+
+Bạn cần khởi động nhanh một kế hoạch.
+
+```text title="Prompt động não kế hoạch"
+Giúp tôi lập dàn ý cho [kế hoạch/sự kiện, ví dụ: hội thảo khách hàng]. Đề xuất các hạng mục chính, mốc thời gian, và những việc cần chuẩn bị. Trình bày thành cấu trúc phân cấp dễ theo dõi.
+```
+
+## Lên trình: 3 thói quen của người dùng khá
+
+1. **Ghi chú có cấu trúc nhẹ** — tiêu đề, gạch đầu dòng → Copilot tóm tắt chính xác hơn.
+2. **Gom ngữ cảnh bằng Notebooks** — khi cần hỏi xuyên nhiều nguồn.
+3. **Nối tiếp hành động** — chuyển to-do Copilot tạo sang Planner/To Do để theo dõi.
+
+<Aside type="caution" title="Kiểm tra lại">
+Copilot tóm tắt dựa trên những gì có trên trang. Nếu ghi chú thiếu hoặc mơ hồ, hãy bổ sung trước và luôn rà lại kết quả.
+</Aside>

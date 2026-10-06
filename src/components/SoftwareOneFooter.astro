@@ -1,37 +1,133 @@
 ---
 const isEnglish = Astro.url.pathname.startsWith('/en/');
 const year = new Date().getFullYear();
+const base = isEnglish ? '/en' : '';
 ---
 
-<footer class="softwareone-footer">
-  <div class="footer-brand">
-    <span class="brand-mark" aria-hidden="true">S</span>
-    <div class="brand-copy">
-      <strong>SoftwareOne Learning M365 Copilot</strong>
-      <span>{isEnglish ? 'Learning resources by SoftwareOne' : 'Tài nguyên học tập từ SoftwareOne'}</span>
+<footer class="ms-global-footer" aria-label="Microsoft and SoftwareOne Footer">
+  <div class="ms-footer-wrapper">
+    
+    {/* ── Follow Social Row (Microsoft Style) ── */}
+    <div class="ms-footer-follow-row">
+      <span class="ms-follow-title">{isEnglish ? 'Follow SoftwareOne & Copilot' : 'Theo dõi SoftwareOne & Copilot'}</span>
+      <div class="ms-follow-icons">
+        <a href="https://www.linkedin.com/company/softwareone/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="ms-follow-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@SoftwareOne" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="ms-follow-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+        <a href="https://facebook.com/softwareone" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="ms-follow-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02z"/></svg>
+        </a>
+        <a href="https://www.softwareone.com" target="_blank" rel="noopener noreferrer" aria-label="Website" class="ms-follow-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </a>
+      </div>
     </div>
-  </div>
-  <span class="footer-copyright">© {year} SoftwareOne</span>
-</footer>
 
-<style>
-  .softwareone-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-block-start: 2rem;
-    padding-block: 1rem;
-    border-block-start: 1px solid var(--cp-border, #d7e2df);
-    background: var(--cp-surface, #ffffff);
-    color: var(--cp-text-muted, #52666b);
-  }
-  .footer-brand { display: flex; align-items: center; gap: .65rem; }
-  .brand-mark { display: grid; width: 32px; height: 32px; place-items: center; background: var(--cp-accent, #087e88); color: var(--cp-accent-fg, #fff); font-size: .9rem; font-weight: 850; }
-  .brand-copy { display: grid; gap: .12rem; }
-  .brand-copy strong { color: var(--cp-text, #172f33); font-size: .86rem; }
-  .brand-copy span, .footer-copyright { font-size: .7rem; }
-  @media (max-width: 520px) {
-    .softwareone-footer { align-items: flex-start; flex-direction: column; }
-  }
-</style>
+    {/* ── 6-Column Links Grid (Microsoft Official Style) ── */}
+    <div class="ms-footer-grid">
+      
+      {/* Col 1: Khám phá */}
+      <div class="ms-footer-col">
+        <h4 class="ms-col-title">{isEnglish ? "What's new" : 'Khám phá'}</h4>
+        <ul class="ms-col-list">
+          <li><a href={`${base}/`}>{isEnglish ? 'Overview' : 'Tổng quan'}</a></li>
+          <li><a href={`${base}/copilot-chat/`}>Copilot Chat</a></li>
+          <li><a href={`${base}/quick-wins/`}>Top 10 Quick Wins</a></li>
+          <li><a href={`${base}/use-cases/`}>{isEnglish ? 'Use Case Library' : 'Thư viện Use Case'}</a></li>
+        </ul>
+      </div>
+
+      {/* Col 2: Copilot in Apps */}
+      <div class="ms-footer-col">
+        <h4 class="ms-col-title">{isEnglish ? 'Copilot in Apps' : 'Copilot trong ứng dụng'}</h4>
+        <ul class="ms-col-list">
+          <li><a href={`${base}/apps/word/`}>Microsoft Word</a></li>
+          <li><a href={`${base}/apps/excel/`}>Microsoft Excel</a></li>
+          <li><a href={`${base}/apps/powerpoint/`}>Microsoft PowerPoint</a></li>
+          <li><a href={`${base}/apps/teams/`}>Microsoft Teams</a></li>
+          <li><a href={`${base}/apps/outlook/`}>Microsoft Outlook</a></li>
+          <li><a href={`${base}/apps/onenote/`}>Microsoft OneNote</a></li>
+          <li><a href={`${base}/apps/forms/`}>Microsoft Forms</a></li>
+          <li><a href={`${base}/apps/whiteboard/`}>Microsoft Whiteboard</a></li>
+          <li><a href={`${base}/apps/onedrive/`}>Microsoft OneDrive</a></li>
+          <li><a href={`${base}/apps/planner/`}>Microsoft Planner</a></li>
+        </ul>
+      </div>
+
+      {/* Col 3: Agents */}
+      <div class="ms-footer-col">
+        <h4 class="ms-col-title">Agents</h4>
+        <ul class="ms-col-list">
+          <li><a href={`${base}/agents/researcher/`}>Researcher</a></li>
+          <li><a href={`${base}/agents/analyst/`}>Analyst</a></li>
+          <li><a href={`${base}/agents/cowork/`}>Cowork</a></li>
+          <li><a href={`${base}/agents/agent-builder/`}>Agent Builder</a></li>
+        </ul>
+      </div>
+
+      {/* Col 4: Departments */}
+      <div class="ms-footer-col">
+        <h4 class="ms-col-title">{isEnglish ? 'Departments' : 'Phòng ban & Ngành'}</h4>
+        <ul class="ms-col-list">
+          <li><a href={`${base}/use-cases/?department=banking`}>{isEnglish ? 'Banking & Finance' : 'Ngân hàng & Tài chính'}</a></li>
+          <li><a href={`${base}/use-cases/?department=hr`}>{isEnglish ? 'HR & Recruitment' : 'Nhân sự & Tuyển dụng'}</a></li>
+          <li><a href={`${base}/use-cases/?department=sales`}>{isEnglish ? 'Sales & Account Brief' : 'Kinh doanh & Khách hàng'}</a></li>
+        </ul>
+      </div>
+
+      {/* Col 5: Learning & Skills */}
+      <div class="ms-footer-col">
+        <h4 class="ms-col-title">{isEnglish ? 'Resources' : 'Tài nguyên & Kỹ năng'}</h4>
+        <ul class="ms-col-list">
+          <li><a href={`${base}/quick-wins/`}>{isEnglish ? 'Prompting Framework (GCES)' : 'Nguyên tắc Prompt GCES'}</a></li>
+          <li><a href={`${base}/agents/cowork/`}>{isEnglish ? 'Work IQ & Frontier' : 'Work IQ & Frontier'}</a></li>
+          <li><a href="https://learn.microsoft.com/copilot/" target="_blank" rel="noopener noreferrer">{isEnglish ? 'Microsoft Learn Copilot' : 'Microsoft Learn'}</a></li>
+        </ul>
+      </div>
+
+      {/* Col 6: SoftwareOne & Company */}
+      <div class="ms-footer-col">
+        <h4 class="ms-col-title">SoftwareOne</h4>
+        <ul class="ms-col-list">
+          <li><a href="https://www.softwareone.com" target="_blank" rel="noopener noreferrer">{isEnglish ? 'About SoftwareOne' : 'Về SoftwareOne'}</a></li>
+          <li><a href="https://www.softwareone.com/en/services/workplace/copilot" target="_blank" rel="noopener noreferrer">{isEnglish ? 'Copilot Advisory & Adoption' : 'Tư vấn & Triển khai Copilot'}</a></li>
+          <li><a href="https://www.softwareone.com/en/contact" target="_blank" rel="noopener noreferrer">{isEnglish ? 'Contact Specialists' : 'Liên hệ chuyên gia'}</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    {/* ── Bottom Meta Row: Language + Logo + Copyright & Legal ── */}
+    <div class="ms-footer-bottom-bar">
+      <div class="ms-bottom-left">
+        <span class="ms-lang-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span>{isEnglish ? 'English (United States)' : 'Tiếng Việt (Việt Nam)'}</span>
+        </span>
+        <a href="https://www.softwareone.com" target="_blank" rel="noopener noreferrer" class="ms-sw-logo-link" aria-label="SoftwareOne">
+          <svg class="ms-sw-logo" width="96" height="32" viewBox="0 0 260 90" fill="currentColor">
+            <!-- O circle -->
+            <circle cx="45" cy="45" r="44" fill="currentColor"/>
+            <text x="45" y="50" font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="14.5" font-weight="850" letter-spacing="-0.02em" text-anchor="middle" fill="var(--ms-logo-cutout, #ffffff)">software</text>
+            <!-- N -->
+            <path d="M96 7h22l34 50V7h20v76h-20L118 32v51H96V7z" fill="currentColor"/>
+            <!-- E -->
+            <path d="M182 7h58v18h-36v12h32v17h-32v12h36v17h-58V7z" fill="currentColor"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="ms-bottom-right">
+        <a href="https://www.softwareone.com/en/contact" target="_blank" rel="noopener noreferrer">{isEnglish ? 'Contact SoftwareOne' : 'Liên hệ'}</a>
+        <a href="https://www.softwareone.com/en/privacy-policy" target="_blank" rel="noopener noreferrer">{isEnglish ? 'Privacy' : 'Quyền riêng tư'}</a>
+        <a href="https://www.softwareone.com/en/terms-of-use" target="_blank" rel="noopener noreferrer">{isEnglish ? 'Terms of use' : 'Điều khoản sử dụng'}</a>
+        <a href="https://www.softwareone.com" target="_blank" rel="noopener noreferrer">SoftwareOne.com</a>
+        <span class="ms-copy">© {year} SoftwareOne</span>
+      </div>
+    </div>
+
+  </div>
+</footer>

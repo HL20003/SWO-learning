@@ -1,8 +1,70 @@
 ---
 title: Copilot trong Whiteboard
-description: Gợi ý, nhóm và sắp xếp ý tưởng trong Whiteboard.
+description: Học cách dùng Copilot trong Whiteboard để khởi động buổi brainstorm, nhóm ý tưởng và tóm tắt kết quả.
 ---
 
-import FeatureLanding from '../../src/components/FeatureLanding.astro';
+import { Aside } from '@astrojs/starlight/components';
+import AppLearnHeader from '../../src/components/AppLearnHeader.astro';
 
-<FeatureLanding locale="vi" feature="whiteboard" />
+<AppLearnHeader app="whiteboard" />
+
+> 💡 **Hết sợ bảng trắng trống trơn.** Copilot trong Whiteboard giúp bạn khởi động buổi brainstorm với hàng chục ý tưởng, nhóm chúng theo chủ đề và tóm tắt kết quả — chỉ trong vài thao tác.
+
+![Whiteboard ngay trong cuộc họp Teams](/assets/whiteboard-meeting.png)
+
+## Làm được gì trong 30 giây?
+
+- 💡 **Gợi ý ý tưởng** theo chủ đề — có sẵn các ghi chú sticky note để bắt đầu.
+- 🗂️ **Nhóm ghi chú** tự động theo chủ đề/mẫu hình.
+- 📄 **Tóm tắt nội dung bảng** thành danh sách hành động và ý chính.
+- ➕ **Mở rộng ý tưởng** — thêm góc nhìn mới cho một ý tưởng có sẵn.
+
+<Aside type="tip" title="Mẹo vàng">
+Dùng Copilot **ngay trong cuộc họp Teams**: mở Whiteboard, yêu cầu Copilot tạo 10 ý tưởng khởi động, rồi để mọi người cùng thêm bớt và bỏ phiếu.
+</Aside>
+
+## Cần gì để dùng?
+
+- **Microsoft 365 Copilot license** (hoặc gói Premium/Pro với Copilot).
+- Mở **Microsoft Whiteboard** (app hoặc trong cuộc họp Teams) và đăng nhập đúng tài khoản.
+
+## Tìm Copilot trong Whiteboard ở đâu
+
+- Biểu tượng **Copilot** trên thanh công cụ chính của Whiteboard (thường ở cạnh dưới hoặc trên cùng).
+- Bấm vào biểu tượng để mở menu: **Gợi ý ý tưởng**, **Nhóm**, hoặc **Tóm tắt**.
+
+## Thử ngay — 3 tình huống
+
+### 1. Khởi động buổi brainstorm
+
+Cần các ý tưởng ban đầu để nhóm cùng thảo luận.
+
+```text title="Prompt gợi ý ý tưởng"
+Đề xuất [10] ý tưởng cho [mục tiêu/chủ đề, ví dụ: cải thiện quy trình onboarding nhân viên mới]. Mỗi ý tưởng ngắn gọn trên một sticky note, chia thành các góc nhìn khác nhau.
+```
+
+### 2. Nhóm các ghi chú lộn xộn
+
+Sau buổi brainstorm, bảng có hàng chục note cần phân loại.
+
+```text title="Prompt nhóm ý tưởng"
+Phân nhóm các ghi chú trên bảng này theo chủ đề chính. Đặt tiêu đề rõ ràng cho từng nhóm và giữ nguyên nội dung các ghi chú.
+```
+
+### 3. Tóm tắt kết quả buổi làm việc
+
+Kết thúc buổi họp, cần gửi tóm tắt cho người vắng mặt.
+
+```text title="Prompt tóm tắt bảng trắng"
+Tóm tắt các ý chính và quyết định trên bảng trắng này. Liệt kê các việc cần làm tiếp theo kèm người phụ trách (nếu có được nêu). Trình bày ngắn gọn.
+```
+
+## Lên trình: 3 thói quen của người dùng khá
+
+1. **Tạo trước khi họp** — chuẩn bị sẵn 1 khung ý tưởng để cuộc họp đi thẳng vào thảo luận.
+2. **Nhóm trước khi tóm tắt** — kết quả tóm tắt sẽ có cấu trúc mạch lạc hơn.
+3. **Mở rộng ý tưởng hay** — chọn 1 note tốt rồi bảo Copilot "phát triển thêm 3 hướng triển khai".
+
+<Aside type="caution" title="Kiểm tra lại">
+Ý tưởng từ Copilot là gợi ý để khởi động — hãy để nhóm cùng đánh giá tính khả thi và điều chỉnh cho phù hợp thực tế.
+</Aside>

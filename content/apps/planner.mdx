@@ -1,8 +1,69 @@
 ---
 title: Copilot trong Planner
-description: Chuyển mục tiêu thành kế hoạch và đầu việc có thể theo dõi.
+description: Học cách dùng Copilot trong Planner để lập kế hoạch, tạo task và theo dõi tiến độ dự án nhanh hơn.
 ---
 
-import FeatureLanding from '../../src/components/FeatureLanding.astro';
+import { Aside } from '@astrojs/starlight/components';
+import AppLearnHeader from '../../src/components/AppLearnHeader.astro';
 
-<FeatureLanding locale="vi" feature="planner" />
+<AppLearnHeader app="planner" />
+
+> 📋 **Từ mục tiêu đến kế hoạch hành động trong vài phút.** Copilot trong Planner tự sinh công việc, phân loại theo nhóm (bucket) và giúp bạn theo dõi tiến độ — không còn phải gõ từng task thủ công.
+
+![Cách mở Planner trong Microsoft Teams](/assets/planner-teams.png)
+
+## Làm được gì trong 30 giây?
+
+- 📋 **Tạo kế hoạch mới** từ một mô tả mục tiêu — tự chia bucket và task.
+- ➕ **Thêm công việc** theo ngữ cảnh — "thêm các task cho phần kiểm thử".
+- 📊 **Tóm tắt tiến độ** — việc nào đang chậm, việc nào cần ưu tiên hôm nay.
+- 🎯 **Đặt mục tiêu (goals)** và liên kết task vào mục tiêu tương ứng.
+
+<Aside type="tip" title="Mẹo vàng">
+Mô tả rõ **mục tiêu + thời hạn + quy mô nhóm** khi tạo kế hoạch: "Lập kế hoạch 4 tuần ra mắt tính năng mới cho nhóm 5 người" → Copilot sẽ chia phase và task rất hợp lý.
+</Aside>
+
+## Cần gì để dùng?
+
+- **Microsoft 365 Copilot license** + **kế hoạch Planner Premium** (tính năng Copilot trong Planner áp dụng cho kế hoạch Premium).
+- Mở **Planner** trong Microsoft Teams hoặc web, đăng nhập đúng tài khoản.
+
+## Tìm Copilot trong Planner ở đâu
+
+Mở **Microsoft Teams** → **More apps (•••)** → tìm **Planner** → bấm Add → mở một kế hoạch **Premium** → bấm nút **Copilot** ở góc trên cùng bên phải để mở khung trợ lý.
+
+## Thử ngay — 3 tình huống
+
+### 1. Dựng khung kế hoạch từ mục tiêu
+
+Bạn được giao một dự án mới và cần dựng kế hoạch ngay.
+
+```text title="Prompt tạo kế hoạch"
+Tạo kế hoạch cho dự án [tên dự án, ví dụ: nâng cấp hệ thống CRM] trong [6 tuần] cho nhóm [3 người]. Chia thành các bucket: Chuẩn bị, Triển khai, Kiểm thử, Đào tạo. Mỗi bucket 3-5 task có mô tả ngắn.
+```
+
+### 2. Thêm nhóm công việc mới
+
+Dự án phát sinh phần việc mới cần bổ sung vào kế hoạch có sẵn.
+
+```text title="Prompt thêm task"
+Thêm một nhóm công việc về [chủ đề, ví dụ: truyền thông nội bộ và tài liệu hướng dẫn] vào kế hoạch hiện tại. Gồm 4 task cụ thể với các bước cần thực hiện.
+```
+
+### 3. Báo cáo tiến độ và việc cần chú ý
+
+Chuẩn bị họp tiến độ tuần và cần bức tranh tổng thể.
+
+```text title="Prompt tóm tắt tiến độ"
+Tóm tắt trạng thái hiện tại của kế hoạch này. Cho tôi biết: bao nhiêu task đã xong, task nào quá hạn hoặc có nguy cơ chậm, và 3 việc cần ưu tiên trong tuần tới.
+```
+
+## Lên trình: 3 thói quen của người dùng khá
+
+1. **Khởi đầu bằng prompt chi tiết** — tiết kiệm thời gian chỉnh sửa cơ cấu kế hoạch.
+2. **Hỏi tóm tắt trước buổi họp** — nắm số liệu và rủi ro trong 1 phút.
+3. **Liên kết task với Goal** — để cả nhóm thấy rõ đóng góp của từng việc vào mục tiêu chung.
+
+<Aside type="caution" title="Kiểm tra lại">
+Sau khi Copilot tạo task, luôn rà soát lại người phụ trách (assignee) và thời hạn (due date) để đảm bảo phù hợp với khối lượng công việc thực tế của từng thành viên.
+</Aside>

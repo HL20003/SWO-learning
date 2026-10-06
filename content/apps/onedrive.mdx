@@ -1,8 +1,69 @@
 ---
 title: Copilot trong OneDrive
-description: Tóm tắt và đối chiếu các tài liệu được cấp quyền trong OneDrive.
+description: Học cách dùng Copilot trong OneDrive để tóm tắt, so sánh và tìm thông tin trong file mà không cần mở từng file.
 ---
 
-import FeatureLanding from '../../src/components/FeatureLanding.astro';
+import { Aside } from '@astrojs/starlight/components';
+import AppLearnHeader from '../../src/components/AppLearnHeader.astro';
 
-<FeatureLanding locale="vi" feature="onedrive" />
+<AppLearnHeader app="onedrive" />
+
+> 📂 **Trả lời câu hỏi về file mà không cần mở file.** Copilot trong OneDrive tóm tắt tài liệu, so sánh nhiều file và tìm đúng thông tin bạn cần — ngay từ danh sách file.
+
+## Làm được gì trong 30 giây?
+
+- 📄 **Tóm tắt một file** mà không cần mở nó.
+- 🔀 **So sánh nhiều file** — điểm khác nhau giữa hai bản tài liệu.
+- 🔎 **Hỏi về nội dung file** — "hợp đồng này hết hạn khi nào?"
+- 📨 **Soạn nhanh** email hoặc tóm tắt dựa trên một tài liệu đã chọn.
+
+<Aside type="tip" title="Mẹo vàng">
+Chọn **nhiều file cùng lúc** rồi hỏi Copilot so sánh — rất nhanh để tìm khác biệt giữa các phiên bản tài liệu hoặc đề xuất.
+</Aside>
+
+## Cần gì để dùng?
+
+- **Microsoft 365 Copilot license** (hoặc gói Premium/Pro với Copilot).
+- Mở **OneDrive** trên web, đăng nhập đúng tài khoản được cấp Copilot.
+
+## Tìm Copilot trong OneDrive ở đâu
+
+Bấm chuột phải vào file trong OneDrive → chọn **Copilot**, hoặc dùng nút **Summarize** trên thanh công cụ để sử dụng các tính năng sẵn có mà không cần gõ câu lệnh.
+
+![Bấm chuột phải vào file trong OneDrive → Copilot](/assets/onedrive-menu.png)
+
+## Thử ngay — 3 tình huống
+
+### 1. Tóm tắt file không cần mở
+
+Bạn có một tài liệu dài và chỉ cần nắm ý chính.
+
+```text title="Prompt tóm tắt file"
+Tóm tắt tài liệu đã chọn thành [5] ý chính, nêu mục đích, các mốc/con số quan trọng và những điểm cần tôi chú ý. Giữ ngắn gọn.
+```
+
+### 2. So sánh hai phiên bản tài liệu
+
+Cần biết bản mới khác bản cũ chỗ nào.
+
+```text title="Prompt so sánh file"
+So sánh hai tài liệu đã chọn. Nêu rõ các điểm khác nhau quan trọng về nội dung, số liệu và điều khoản (nếu có). Trình bày thành bảng để dễ đối chiếu.
+```
+
+### 3. Tìm thông tin trong file
+
+Bạn nhớ có thông tin trong tài liệu nhưng không muốn đọc hết.
+
+```text title="Prompt hỏi nội dung file"
+Trong tài liệu đã chọn, cho tôi biết: [câu hỏi cụ thể, ví dụ: thời hạn hợp đồng và điều khoản gia hạn]. Trích dẫn đoạn liên quan để tôi kiểm tra.
+```
+
+## Lên trình: 3 thói quen của người dùng khá
+
+1. **Hỏi trước khi mở** — tiết kiệm thời gian với file dài.
+2. **So sánh theo cặp** — hiệu quả nhất khi đối chiếu phiên bản.
+3. **Yêu cầu trích dẫn** — để xác minh câu trả lời ngay trong tài liệu gốc.
+
+<Aside type="caution" title="Kiểm tra lại">
+Với tài liệu quan trọng (hợp đồng, số liệu tài chính), luôn mở và xác minh đoạn Copilot trích trước khi dựa vào đó ra quyết định.
+</Aside>

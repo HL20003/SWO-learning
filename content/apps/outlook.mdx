@@ -1,8 +1,68 @@
 ---
 title: Copilot trong Outlook
-description: Tóm tắt chuỗi email và soạn phản hồi theo ngữ cảnh.
+description: Học cách dùng Copilot trong Outlook để xử lý hộp thư nhanh hơn — tóm tắt chuỗi mail, soạn phản hồi và nắm việc cần làm.
 ---
 
-import FeatureLanding from '../../src/components/FeatureLanding.astro';
+import { Aside } from '@astrojs/starlight/components';
+import AppLearnHeader from '../../src/components/AppLearnHeader.astro';
 
-<FeatureLanding locale="vi" feature="outlook" />
+<AppLearnHeader app="outlook" />
+
+> 📬 **Hộp thư 50 mail chưa đọc không còn là nỗi ám ảnh.** Copilot trong Outlook tóm tắt chuỗi email dài, soạn phản hồi đúng giọng và chỉ ra việc bạn cần làm — để bạn xử lý inbox trong vài phút.
+
+## Làm được gì trong 30 giây?
+
+- 📝 **Tóm tắt chuỗi mail dài** thành vài ý chính + việc cần làm.
+- ✉️ **Soạn / phản hồi email** theo mục tiêu và giọng điệu bạn chọn.
+- 🎯 **Chỉnh bản nháp** — ngắn gọn hơn, trang trọng hơn, thêm/bớt ý.
+- ⏱️ **Gợi ý điểm cần hành động** từ email để không bỏ sót.
+
+<Aside type="tip" title="Mẹo vàng">
+Với **Coaching by Copilot**, trước khi gửi hãy hỏi Copilot đánh giá giọng điệu, độ rõ và mức độ thuyết phục của email — rất hữu ích cho mail quan trọng.
+</Aside>
+
+## Cần gì để dùng?
+
+- **Microsoft 365 Copilot license** (hoặc gói Premium/Pro với Copilot).
+- Mở **Outlook** (bản mới trên Windows, Mac, web hoặc mobile), đăng nhập đúng tài khoản được cấp Copilot.
+
+## Tìm Copilot trong Outlook ở đâu
+
+- Nút **Copilot** trên thanh công cụ khi đọc email → **Summarize** (tóm tắt).
+- Khi soạn mail mới hoặc trả lời → nút **Draft with Copilot**.
+
+## Thử ngay — 3 tình huống
+
+### 1. Tóm tắt chuỗi email dài
+
+Một chuỗi mail qua lại chục lượt, bạn chỉ cần nắm ý và việc cần làm.
+
+```text title="Prompt tóm tắt chuỗi mail"
+Tóm tắt chuỗi email này thành các ý chính, nêu rõ: quyết định đã thống nhất, câu hỏi còn mở, và việc tôi cần làm kèm thời hạn (nếu có). Giữ ngắn gọn.
+```
+
+### 2. Soạn phản hồi đúng giọng
+
+Trả lời một email mà không phải nghĩ cách mở đầu.
+
+```text title="Prompt soạn phản hồi"
+Soạn phản hồi cho email này: [nội dung bạn muốn truyền đạt, ví dụ: đồng ý lịch họp nhưng đề nghị dời sang chiều]. Giọng [chuyên nghiệp/thân thiện], độ dài vừa phải, kết thúc bằng câu hỏi hoặc bước tiếp theo rõ ràng.
+```
+
+### 3. Chuẩn bị cho một ngày làm việc
+
+Nắm nhanh những gì quan trọng trong inbox.
+
+```text title="Prompt điểm tin inbox"
+Điểm qua các email quan trọng chưa xử lý về [chủ đề/dự án]. Nhóm theo mức ưu tiên, nêu email nào cần trả lời gấp và việc tôi cần theo dõi. Đề xuất thứ tự xử lý.
+```
+
+## Lên trình: 3 thói quen của người dùng khá
+
+1. **Nói rõ thông điệp cốt lõi** — cho Copilot biết bạn muốn *nói gì*, nó lo cách diễn đạt.
+2. **Dùng Coaching cho mail quan trọng** — nhờ Copilot "soi" giọng điệu trước khi gửi.
+3. **Luôn đọc lại trước khi Send** — nhất là người nhận, số liệu và cam kết thời hạn.
+
+<Aside type="caution" title="Trước khi nhấn Gửi">
+Copilot soạn giúp, nhưng bạn là người gửi. Kiểm tra kỹ người nhận, nội dung nhạy cảm và các cam kết trước khi gửi đi.
+</Aside>

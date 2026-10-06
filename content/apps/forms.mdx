@@ -1,8 +1,67 @@
 ---
 title: Copilot trong Forms
-description: Khởi tạo câu hỏi khảo sát và biểu mẫu theo mục tiêu.
+description: Học cách dùng Copilot trong Forms để tạo khảo sát, biểu mẫu và bài kiểm tra chỉ từ một mô tả.
 ---
 
-import FeatureLanding from '../../src/components/FeatureLanding.astro';
+import { Aside } from '@astrojs/starlight/components';
+import AppLearnHeader from '../../src/components/AppLearnHeader.astro';
 
-<FeatureLanding locale="vi" feature="forms" />
+<AppLearnHeader app="forms" />
+
+> 📝 **Mô tả mục tiêu, nhận ngay bộ câu hỏi.** Copilot trong Forms biến một câu như "khảo sát mức hài lòng sau sự kiện" thành biểu mẫu đầy đủ với câu hỏi hợp lý và kiểu trả lời phù hợp.
+
+## Làm được gì trong 30 giây?
+
+- 🧩 **Tạo khảo sát/biểu mẫu** từ một mô tả ngắn.
+- ❓ **Gợi ý câu hỏi** phù hợp mục tiêu và kiểu trả lời (trắc nghiệm, thang điểm, tự luận).
+- 🌐 **Soạn phiên bản đa ngôn ngữ** hoặc chỉnh giọng điệu câu hỏi.
+- ✏️ **Tinh chỉnh nhanh** — thêm, bớt, đổi thứ tự câu hỏi bằng ngôn ngữ thường.
+
+<Aside type="tip" title="Mẹo vàng">
+Nêu rõ **mục tiêu + đối tượng + số câu hỏi mong muốn**. "Khảo sát ngắn 5 câu đo mức hài lòng của khách sau webinar" cho kết quả tốt hơn nhiều so với "tạo khảo sát".
+</Aside>
+
+## Cần gì để dùng?
+
+- **Microsoft 365 Copilot license** (hoặc gói phù hợp với Copilot trong Forms).
+- Mở **Microsoft Forms** trên web, đăng nhập đúng tài khoản được cấp Copilot.
+
+## Tìm Copilot trong Forms ở đâu
+
+- Khi tạo biểu mẫu mới, chọn tùy chọn tạo bằng Copilot và **mô tả biểu mẫu** bạn muốn.
+
+## Thử ngay — 3 tình huống
+
+### 1. Tạo khảo sát sau sự kiện
+
+Bạn cần thu phản hồi nhanh sau một buổi webinar/hội thảo.
+
+```text title="Prompt tạo khảo sát"
+Tạo khảo sát [số] câu đo mức hài lòng của người tham dự sau [sự kiện]. Gồm câu đánh giá theo thang điểm, câu chọn nhiều lựa chọn về điểm họ thích nhất, và một câu tự luận để góp ý. Giọng thân thiện, ngắn gọn.
+```
+
+### 2. Tạo biểu mẫu đăng ký
+
+Thu thập thông tin đăng ký cho một hoạt động.
+
+```text title="Prompt tạo biểu mẫu đăng ký"
+Tạo biểu mẫu đăng ký cho [hoạt động]. Thu thập: họ tên, email, phòng ban, và [thông tin cần thêm]. Thêm câu hỏi chọn khung giờ tham dự và một ô ghi chú tùy chọn.
+```
+
+### 3. Tạo bài kiểm tra nhanh (quiz)
+
+Kiểm tra kiến thức sau một buổi đào tạo.
+
+```text title="Prompt tạo quiz"
+Tạo bài kiểm tra [số] câu trắc nghiệm về [chủ đề đào tạo], mỗi câu 4 lựa chọn và đánh dấu đáp án đúng. Mức độ [cơ bản/trung cấp], kèm giải thích ngắn cho đáp án đúng.
+```
+
+## Lên trình: 3 thói quen của người dùng khá
+
+1. **Mô tả mục tiêu, không mô tả câu hỏi** — để Copilot gợi ý bộ câu hỏi, bạn chỉ tinh chỉnh.
+2. **Lặp để gọt** — "bỏ câu 3", "đổi câu 2 thành thang điểm 1-5".
+3. **Rà lại trước khi phát** — kiểm tra câu hỏi không trùng ý, không dẫn dắt thiên lệch.
+
+<Aside type="caution" title="Trước khi gửi khảo sát">
+Đọc lại toàn bộ câu hỏi để đảm bảo rõ ràng, trung lập và đúng mục tiêu thu thập.
+</Aside>

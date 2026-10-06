@@ -1,8 +1,80 @@
 ---
 title: Agent Builder
-description: Tạo agent tùy chỉnh từ vai trò, nguồn kiến thức và hướng dẫn.
+description: Giới thiệu Agent Builder trong M365 Copilot — license cần có, tính năng, nơi tìm, cách dùng và các tình huống kèm prompt mẫu.
 ---
 
-import FeatureLanding from '../../src/components/FeatureLanding.astro';
+import { Aside } from '@astrojs/starlight/components';
+import AppLearnHeader from '../../src/components/AppLearnHeader.astro';
 
-<FeatureLanding locale="vi" feature="agent-builder" />
+<AppLearnHeader app="agent-builder" />
+
+## Agent Builder là gì?
+
+Agent Builder là công cụ **tự tạo agent tùy chỉnh** trong Microsoft 365 Copilot, dành cho cả người dùng nghiệp vụ (không cần biết lập trình). Bạn **mô tả bằng ngôn ngữ tự nhiên** vai trò và nhiệm vụ của agent, chọn **nguồn kiến thức** nó được dùng và **cách nó phản hồi** — Agent Builder sẽ dựng ra một agent (declarative agent) phục vụ một nhóm công việc cụ thể, ví dụ hỗ trợ onboarding, trả lời câu hỏi về quy trình nội bộ, hay soạn nội dung theo khuôn.
+
+Điểm cốt lõi: thay vì lặp lại cùng một lời nhắc mỗi lần, bạn **đóng gói kiến thức + cách làm việc thành một agent** để bản thân hoặc cả nhóm dùng lại.
+
+## Cần license nào để dùng?
+
+Agent Builder đi kèm Microsoft 365 Copilot. Để dùng, bạn cần:
+
+- **Microsoft 365 Copilot add-on license** (business/enterprise).
+
+<Aside type="note" title="Lưu ý khi sử dụng">
+- Người dùng **không có** Copilot license không tạo được agent tùy chỉnh bằng Agent Builder.
+- Agent Builder có trên tùy chọn **Work** và **Web** của thanh công cụ app Microsoft 365 Copilot; **không** khả dụng trên bản mobile.
+- **Admin** của tổ chức có thể cần duyệt/bật việc tạo và chia sẻ agent; agent chia sẻ cho nhóm thường qua quy trình submit & approve.
+</Aside>
+
+## Tính năng chính
+
+- **Tạo agent bằng ngôn ngữ tự nhiên:** mô tả vai trò, nhiệm vụ, giọng điệu — không cần code.
+- **Gắn nguồn kiến thức:** trỏ agent tới tài liệu, SharePoint, site… được phép dùng.
+- **Thêm hành động (actions):** mở rộng khả năng agent bằng kết nối/tool khi cần.
+- **Thử ngay khi dựng:** tab "Try it" để test và tinh chỉnh bằng hội thoại.
+- **Chia sẻ cho nhóm:** dùng lại thống nhất trong tổ chức, tôn trọng quyền truy cập của từng người.
+
+## Tìm Agent Builder ở đâu và dùng như thế nào
+
+1. Đăng nhập **app Microsoft 365 Copilot** (bản web hoặc work).
+2. Ở thanh điều hướng bên trái, chọn **Create agent** (Tạo agent).
+3. **Mô tả agent bằng ngôn ngữ tự nhiên** — Copilot tự gợi ý tên, mô tả và hướng dẫn; bạn có thể chỉnh ở các tab **Description, Knowledge, Actions**.
+4. **Gắn nguồn kiến thức** được phép và (tùy chọn) **thêm hành động**.
+5. **Thử nghiệm ở tab "Try it"** bằng câu hỏi thực tế, tinh chỉnh lại cho tới khi đạt yêu cầu.
+6. **Lưu và chia sẻ** cho bản thân hoặc nhóm (có thể cần admin duyệt).
+
+<Aside type="tip" title="Mẹo để có kết quả tốt">
+Nêu rõ agent *không* xử lý việc gì (phạm vi), chọn nguồn kiến thức đã được duyệt và còn hiệu lực, và test với câu hỏi thực tế trước khi chia sẻ cho nhóm.
+</Aside>
+
+## Các tình huống sử dụng kèm prompt
+
+> Các prompt dưới đây là **phần mô tả/hướng dẫn** bạn nhập khi dựng agent, không phải câu hỏi gửi cho agent đã xong.
+
+### 1. Agent hỗ trợ onboarding nhân viên mới
+
+Bạn muốn một agent trả lời câu hỏi thường gặp của nhân viên mới.
+
+```text title="Mô tả agent onboarding"
+Vai trò: hỗ trợ nhân viên mới trong [phòng ban] làm quen công việc. Chỉ sử dụng nguồn kiến thức được duyệt: [sổ tay onboarding, chính sách nhân sự, trang quy trình nội bộ]. Trả lời ngắn gọn theo từng bước, kèm liên kết tới tài liệu gốc khi có thể. Nếu thiếu thông tin, hỏi lại hoặc hướng dẫn liên hệ bộ phận phụ trách; không suy đoán ngoài phạm vi tài liệu đã cấp.
+```
+
+### 2. Agent giải đáp quy trình / chính sách nội bộ
+
+Giảm tải cho đội hỗ trợ bằng một agent trả lời theo đúng tài liệu công ty.
+
+```text title="Mô tả agent chính sách nội bộ"
+Vai trò: giải đáp câu hỏi về [quy trình/chính sách, ví dụ: xin nghỉ phép, hoàn ứng chi phí] cho nhân viên. Chỉ dùng [tài liệu chính sách phiên bản mới nhất]. Trả lời theo cấu trúc: điều kiện áp dụng → các bước thực hiện → biểu mẫu/liên hệ liên quan. Luôn trích dẫn tên và mục tài liệu; nếu câu hỏi nằm ngoài phạm vi, nói rõ và chuyển hướng tới bộ phận phụ trách.
+```
+
+### 3. Agent soạn nội dung theo khuôn mẫu
+
+Chuẩn hóa cách nhóm bạn tạo một loại tài liệu lặp lại.
+
+```text title="Mô tả agent soạn nội dung theo khuôn"
+Vai trò: hỗ trợ [nhóm, ví dụ: bán hàng] soạn [loại tài liệu, ví dụ: email tiếp cận khách hàng] theo khuôn chuẩn của công ty. Dùng [mẫu và hướng dẫn thương hiệu được duyệt]. Hỏi người dùng các thông tin cần thiết (đối tượng, mục tiêu, điểm nhấn) trước khi viết. Trả về bản nháp theo đúng khuôn, giọng điệu [chuyên nghiệp/thân thiện], và đánh dấu chỗ cần người dùng điền thêm.
+```
+
+<Aside type="caution" title="Điều cần lưu ý trước khi dùng">
+Agent chỉ đáng tin khi **nguồn kiến thức được chọn đúng, được duyệt và còn hiệu lực** — tài liệu cũ sẽ khiến agent trả lời sai. Hãy định rõ phạm vi agent *không* xử lý, **test với câu hỏi thực tế** trước khi chia sẻ, và tuân thủ quy trình duyệt của tổ chức khi phát hành agent cho nhóm. Agent luôn tôn trọng quyền truy cập của từng người dùng.
+</Aside>
