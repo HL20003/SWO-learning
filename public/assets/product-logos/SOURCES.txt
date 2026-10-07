@@ -1,0 +1,11 @@
+Microsoft product logo assets sourced from:
+https://github.com/loryanstrant/MicrosoftCloudLogos
+Repository revision: f113891373533cf93f415f47a81ac04cd7641f6a
+
+Word, Excel, PowerPoint, Outlook, Teams, OneNote, and OneDrive use the
+repository's 2025-unofficial PNGs, optimized to WebP for this site.
+Forms, Whiteboard, and Planner use the latest full-color assets available
+in the repository's product folders. Copilot Chat uses its 2024-2026 badge.
+
+Microsoft product names and logos are trademarks of Microsoft Corporation.
+The source repository notes that logos remain the property of Microsoft.

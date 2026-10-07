@@ -146,13 +146,13 @@ const homeHref = isEnglish ? '/en/' : '/';
 
 <style>
   .landing {
-    --landing-ink: #19313a;
-    --landing-muted: #536970;
-    --landing-line: #d8e3e5;
+    --landing-ink: #111111;
+    --landing-muted: #555555;
+    --landing-line: #d8d8d8;
     --landing-surface: #fff;
-    --landing-wash: #f3f8f8;
-    --landing-blue: #0878c9;
-    --landing-teal: #087e78;
+    --landing-wash: #f4f4f4;
+    --landing-blue: #111111;
+    --landing-teal: #111111;
     margin: 2rem auto 3rem;
     color: var(--landing-ink);
   }
@@ -164,7 +164,7 @@ const homeHref = isEnglish ? '/en/' : '/';
   .total-count span { margin-block-start: .25rem; color: var(--landing-muted); font-size: .72rem; font-weight: 500; }
   .department-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .85rem; }
   .department-card { display: flex; min-height: 190px; flex-direction: column; padding: 1.1rem; border: 1px solid var(--landing-line); background: var(--landing-surface); color: inherit; text-decoration: none; transition: border-color .18s ease, box-shadow .18s ease; }
-  .department-card:hover { border-color: #87b9ce; box-shadow: 0 8px 22px rgba(30, 73, 85, .08); text-decoration: none; }
+  .department-card:hover { border-color: var(--landing-ink); box-shadow: 0 8px 22px rgba(0, 0, 0, .08); text-decoration: none; }
   .card-count { color: var(--landing-teal); font-size: .72rem; font-weight: 750; }
   .department-card h3 { margin: .65rem 0 .35rem; color: var(--landing-ink); font-size: 1.15rem; }
   .department-card p { margin: 0 0 1rem; color: var(--landing-muted); font-size: .86rem; line-height: 1.55; }
@@ -172,23 +172,18 @@ const homeHref = isEnglish ? '/en/' : '/';
   .case-list { display: grid; gap: .7rem; }
   .case-row { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding: 1rem 1.1rem; border: 1px solid var(--landing-line); background: var(--landing-surface); }
   .case-copy { min-width: 0; }
-  .department-tag { display: inline-flex; padding: .2rem .5rem; background: #e7f4f6; color: #14656f; font-size: .68rem; font-weight: 750; }
-  .department-hr { background: #edf4e9; color: #4d6e32; }
-  .department-sales { background: #fff0e6; color: #975018; }
+  .department-tag { display: inline-flex; padding: .2rem .5rem; background: var(--landing-wash); color: var(--landing-ink); font-size: .68rem; font-weight: 750; }
   .case-row h3 { margin: .5rem 0 .25rem; color: var(--landing-ink); font-size: 1rem; }
   .case-row h3 a { color: inherit; text-decoration: none; }
   .case-row h3 a:hover { color: var(--landing-blue); text-decoration: underline; text-underline-offset: .18em; }
   .case-row p { margin: 0; color: var(--landing-muted); font-size: .84rem; line-height: 1.5; }
   .case-meta { display: flex; flex-wrap: wrap; gap: .75rem; margin-block-start: .55rem; color: var(--landing-muted); font-size: .7rem; }
-  .case-meta span + span::before { content: '/'; margin-inline-end: .75rem; color: #9aabad; }
+  .case-meta span + span::before { content: '/'; margin-inline-end: .75rem; color: var(--landing-muted); }
   .open-link { display: inline-flex; flex: none; align-items: center; gap: .45rem; color: var(--landing-blue); font-size: .78rem; font-weight: 750; text-decoration: none; }
   .open-link:hover { text-decoration: underline; text-underline-offset: .18em; }
   .empty-state { padding: 2rem; border: 1px dashed var(--landing-line); color: var(--landing-muted); text-align: center; }
   .back-link { display: inline-flex; gap: .5rem; margin-block-start: 1.4rem; color: var(--landing-blue); font-size: .84rem; font-weight: 750; text-decoration: none; }
-  :global([data-theme='dark']) .landing { --landing-ink: #e4eff0; --landing-muted: #a8bec1; --landing-line: #3a5358; --landing-surface: #1d3034; --landing-wash: #253a3e; --landing-blue: #73c5f2; --landing-teal: #68d0c0; }
-  :global([data-theme='dark']) .department-tag { background: #29474a; color: #a5e2df; }
-  :global([data-theme='dark']) .department-hr { background: #354532; color: #c2dda9; }
-  :global([data-theme='dark']) .department-sales { background: #493a2d; color: #f0c496; }
+  :global([data-theme='dark']) .landing { --landing-ink: #ffffff; --landing-muted: #bbbbbb; --landing-line: #484848; --landing-surface: #111111; --landing-wash: #222222; --landing-blue: #ffffff; --landing-teal: #ffffff; }
   @media (max-width: 720px) {
     .landing-head { align-items: start; gap: .8rem; }
     .landing-head h2 { font-size: 1.5rem; }

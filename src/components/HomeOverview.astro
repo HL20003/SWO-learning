@@ -149,17 +149,21 @@ const routes = isEnglish
   .hero-intro { max-width: 58ch; margin: .9rem 0 0; color: var(--home-muted); font-size: .95rem; line-height: 1.65; }
   .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin-block-start: 1.1rem; }
   .primary-action, .secondary-action { display: inline-flex; min-height: 42px; align-items: center; justify-content: center; gap: .65rem; padding: .6rem .9rem; font-size: .8rem; font-weight: 750; text-decoration: none; transition: background-color .18s ease, color .18s ease, border-color .18s ease; }
-  .primary-action { background: var(--home-ink); color: var(--home-inverse); }
-  .primary-action:hover { background: var(--home-muted); color: var(--home-inverse); text-decoration: none; }
-  .secondary-action { border: 1px solid var(--home-line); color: var(--home-ink); }
-  .secondary-action:hover { border-color: var(--home-ink); background: var(--home-soft); color: var(--home-ink); text-decoration: none; }
+  .hero-actions a.primary-action,
+  .hero-actions a.primary-action:hover,
+  .hero-actions a.primary-action:focus-visible { background: var(--home-ink); color: var(--home-inverse) !important; }
+  .hero-actions a.primary-action:hover { background: var(--home-muted); text-decoration: none; }
+  .hero-actions a.secondary-action,
+  .hero-actions a.secondary-action:hover,
+  .hero-actions a.secondary-action:focus-visible { border: 1px solid var(--home-line); color: var(--home-ink) !important; }
+  .hero-actions a.secondary-action:hover { border-color: var(--home-ink); background: var(--home-soft); text-decoration: none; }
   .primary-action:focus-visible, .secondary-action:focus-visible, .entry-card:focus-visible, .strip-links a:focus-visible { outline: 2px solid var(--home-ink); outline-offset: 3px; }
   .home-stats { display: flex; flex-wrap: wrap; gap: 0; margin-block-start: 1.5rem; border-block-start: 1px solid var(--home-line); }
   .home-stats div { display: grid; gap: .2rem; min-width: 92px; padding: .75rem 1rem .2rem 0; }
   .home-stats strong { color: var(--home-ink); font-size: 1.3rem; line-height: 1; }
   .home-stats span { color: var(--home-muted); font-size: .68rem; }
   .hero-image { min-width: 0; margin: 0; }
-  .hero-image img { display: block; width: 100%; aspect-ratio: 1.32; object-fit: cover; object-position: center; border: 1px solid var(--home-line); filter: grayscale(100%); }
+  .hero-image img { display: block; width: 100%; aspect-ratio: 1.32; object-fit: cover; object-position: center; border: 1px solid var(--home-line); }
   .hero-image figcaption { display: flex; align-items: baseline; gap: .6rem; margin-block-start: .5rem; color: var(--home-muted); font-size: .7rem; line-height: 1.4; }
   .image-index { flex: none; color: var(--home-ink); font-size: .64rem; font-weight: 800; }
   .browse-section { padding-block: 1.75rem 1.5rem; }

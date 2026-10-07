@@ -328,13 +328,13 @@ const text = isEnglish
 
 <style>
   .explorer {
-    --explorer-ink: #19313a;
-    --explorer-muted: #536970;
-    --explorer-line: #d8e3e5;
+    --explorer-ink: #111111;
+    --explorer-muted: #555555;
+    --explorer-line: #d8d8d8;
     --explorer-surface: #fff;
-    --explorer-wash: #f3f8f8;
-    --explorer-blue: #0878c9;
-    --explorer-teal: #087e78;
+    --explorer-wash: #f4f4f4;
+    --explorer-blue: #111111;
+    --explorer-teal: #111111;
     width: 100%;
     max-width: var(--cp-content-width, 72rem);
     margin: 2.5rem auto 4rem;
@@ -451,15 +451,13 @@ const text = isEnglish
     background: var(--explorer-surface);
     transition: border-color .18s ease, box-shadow .18s ease;
   }
-  .case-card:hover { border-color: #87b9ce; box-shadow: 0 8px 22px rgba(30, 73, 85, .08); }
+  .case-card:hover { border-color: var(--explorer-ink); box-shadow: 0 8px 22px rgba(0, 0, 0, .08); }
   .case-card[hidden] { display: none; }
   .card-topline, .card-footer { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
-  .department-tag { display: inline-flex; align-items: center; min-height: 25px; padding: .2rem .55rem; background: #e7f4f6; color: #14656f; font-size: .7rem; font-weight: 750; }
-  .department-hr { background: #edf4e9; color: #4d6e32; }
-  .department-sales { background: #fff0e6; color: #975018; }
+  .department-tag { display: inline-flex; align-items: center; min-height: 25px; padding: .2rem .55rem; background: var(--explorer-wash); color: var(--explorer-ink); font-size: .7rem; font-weight: 750; }
   .save-button { display: grid; width: 34px; height: 34px; flex: none; place-items: center; border: 1px solid transparent; background: transparent; color: var(--explorer-muted); cursor: pointer; }
   .save-button:hover { border-color: var(--explorer-line); color: var(--explorer-blue); }
-  .save-button.is-saved { color: #d07b16; }
+  .save-button.is-saved { color: var(--explorer-ink); }
   .save-button.is-saved svg { fill: currentColor; }
   .case-card h3 { margin: .7rem 0 .4rem; color: var(--explorer-ink); font-size: 1.05rem; line-height: 1.35; }
   .case-card h3 a { color: inherit; text-decoration: none; }
@@ -468,7 +466,7 @@ const text = isEnglish
   .card-footer { align-items: end; margin-block-start: auto; padding-block-start: .8rem; border-block-start: 1px solid var(--explorer-line); }
   .case-tags { display: flex; flex-wrap: wrap; gap: .35rem; }
   .case-tags span { color: var(--explorer-muted); font-size: .68rem; }
-  .case-tags span + span::before { content: '/'; margin-inline-end: .35rem; color: #9aabad; }
+  .case-tags span + span::before { content: '/'; margin-inline-end: .35rem; color: var(--explorer-muted); }
   .open-link { display: inline-flex; align-items: center; gap: .3rem; flex: none; color: var(--explorer-blue); font-size: .76rem; font-weight: 750; text-decoration: none; }
   .open-link svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; transition: transform .18s ease; }
   .open-link:hover svg { transform: translateX(3px); }
@@ -481,17 +479,14 @@ const text = isEnglish
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
 
   :global([data-theme='dark']) .explorer {
-    --explorer-ink: #e4eff0;
-    --explorer-muted: #a8bec1;
-    --explorer-line: #3a5358;
-    --explorer-surface: #1d3034;
-    --explorer-wash: #253a3e;
-    --explorer-blue: #73c5f2;
-    --explorer-teal: #68d0c0;
+    --explorer-ink: #ffffff;
+    --explorer-muted: #bbbbbb;
+    --explorer-line: #484848;
+    --explorer-surface: #111111;
+    --explorer-wash: #222222;
+    --explorer-blue: #ffffff;
+    --explorer-teal: #ffffff;
   }
-  :global([data-theme='dark']) .department-tag { background: #29474a; color: #a5e2df; }
-  :global([data-theme='dark']) .department-hr { background: #354532; color: #c2dda9; }
-  :global([data-theme='dark']) .department-sales { background: #493a2d; color: #f0c496; }
 
   @media (max-width: 900px) {
     .explorer-controls { grid-template-columns: repeat(3, minmax(0, 1fr)); }

@@ -8,6 +8,8 @@
  *   <AppLearnHeader app="word" />
  */
 
+import ProductIcon from './ProductIcon.astro';
+
 export interface Props {
   app: string;
 }
@@ -26,22 +28,22 @@ interface AppMeta {
 
 const catalog: Record<string, AppMeta> = {
   /* ── Copilot in Apps ─────────────────────────────────── */
-  word:       { name: 'Microsoft Word',       category: 'Copilot trong ứng dụng', categoryColor: '#185ABD', iconBg: '#185ABD', description: 'Soạn thảo, chỉnh sửa và tóm tắt tài liệu nhanh hơn.' },
-  excel:      { name: 'Microsoft Excel',      category: 'Copilot trong ứng dụng', categoryColor: '#107C41', iconBg: '#107C41', description: 'Khám phá dữ liệu, tạo công thức và biểu đồ bằng ngôn ngữ thường ngày.' },
-  powerpoint: { name: 'Microsoft PowerPoint', category: 'Copilot trong ứng dụng', categoryColor: '#C43E1C', iconBg: '#C43E1C', description: 'Tạo bài trình bày từ ý tưởng hoặc tài liệu có sẵn.' },
-  outlook:    { name: 'Microsoft Outlook',    category: 'Copilot trong ứng dụng', categoryColor: '#0078D4', iconBg: '#0078D4', description: 'Xử lý hộp thư, tóm tắt chuỗi mail và soạn phản hồi.' },
-  teams:      { name: 'Microsoft Teams',      category: 'Copilot trong ứng dụng', categoryColor: '#6264A7', iconBg: '#6264A7', description: 'Tóm tắt cuộc họp, cuộc trò chuyện và việc cần theo dõi.' },
-  onenote:    { name: 'Microsoft OneNote',    category: 'Copilot trong ứng dụng', categoryColor: '#7719AA', iconBg: '#7719AA', description: 'Biến ghi chú rời rạc thành tóm tắt, kế hoạch và danh sách việc.' },
-  forms:      { name: 'Microsoft Forms',      category: 'Copilot trong ứng dụng', categoryColor: '#077568', iconBg: '#077568', description: 'Tạo khảo sát và biểu mẫu từ một mô tả ngắn gọn.' },
-  whiteboard: { name: 'Microsoft Whiteboard', category: 'Copilot trong ứng dụng', categoryColor: '#2B88D8', iconBg: '#2B88D8', description: 'Khởi động brainstorm, nhóm ý tưởng và tóm tắt kết quả.' },
-  onedrive:   { name: 'Microsoft OneDrive',   category: 'Copilot trong ứng dụng', categoryColor: '#0078D4', iconBg: '#0078D4', description: 'Tóm tắt, so sánh và hỏi đáp về file không cần mở.' },
-  planner:    { name: 'Microsoft Planner',    category: 'Copilot trong ứng dụng', categoryColor: '#31752F', iconBg: '#31752F', description: 'Lập kế hoạch, tạo task và theo dõi tiến độ dự án.' },
+  word:       { name: 'Microsoft Word',       category: 'Copilot trong ứng dụng', categoryColor: '#111111', iconBg: '#185ABD', description: 'Soạn thảo, chỉnh sửa và tóm tắt tài liệu nhanh hơn.' },
+  excel:      { name: 'Microsoft Excel',      category: 'Copilot trong ứng dụng', categoryColor: '#111111', iconBg: '#107C41', description: 'Khám phá dữ liệu, tạo công thức và biểu đồ bằng ngôn ngữ thường ngày.' },
+  powerpoint: { name: 'Microsoft PowerPoint', category: 'Copilot trong ứng dụng', categoryColor: '#111111', iconBg: '#C43E1C', description: 'Tạo bài trình bày từ ý tưởng hoặc tài liệu có sẵn.' },
+  outlook:    { name: 'Microsoft Outlook',    category: 'Copilot trong ứng dụng', categoryColor: '#111111', iconBg: '#0078D4', description: 'Xử lý hộp thư, tóm tắt chuỗi mail và soạn phản hồi.' },
+  teams:      { name: 'Microsoft Teams',      category: 'Copilot trong ứng dụng', categoryColor: '#111111', iconBg: '#6264A7', description: 'Tóm tắt cuộc họp, cuộc trò chuyện và việc cần theo dõi.' },
+  onenote:    { name: 'Microsoft OneNote',    category: 'Copilot trong ứng dụng', categoryColor: '#111111', iconBg: '#7719AA', description: 'Biến ghi chú rời rạc thành tóm tắt, kế hoạch và danh sách việc.' },
+  forms:      { name: 'Microsoft Forms',      category: 'Copilot trong ứng dụng', categoryColor: '#111111', iconBg: '#077568', description: 'Tạo khảo sát và biểu mẫu từ một mô tả ngắn gọn.' },
+  whiteboard: { name: 'Microsoft Whiteboard', category: 'Copilot trong ứng dụng', categoryColor: '#111111', iconBg: '#2B88D8', description: 'Khởi động brainstorm, nhóm ý tưởng và tóm tắt kết quả.' },
+  onedrive:   { name: 'Microsoft OneDrive',   category: 'Copilot trong ứng dụng', categoryColor: '#111111', iconBg: '#0078D4', description: 'Tóm tắt, so sánh và hỏi đáp về file không cần mở.' },
+  planner:    { name: 'Microsoft Planner',    category: 'Copilot trong ứng dụng', categoryColor: '#111111', iconBg: '#31752F', description: 'Lập kế hoạch, tạo task và theo dõi tiến độ dự án.' },
   /* ── Agents ──────────────────────────────────────────── */
-  researcher:     { name: 'Researcher',     category: 'Agent', categoryColor: '#6B4FBB', iconBg: '#6B4FBB', description: 'Nghiên cứu chuyên sâu, tổng hợp nhiều nguồn và báo cáo có trích dẫn.' },
-  analyst:        { name: 'Analyst',         category: 'Agent', categoryColor: '#0E7A0D', iconBg: '#0E7A0D', description: 'Phân tích dữ liệu có cấu trúc, chạy thống kê và tạo biểu đồ.' },
-  cowork:         { name: 'Cowork',          category: 'Agent', categoryColor: '#0078D4', iconBg: '#0078D4', description: 'Thực thi tác vụ nhiều bước xuyên Microsoft 365.' },
-  'agent-builder':{ name: 'Agent Builder',   category: 'Agent', categoryColor: '#8661C5', iconBg: '#8661C5', description: 'Tự tạo agent tùy chỉnh bằng ngôn ngữ tự nhiên.' },
-  'copilot-chat': { name: 'Copilot Chat',    category: 'Copilot', categoryColor: '#6264A7', iconBg: '#6264A7', description: 'Trợ lý hội thoại để tổng hợp, soạn thảo và chuẩn bị bước tiếp theo.' },
+  researcher:     { name: 'Researcher',     category: 'Agent', categoryColor: '#111111', iconBg: '#6B4FBB', description: 'Nghiên cứu chuyên sâu, tổng hợp nhiều nguồn và báo cáo có trích dẫn.' },
+  analyst:        { name: 'Analyst',        category: 'Agent', categoryColor: '#111111', iconBg: '#0E7A0D', description: 'Phân tích dữ liệu có cấu trúc, chạy thống kê và tạo biểu đồ.' },
+  cowork:         { name: 'Cowork',         category: 'Agent', categoryColor: '#111111', iconBg: '#0078D4', description: 'Thực thi tác vụ nhiều bước xuyên Microsoft 365.' },
+  'agent-builder':{ name: 'Agent Builder',   category: 'Agent', categoryColor: '#111111', iconBg: '#8661C5', description: 'Tự tạo agent tùy chỉnh bằng ngôn ngữ tự nhiên.' },
+  'copilot-chat': { name: 'Copilot Chat',    category: 'Copilot', categoryColor: '#111111', iconBg: '#6264A7', description: 'Trợ lý hội thoại để tổng hợp, soạn thảo và chuẩn bị bước tiếp theo.' },
 };
 
 const meta = catalog[app] ?? catalog['copilot-chat'];
@@ -50,6 +52,7 @@ const meta = catalog[app] ?? catalog['copilot-chat'];
 <div class="learn-header" style={`--lh-accent: ${meta.categoryColor}; --lh-icon-bg: ${meta.iconBg};`}>
   <div class="learn-header__top">
     <div class="learn-header__icon-wrap">
+      <ProductIcon app={app} className="learn-header__icon product-icon" alt={meta.name} />
       {/* Microsoft product SVG icons */}
       {app === 'word' && (
         <svg class="learn-header__icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -231,6 +234,10 @@ const meta = catalog[app] ?? catalog['copilot-chat'];
     height: 56px;
     border-radius: 10px;
     filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.12));
+  }
+
+  .learn-header__icon-wrap:has(.product-icon) svg.learn-header__icon {
+    display: none;
   }
 
   .learn-header__meta {

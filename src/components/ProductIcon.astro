@@ -1,0 +1,25 @@
+---
+interface Props {
+  app: string;
+  className: string;
+  alt?: string;
+}
+
+const { app, className, alt = '' } = Astro.props;
+const icons: Record<string, string> = {
+  word: 'word.webp',
+  excel: 'excel.webp',
+  powerpoint: 'powerpoint.webp',
+  outlook: 'outlook.webp',
+  teams: 'teams.webp',
+  onenote: 'onenote.webp',
+  forms: 'forms.webp',
+  whiteboard: 'whiteboard.webp',
+  onedrive: 'onedrive.webp',
+  planner: 'planner.webp',
+  'copilot-chat': 'copilot-chat.svg',
+};
+const icon = icons[app];
+---
+
+{icon && <img class={className} src={`/assets/product-logos/${icon}`} alt={alt} decoding="async" />}
